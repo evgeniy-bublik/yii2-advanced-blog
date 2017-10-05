@@ -1,4 +1,5 @@
 <?php
+
 namespace common\models\article\base;
 
 use Yii;
@@ -18,8 +19,9 @@ use Yii;
  * @property string $meta_keywords
  * @property integer $created_at
  * @property integer $updated_at
+ * @property integer $deleted_at
  *
- * @property ArticleLinksArticleCategory[] $linksArticleCategories
+ * @property ArticleLinksArticleCategory[] $articleLinksArticleCategories
  */
 class ArticleCategory extends \yii\db\ActiveRecord
 {
@@ -37,7 +39,7 @@ class ArticleCategory extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['parent_id', 'display_order', 'active', 'created_at', 'updated_at'], 'integer'],
+            [['parent_id', 'display_order', 'active', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
             [['title', 'alias', 'created_at', 'updated_at'], 'required'],
             [['description'], 'string'],
             [['title', 'alias', 'meta_title', 'meta_description', 'meta_keywords'], 'string', 'max' => 255],
@@ -63,13 +65,14 @@ class ArticleCategory extends \yii\db\ActiveRecord
             'meta_keywords' => 'Meta Keywords',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'deleted_at' => 'Deleted At',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getLinksArticleCategories()
+    public function getArticleLinksArticleCategories()
     {
         return $this->hasMany(ArticleLinksArticleCategory::className(), ['category_id' => 'id']);
     }

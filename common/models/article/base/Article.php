@@ -1,8 +1,9 @@
 <?php
+
 namespace common\models\article\base;
 
 use Yii;
-use common\models\user\User;
+use common\models\user\base\User;
 
 /**
  * This is the model class for table "{{%article_articles}}".
@@ -20,9 +21,13 @@ use common\models\user\User;
  * @property string $meta_title
  * @property string $meta_description
  * @property string $meta_keywords
+ * @property integer $created_at
+ * @property integer $updated_at
+ * @property integer $deleted_at
  *
- * @property User $user
- * @property ArticleLinksArticleCategory[] $articleLinksArticleCategory
+ * @property UserUsers $user
+ * @property ArticleLinksArticleCategory[] $articleLinksArticleCategories
+ * @property ArticleLinksTagArticle[] $articleLinksTagArticles
  */
 class Article extends \yii\db\ActiveRecord
 {
@@ -40,8 +45,8 @@ class Article extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'display_order', 'active'], 'integer'],
-            [['title', 'alias', 'small_description', 'description'], 'required'],
+            [['user_id', 'display_order', 'active', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
+            [['title', 'alias', 'small_description', 'description', 'created_at', 'updated_at'], 'required'],
             [['description'], 'string'],
             [['date'], 'safe'],
             [['title', 'alias', 'small_description', 'image', 'meta_title', 'meta_description', 'meta_keywords'], 'string', 'max' => 255],
@@ -69,6 +74,9 @@ class Article extends \yii\db\ActiveRecord
             'meta_title' => 'Meta Title',
             'meta_description' => 'Meta Description',
             'meta_keywords' => 'Meta Keywords',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
+            'deleted_at' => 'Deleted At',
         ];
     }
 
@@ -83,8 +91,16 @@ class Article extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getLinksArticleCategory()
+    public function getArticleLinksArticleCategories()
     {
         return $this->hasMany(ArticleLinksArticleCategory::className(), ['article_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getArticleLinksTagArticles()
+    {
+        return $this->hasMany(ArticleLinksTagArticle::className(), ['article_id' => 'id']);
     }
 }
