@@ -59,5 +59,20 @@ return [
         ],
 
     ],
+    'controllerMap' => [
+        'elfinder' => [
+            'class' => 'mihaildev\elfinder\Controller',
+            'access' => ['@', '?'], //глобальный доступ к фаил менеджеру @ - для авторизорованных , ? - для гостей , чтоб открыть всем ['@', '?']
+            //'disabledCommands' => ['netmount'], //отключение ненужных команд https://github.com/Studio-42/elFinder/wiki/Client-configuration-options#commands
+            'roots' => [
+                [
+                    'baseUrl'=>'@web',
+                    'basePath'=>'@frontend/web',
+                    'path' => '/files/articles',
+                    'name' => 'Articles'
+                ],
+            ],
+        ]
+    ],
     'params' => $params,
 ];

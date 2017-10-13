@@ -2,6 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use mihaildev\ckeditor\CKEditor;
+use mihaildev\elfinder\ElFinder;
+use mihaildev\elfinder\InputFile;
+use yii\web\JsExpression;
 
 /* @var $this yii\web\View */
 /* @var $model backend\modules\article\models\Article */
@@ -20,7 +24,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'small_description')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'description')->widget(CKEditor::className(), [
+        'editorOptions' => ElFinder::ckeditorOptions('elfinder', [
+            'preset' => 'full', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+            //'inline' => true, //по умолчанию false
+        ]),
+    ]) ?>
 
     <?= $form->field($model, 'date')->textInput() ?>
 

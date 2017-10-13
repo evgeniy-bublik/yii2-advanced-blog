@@ -27,7 +27,8 @@
 
         "codeception/base": "^2.2.3",
         "codeception/verify": "~0.3.1",
-        "zxbodya/yii2-image-attachment": "*@dev"
+        "mihaildev/yii2-ckeditor": "*",
+        "mihaildev/yii2-elfinder": "*"
     },
     "config": {
         "process-timeout": 1800,
