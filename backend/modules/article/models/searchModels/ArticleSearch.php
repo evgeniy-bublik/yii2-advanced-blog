@@ -18,7 +18,7 @@ class ArticleSearch extends Article
     public function rules()
     {
         return [
-            [['id', 'user_id', 'display_order', 'active'], 'integer'],
+            [['id', 'user_id', 'active'], 'integer'],
             [['title', 'alias', 'small_description', 'description', 'date', 'image', 'meta_title', 'meta_description', 'meta_keywords'], 'safe'],
         ];
     }
@@ -62,7 +62,6 @@ class ArticleSearch extends Article
             'id' => $this->id,
             'user_id' => $this->user_id,
             'date' => $this->date,
-            'display_order' => $this->display_order,
             'active' => $this->active,
         ]);
 

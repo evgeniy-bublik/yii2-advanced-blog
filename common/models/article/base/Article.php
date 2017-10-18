@@ -16,7 +16,6 @@ use common\models\user\base\User;
  * @property string $description
  * @property string $date
  * @property string $image
- * @property integer $display_order
  * @property integer $active
  * @property string $meta_title
  * @property string $meta_description
@@ -45,7 +44,7 @@ class Article extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'display_order', 'active', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
+            [['user_id', 'active', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
             [['title', 'alias', 'small_description', 'description'], 'required'],
             [['description'], 'string'],
             [['date', 'image'], 'safe'],
@@ -69,7 +68,6 @@ class Article extends \yii\db\ActiveRecord
             'description' => 'Description',
             'date' => 'Date',
             'image' => 'Image',
-            'display_order' => 'Display Order',
             'active' => 'Active',
             'meta_title' => 'Meta Title',
             'meta_description' => 'Meta Description',

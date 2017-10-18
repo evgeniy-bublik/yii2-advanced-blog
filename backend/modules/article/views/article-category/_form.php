@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\tabs\TabsX;
 
 /* @var $this yii\web\View */
 /* @var $model backend\modules\article\models\ArticleCategory */
@@ -12,23 +13,27 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= ''//$form->field($model, 'parent_id')->textInput() ?>
-
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'display_order')->textInput() ?>
-
-    <?= $form->field($model, 'active')->checkbox() ?>
-
-    <?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'meta_description')->textarea(['rows' => 5]) ?>
-
-    <?= $form->field($model, 'meta_keywords')->textarea(['rows' => 5]) ?>
+    <?= TabsX::widget([
+        'items' => [
+            [
+                'label' => 'Category',
+                'content' => $this->render('_form_tab_category_article', [
+                    'model' => $model,
+                    'form' => $form,
+                ]),
+            ],
+            [
+                'label' => 'SEO',
+                'content' => $this->render('_form_tab_seo', [
+                    'model' => $model,
+                    'form' => $form,
+                ]),
+            ]
+        ],
+        'position' => TabsX::POS_LEFT,
+        'encodeLabels' => false,
+        'bordered' => true,
+    ]); ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

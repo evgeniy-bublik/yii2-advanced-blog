@@ -7,9 +7,23 @@ use common\models\article\Article as BaseArticle;
 use yii\behaviors\TimestampBehavior;
 use zxbodya\yii2\imageAttachment\ImageAttachmentBehavior;
 use common\behaviors\ThumbBehavior;
+use common\behaviors\DateTimeBehavior;
+use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 class Article extends BaseArticle
 {
+    public function rules()
+    {
+        return ArrayHelper::merge(
+            parent::rules(),
+            [
+                ['alias', 'unique'],
+                ['alias', 'match', 'pattern' => '/^[a-z\d-]+[a-z\d]$/'],
+            ]
+        );
+    }
+
     public function behaviors()
     {
         return  [
@@ -23,6 +37,12 @@ class Article extends BaseArticle
             'timestampBehavior' => [
                 'class' => TimestampBehavior::className(),
                 'value' => time(),
+            ],
+            'dateBehavior' => [
+                'class' => DateTimeBehavior::className(),
+                'dateTimeFields' => [
+                    'date'
+                ],
             ],
         ];
     }
