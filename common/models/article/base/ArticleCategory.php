@@ -40,7 +40,7 @@ class ArticleCategory extends \yii\db\ActiveRecord
     {
         return [
             [['parent_id', 'display_order', 'active', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
-            [['title', 'alias', 'created_at', 'updated_at'], 'required'],
+            [['title', 'alias'], 'required'],
             [['description'], 'string'],
             [['title', 'alias', 'meta_title', 'meta_description', 'meta_keywords'], 'string', 'max' => 255],
             [['alias'], 'unique'],

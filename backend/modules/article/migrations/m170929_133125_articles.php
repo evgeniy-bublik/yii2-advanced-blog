@@ -6,6 +6,13 @@ class m170929_133125_articles extends Migration
 {
     public function safeUp()
     {
+        $tableSchema = Yii::$app->db->schema->getTableSchema('{{%user_users}}');
+
+        if (!$tableSchema) {
+                throw new \Exception("Table user_users not exist", 1);
+
+        }
+
         $tableOptions = null;
         if ($this->db->driverName === 'mysql') {
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';

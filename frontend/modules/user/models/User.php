@@ -3,9 +3,20 @@ namespace app\modules\user\models;
 
 use Yii;
 use common\models\user\User as BaseUser;
+use yii\behaviors\TimestampBehavior;
 
 class User extends BaseUser
 {
+
+    public function behaviors()
+    {
+        return  [
+            'timestampBehavior' => [
+                'class' => TimestampBehavior::className(),
+                'value' => time(),
+            ],
+        ];
+    }
 
     /**
      * Finds user by email

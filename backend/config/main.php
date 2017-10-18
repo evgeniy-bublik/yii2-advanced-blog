@@ -16,7 +16,7 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
-            'baseUrl' => '',
+            'baseUrl' => '/admin',
         ],
         'user' => [
             'identityClass' => 'backend\modules\user\models\User',
@@ -66,7 +66,7 @@ return [
             //'disabledCommands' => ['netmount'], //отключение ненужных команд https://github.com/Studio-42/elFinder/wiki/Client-configuration-options#commands
             'roots' => [
                 [
-                    'baseUrl'=>'@web',
+                    'baseUrl'=>'',
                     'basePath'=>'@frontend/web',
                     'path' => '/files/articles',
                     'name' => 'Articles'

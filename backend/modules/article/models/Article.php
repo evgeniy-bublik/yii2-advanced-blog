@@ -6,7 +6,7 @@ use app\models\user\models\User;
 use common\models\article\Article as BaseArticle;
 use yii\behaviors\TimestampBehavior;
 use zxbodya\yii2\imageAttachment\ImageAttachmentBehavior;
-use developeruz\behaviors\ThumbBehavior;
+use common\behaviors\ThumbBehavior;
 
 class Article extends BaseArticle
 {
@@ -16,8 +16,13 @@ class Article extends BaseArticle
             'thumbBehavior' => [
                 'class' => ThumbBehavior::className(),
                 'fileAttribute' => 'image', //атрибут модели для картинки
-                'saveDir' => '/../frontend/web/files/articles/', //путь для сохранения картинок
+                'saveDir' => 'files/articles/', //путь для сохранения картинок
+                'thumbsSaveDir' => 'files/articles/thumbs/', // путь для сохранения превью картинок
                 'previewSize' => [[100, 100], [250, 250]] //размеры генерируемых превью
+            ],
+            'timestampBehavior' => [
+                'class' => TimestampBehavior::className(),
+                'value' => time(),
             ],
         ];
     }

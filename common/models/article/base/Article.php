@@ -46,10 +46,10 @@ class Article extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'display_order', 'active', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
-            [['title', 'alias', 'small_description', 'description', 'created_at', 'updated_at'], 'required'],
+            [['title', 'alias', 'small_description', 'description'], 'required'],
             [['description'], 'string'],
-            [['date'], 'safe'],
-            [['title', 'alias', 'small_description', 'image', 'meta_title', 'meta_description', 'meta_keywords'], 'string', 'max' => 255],
+            [['date', 'image'], 'safe'],
+            [['title', 'alias', 'small_description', 'meta_title', 'meta_description', 'meta_keywords'], 'string', 'max' => 255],
             [['alias'], 'unique'],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];

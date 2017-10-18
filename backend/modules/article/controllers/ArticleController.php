@@ -106,6 +106,15 @@ class ArticleController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionDeletePreview($id)
+    {
+        $model = $this->findModel($id);
+
+        $model->deleteImages();
+
+
+    }
+
     /**
      * Finds the Article model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -115,7 +124,7 @@ class ArticleController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Article::findOne($id)) !== null) {
+        if (($model = Article::findOne($id)) !== null && empty($model->deleted_at)) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
