@@ -46,7 +46,6 @@ class ThumbBehavior extends AttributeBehavior
         return [
             ActiveRecord::EVENT_BEFORE_VALIDATE => 'addImages',
             ActiveRecord::EVENT_BEFORE_DELETE => 'deleteImages',
-            //ActiveRecord::EVENT_BEFORE_UPDATE => 'updateImages',
         ];
     }
 
@@ -64,11 +63,8 @@ class ThumbBehavior extends AttributeBehavior
     {
         $model      = $this->owner;
         $attribute  = $this->fileAttribute;
+        $image      = UploadedFile::getInstance($model, $attribute);
 
-        print_r($_FILES);
-            exit;
-
-        $image = UploadedFile::getInstance($model, $attribute);
         if (!empty($image)) {
             $this->deleteImages(true);
 

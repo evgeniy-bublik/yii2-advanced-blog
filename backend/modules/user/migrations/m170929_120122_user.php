@@ -85,7 +85,7 @@ class m170929_120122_user extends Migration
                 'surname'     => 'Бублик',
                 'name'        => 'Евгений',
                 'patronimyc'  => 'Владимирович',
-                'phone'       => NULL,
+                'phone'       => null,
             ],
         ]);
     }

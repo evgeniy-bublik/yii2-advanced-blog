@@ -8,6 +8,7 @@ use app\modules\article\models\searchModels\ArticleSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * ArticleController implements the CRUD actions for Article model.
@@ -63,7 +64,8 @@ class ArticleController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Article();
+        $model          = new Article();
+        $model->user_id = Yii::$app->user->identity->getId();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -111,6 +113,11 @@ class ArticleController extends Controller
         $model = $this->findModel($id);
 
         $model->deleteImages();
+        $model->updateAttributes(['image' => null]);
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        return [];
 
 
     }
