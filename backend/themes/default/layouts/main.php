@@ -54,6 +54,10 @@ AppAsset::register($this);
                 ]
             ],
         ];
+        $menuItems[] = [
+            'label' => 'Comments',
+            'url' => ['/comment/comments/index'],
+        ];
         $menuItems[] = '<li>'
             . Html::beginForm(['/user/security/logout'], 'post')
             . Html::submitButton(

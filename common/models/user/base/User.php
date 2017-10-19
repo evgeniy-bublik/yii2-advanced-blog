@@ -18,7 +18,7 @@ use Yii;
  * @property integer $created_at
  * @property integer $updated_at
  *
- * @property UserUserProfiles[] $userProfile
+ * @property UserProfile[] $userProfile
  */
 class User extends \yii\db\ActiveRecord
 {
@@ -70,6 +70,6 @@ class User extends \yii\db\ActiveRecord
      */
     public function getUserProfile()
     {
-        return $this->hasMany(UserProfile::className(), ['user_id' => 'id']);
+        return $this->hasOne(UserProfile::className(), ['user_id' => 'id']);
     }
 }

@@ -38,7 +38,7 @@ class User extends BaseUser
      */
     public function getUserProfile()
     {
-        return $this->hasMany(UserProfile::className(), ['user_id' => 'id']);
+        return $this->hasOne(UserProfile::className(), ['user_id' => 'id']);
     }
 
 }

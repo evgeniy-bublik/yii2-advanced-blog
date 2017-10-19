@@ -9,11 +9,12 @@ class m170929_133125_articles extends Migration
         $tableSchema = Yii::$app->db->schema->getTableSchema('{{%user_users}}');
 
         if (!$tableSchema) {
-                throw new \Exception("Table user_users not exist", 1);
+            throw new \Exception("Table user_users not exist", 1);
 
         }
 
         $tableOptions = null;
+
         if ($this->db->driverName === 'mysql') {
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
@@ -110,17 +111,14 @@ class m170929_133125_articles extends Migration
 
     private function dropRelations()
     {
-        // связь публикации с пользователем
         $this->dropForeignKey('fk_article_articles_user_id', '{{%article_articles}}');
         $this->dropIndex('ix_article_articles_user_id', '{{%article_articles}}');
 
-        // связи публикаций с категориями
         $this->dropForeignKey('fk_article_links_article_category_article_id', '{{%article_links_article_category}}');
         $this->dropForeignKey('fk_article_links_article_category_category_id', '{{%article_links_article_category}}');
         $this->dropIndex('ix_article_links_article_category_article_id', '{{%article_links_article_category}}');
         $this->dropIndex('ix_article_links_article_category_category_id', '{{%article_links_article_category}}');
 
-        // связи публикаций с тегами
         $this->dropForeignKey('fk_article_links_tag_article_article_id', '{{%article_links_tag_article}}');
         $this->dropForeignKey('fk_article_links_tag_article_tag_id', '{{%article_links_tag_article}}');
         $this->dropIndex('ix_article_links_tag_article_article_id', '{{%article_links_tag_article}}');
