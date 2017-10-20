@@ -3,8 +3,9 @@ namespace app\modules\core\controllers;
 
 use Yii;
 use app\modules\core\models\forms\ContactForm;
+use app\modules\core\components\FrontController;
 
-class IndexController extends \yii\web\Controller
+class IndexController extends FrontController
 {
 
     /**

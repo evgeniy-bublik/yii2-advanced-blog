@@ -3,9 +3,9 @@
 namespace app\modules\article\controllers;
 
 use Yii;
-use yii\web\Controller;
+use app\modules\core\components\FrontController;
 
-class ArticlesController extends Controller
+class ArticlesController extends FrontController
 {
     public function actionRightIndex()
     {

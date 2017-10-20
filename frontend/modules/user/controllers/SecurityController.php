@@ -4,15 +4,15 @@ namespace app\modules\user\controllers;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
-use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use app\modules\user\models\forms\LoginForm;
 use app\modules\user\models\forms\PasswordResetRequestForm;
 use app\modules\user\models\forms\ResetPasswordForm;
 use app\modules\user\models\forms\SignupForm;
+use app\modules\core\components\FrontController;
 
-class SecurityController extends Controller
+class SecurityController extends FrontController
 {
 
     /**
