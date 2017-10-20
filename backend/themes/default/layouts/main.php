@@ -58,6 +58,10 @@ AppAsset::register($this);
             'label' => 'Comments',
             'url' => ['/comment/comments/index'],
         ];
+        $menuItems[] = [
+            'label' => 'Settings',
+            'url' => ['/core/settings/update'],
+        ];
         $menuItems[] = '<li>'
             . Html::beginForm(['/user/security/logout'], 'post')
             . Html::submitButton(
