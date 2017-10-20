@@ -1,4 +1,5 @@
 <?php
+
 namespace app\modules\article\models;
 
 use Yii;
@@ -10,6 +11,7 @@ use common\behaviors\ThumbBehavior;
 use common\behaviors\DateTimeBehavior;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+use yii\db\Expression;
 
 class Article extends BaseArticle
 {
@@ -36,7 +38,7 @@ class Article extends BaseArticle
             ],
             'timestampBehavior' => [
                 'class' => TimestampBehavior::className(),
-                'value' => time(),
+                'value' => new Expression('NOW()'),
             ],
             'dateBehavior' => [
                 'class' => DateTimeBehavior::className(),

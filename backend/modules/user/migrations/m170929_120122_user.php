@@ -20,10 +20,10 @@ class m170929_120122_user extends Migration
             'auth_key'              => $this->string(32)->notNull(),
             'password_hash'         => $this->string()->notNull(),
             'password_reset_token'  => $this->string()->unique(),
-            'confirm_email_at'      => $this->integer()->null(),
-            'blocked_at'            => $this->integer()->null(),
-            'created_at'            => $this->integer()->notNull(),
-            'updated_at'            => $this->integer()->notNull(),
+            'confirm_email_at'      => $this->timestamp()->null()->defaultValue(null),
+            'blocked_at'            => $this->timestamp()->null()->defaultValue(null),
+            'created_at'            => $this->timestamp()->null()->defaultValue(null),
+            'updated_at'            => $this->timestamp()->null()->defaultValue(null),
         ], $tableOptions);
 
         $this->createTable('{{%user_user_profiles}}', [
@@ -51,7 +51,7 @@ class m170929_120122_user extends Migration
 
     private function createAdmins()
     {
-        $time = time();
+        $time = date('Y-m-d H:i:s');
 
         $this->batchInsert('user_users', [
             'login',

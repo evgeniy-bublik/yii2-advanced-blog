@@ -59,6 +59,10 @@ AppAsset::register($this);
             'url' => ['/comment/comments/index'],
         ];
         $menuItems[] = [
+            'label' => 'Social links',
+            'url' => ['/core/social-links/index'],
+        ];
+        $menuItems[] = [
             'label' => 'Settings',
             'url' => ['/core/settings/update'],
         ];

@@ -17,9 +17,9 @@ use Yii;
  * @property string $meta_title
  * @property string $meta_description
  * @property string $meta_keywords
- * @property integer $created_at
- * @property integer $updated_at
- * @property integer $deleted_at
+ * @property string $created_at
+ * @property string $updated_at
+ * @property string $deleted_at
  *
  * @property ArticleLinksArticleCategory[] $articleLinksArticleCategories
  */
@@ -39,11 +39,12 @@ class ArticleCategory extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['parent_id', 'display_order', 'active', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
+            [['parent_id', 'display_order', 'active'], 'integer'],
             [['title', 'alias'], 'required'],
             [['description'], 'string'],
             [['title', 'alias', 'meta_title', 'meta_description', 'meta_keywords'], 'string', 'max' => 255],
             [['alias'], 'unique'],
+            [['created_at', 'updated_at', 'deleted_at'], 'safe']
         ];
     }
 

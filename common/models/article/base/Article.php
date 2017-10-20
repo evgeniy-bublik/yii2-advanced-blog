@@ -20,9 +20,9 @@ use common\models\user\base\User;
  * @property string $meta_title
  * @property string $meta_description
  * @property string $meta_keywords
- * @property integer $created_at
- * @property integer $updated_at
- * @property integer $deleted_at
+ * @property string $created_at
+ * @property string $updated_at
+ * @property string $deleted_at
  *
  * @property UserUsers $user
  * @property ArticleLinksArticleCategory[] $articleLinksArticleCategories
@@ -44,10 +44,10 @@ class Article extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'active', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
+            [['user_id', 'active'], 'integer'],
             [['title', 'alias', 'small_description', 'description'], 'required'],
             [['description'], 'string'],
-            [['date', 'image'], 'safe'],
+            [['date', 'image', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['title', 'alias', 'small_description', 'meta_title', 'meta_description', 'meta_keywords'], 'string', 'max' => 255],
             [['alias'], 'unique'],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
