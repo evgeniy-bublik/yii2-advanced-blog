@@ -26,12 +26,19 @@ return [
         ],
         'view' => [
             'theme' => [
-                'basePath' => '@app/themes/default',
-                'baseUrl' => '@web/themes/default',
+                'basePath' => '@app/themes/yamen',
+                'baseUrl' => '@web/themes/yamen',
                 'pathMap' => [
-                    '@app/views' => '@app/themes/default',
-                    '@app/modules' => '@app/themes/default/modules',
-                    '@app/widgets' => '@app/themes/default/modules',
+                    '@app/views' => '@app/themes/yamen',
+                    '@app/modules' => '@app/themes/yamen/modules',
+                    '@app/widgets' => '@app/themes/yamen/modules',
+                ],
+            ],
+        ],
+        'assetManager' => [
+            'bundles' => [
+                'yii\bootstrap\BootstrapAsset' => [
+                    'css' => [],
                 ],
             ],
         ],
@@ -49,7 +56,7 @@ return [
             ],
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => '/core/index/error',
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
