@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
+use app\modules\core\actions\CrudIndexAction;
+use app\modules\core\actions\CrudViewAction;
 
 /**
  * ArticleController implements the CRUD actions for Article model.
@@ -30,31 +32,18 @@ class ArticleController extends Controller
         ];
     }
 
-    /**
-     * Lists all Article models.
-     * @return mixed
-     */
-    public function actionIndex()
+    public function actions()
     {
-        $searchModel = new ArticleSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Displays a single Article model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        return [
+            'index' => [
+                'class'           => CrudIndexAction::className(),
+                'searchModelName' => ArticleSearch::className(),
+            ],
+            'view' => [
+                'class' => CrudViewAction::className(),
+                'modelName' => Article::className(),
+            ],
+        ];
     }
 
     /**
