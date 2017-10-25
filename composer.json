@@ -14,16 +14,20 @@
     },
     "minimum-stability": "stable",
     "require": {
+        "bower-asset/bootstrap": "^3.3",
+        "npm-asset/jquery": "^2.2",
         "php": ">=5.4.0",
-        "yiisoft/yii2": "~2.0.6",
+        "yiisoft/yii2": "~2.0",
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0",
         "developeruz/yii-behaviors": "*",
         "yiisoft/yii2-imagine": "~2.1.0",
         "mihaildev/yii2-ckeditor": "*",
         "mihaildev/yii2-elfinder": "*",
+        "kartik-v/yii2-tabs-x": "*",
         "trntv/yii2-datetime-widget": "*",
-        "kartik-v/yii2-tabs-x": "*"
+        "kartik-v/yii2-widget-fileinput": "*",
+        "kartik-v/yii2-widget-select2": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
@@ -31,10 +35,7 @@
         "yiisoft/yii2-faker": "~2.0.0",
 
         "codeception/base": "^2.2.3",
-        "codeception/verify": "~0.3.1",
-        "kartik-v/yii2-widget-fileinput": "@dev",
-        "xtarantulz/yii2-input-img-preview": "dev-master",
-        "kartik-v/yii2-widget-select2": "@dev"
+        "codeception/verify": "~0.3.1"
     },
     "config": {
         "process-timeout": 1800,

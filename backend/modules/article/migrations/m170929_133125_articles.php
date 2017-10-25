@@ -10,7 +10,6 @@ class m170929_133125_articles extends Migration
 
         if (!$tableSchema) {
             throw new \Exception("Table user_users not exist", 1);
-
         }
 
         $tableOptions = null;
@@ -25,9 +24,9 @@ class m170929_133125_articles extends Migration
             'frequency'     => $this->integer()->defaultValue(0),
             'display_order' => $this->integer()->defaultValue(0),
             'active'        => $this->smallInteger(1)->defaultValue(0),
-            'created_at'    => $this->integer()->notNull(),
-            'updated_at'    => $this->integer()->notNull(),
-            'deleted_at'    => $this->integer()->null(),
+            'created_at'    => $this->timestamp()->null()->defaultValue(null),
+            'updated_at'    => $this->timestamp()->null()->defaultValue(null),
+            'deleted_at'    => $this->timestamp()->null()->defaultValue(null),
         ], $tableOptions);
 
         $this->createTable('{{%article_categories}}', [
@@ -41,9 +40,9 @@ class m170929_133125_articles extends Migration
             'meta_title'        => $this->string(255)->null(),
             'meta_description'  => $this->string(255)->null(),
             'meta_keywords'     => $this->string(255)->null(),
-            'created_at'        => $this->integer()->notNull(),
-            'updated_at'        => $this->integer()->notNull(),
-            'deleted_at'        => $this->integer()->null(),
+            'created_at'        => $this->timestamp()->null()->defaultValue(null),
+            'updated_at'        => $this->timestamp()->null()->defaultValue(null),
+            'deleted_at'        => $this->timestamp()->null()->defaultValue(null),
         ], $tableOptions);
 
         $this->createTable('{{%article_articles}}', [
@@ -59,9 +58,9 @@ class m170929_133125_articles extends Migration
             'meta_title'        => $this->string(255)->null(),
             'meta_description'  => $this->string(255)->null(),
             'meta_keywords'     => $this->string(255)->null(),
-            'created_at'        => $this->integer()->notNull(),
-            'updated_at'        => $this->integer()->notNull(),
-            'deleted_at'        => $this->integer()->null(),
+            'created_at'        => $this->timestamp()->null()->defaultValue(null),
+            'updated_at'        => $this->timestamp()->null()->defaultValue(null),
+            'deleted_at'        => $this->timestamp()->null()->defaultValue(null),
         ], $tableOptions);
 
         $this->createTable('{{%article_links_article_category}}', [

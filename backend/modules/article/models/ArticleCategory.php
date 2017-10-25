@@ -1,10 +1,12 @@
 <?php
+
 namespace app\modules\article\models;
 
 use Yii;
 use common\models\article\ArticleCategory as BaseArticleCategory;
 use yii\helpers\ArrayHelper;
 use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 
 class ArticleCategory extends BaseArticleCategory
 {
@@ -12,7 +14,10 @@ class ArticleCategory extends BaseArticleCategory
     public function behaviors()
     {
         return [
-            TimestampBehavior::className(),
+            'timestampBehavior' => [
+                'class' => TimestampBehavior::className(),
+                'value' => new Expression('NOW()'),
+            ],
         ];
     }
 
@@ -27,6 +32,7 @@ class ArticleCategory extends BaseArticleCategory
             ]
         );
     }
+
     /**
      * @return \yii\db\ActiveQuery
      */

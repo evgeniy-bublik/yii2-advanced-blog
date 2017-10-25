@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 use xtarantulz\preview\PreviewAsset;
 use kartik\tabs\TabsX;
 
-PreviewAsset::register($this);
+//PreviewAsset::register($this);
 
 /* @var $this yii\web\View */
 /* @var $model backend\modules\article\models\Article */

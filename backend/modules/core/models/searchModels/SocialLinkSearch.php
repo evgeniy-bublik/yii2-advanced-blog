@@ -1,16 +1,16 @@
 <?php
 
-namespace app\modules\article\models\searchModels;
+namespace app\modules\core\models\searchModels;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\modules\article\models\ArticleCategory;
+use app\modules\core\models\SocialLink;
 
 /**
- * ArticleCategorySearch represents the model behind the search form about `app\modules\article\models\ArticleCategory`.
+ * SocialLinkSearch represents the model behind the search form about `app\modules\core\models\SocialLink`.
  */
-class ArticleCategorySearch extends ArticleCategory
+class SocialLinkSearch extends SocialLink
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class ArticleCategorySearch extends ArticleCategory
     public function rules()
     {
         return [
-            [['id', 'parent_id', 'display_order', 'active'], 'integer'],
-            [['title', 'alias', 'description', 'meta_title', 'meta_description', 'meta_keywords', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['id', 'display_order', 'active'], 'integer'],
+            [['name', 'link_class', 'href', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class ArticleCategorySearch extends ArticleCategory
      */
     public function search($params)
     {
-        $query = ArticleCategory::find();
+        $query = SocialLink::find();
 
         // add conditions that should always apply here
 
@@ -60,22 +60,15 @@ class ArticleCategorySearch extends ArticleCategory
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'parent_id' => $this->parent_id,
             'display_order' => $this->display_order,
             'active' => $this->active,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'alias', $this->alias])
-            ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'meta_title', $this->meta_title])
-            ->andFilterWhere(['like', 'meta_description', $this->meta_description])
-            ->andFilterWhere(['like', 'meta_keywords', $this->meta_keywords])
-            ->andFilterWhere(['like', 'created_at', $this->created_at])
-            ->andFilterWhere(['like', 'updated_at', $this->updated_at])
-            ->andFilterWhere(['like', 'deleted_at', $this->deleted_at]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'link_class', $this->link_class])
+            ->andFilterWhere(['like', 'href', $this->href]);
 
         return $dataProvider;
     }

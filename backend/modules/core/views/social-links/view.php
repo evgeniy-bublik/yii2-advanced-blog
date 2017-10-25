@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model backend\modules\article\models\Article */
+/* @var $model app\modules\core\models\SocialLink */
 
-$this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Articles', 'url' => ['index']];
+$this->title = $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Social Links', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="article-view">
+<div class="social-link-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -29,17 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'user_id',
-            'title',
-            'alias',
-            'small_description',
-            'description:ntext',
-            'date',
-            'image',
+            'name',
+            'link_class',
+            'href',
+            'display_order',
             'active',
-            'meta_title',
-            'meta_description',
-            'meta_keywords',
+            'created_at',
+            'updated_at',
         ],
     ]) ?>
 

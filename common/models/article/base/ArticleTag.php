@@ -12,9 +12,9 @@ use Yii;
  * @property integer $frequency
  * @property integer $display_order
  * @property integer $active
- * @property integer $created_at
- * @property integer $updated_at
- * @property integer $deleted_at
+ * @property string $created_at
+ * @property string $updated_at
+ * @property string $deleted_at
  *
  * @property ArticleLinksTagArticle[] $articleLinksTagArticles
  */
@@ -34,9 +34,10 @@ class ArticleTag extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'created_at', 'updated_at'], 'required'],
-            [['frequency', 'display_order', 'active', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
+            [['name'], 'required'],
+            [['frequency', 'display_order', 'active'], 'integer'],
             [['name'], 'string', 'max' => 100],
+            [['created_at', 'updated_at', 'deleted_at'], 'safe']
         ];
     }
 
