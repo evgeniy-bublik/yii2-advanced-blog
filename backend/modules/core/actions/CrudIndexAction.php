@@ -6,6 +6,7 @@ use Yii;
 use yii\helpers\Html;
 use yii\base\InvalidConfigException;
 use yii\base\Action;
+use yii\helpers\ArrayHelper;
 
 class CrudIndexAction extends Action
 {
@@ -68,7 +69,18 @@ class CrudIndexAction extends Action
         }
 
         if (empty($this->columnsGridView) && !empty($this->searchModel)) {
-            $this->columnsGridView = $this->searchModel->attributes();
+            $columns = [
+                ['class' => 'yii\grid\SerialColumn']
+            ];
+
+            $columns = ArrayHelper::merge($columns, $this->searchModel->attributes());
+
+            $columns = ArrayHelper::merge($columns, [[
+                'class' => 'yii\grid\ActionColumn',
+                'header' => 'Actions',
+            ]]);
+
+            $this->columnsGridView = $columns;
         }
     }
 
