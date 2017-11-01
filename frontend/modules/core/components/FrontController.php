@@ -17,7 +17,8 @@ class FrontController extends Controller
         $settings = Setting::find()->one();
 
         if (!$settings) {
-            throw new InvalidConfigException('Settings not found');
+            $settings = new Setting();
+            $settings->save();
         }
 
         $this->settings = $settings;

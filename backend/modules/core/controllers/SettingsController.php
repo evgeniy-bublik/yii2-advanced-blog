@@ -13,6 +13,24 @@ use yii\filters\AccessControl;
 class SettingsController extends Controller
 {
     /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Updates an existing Setting model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
