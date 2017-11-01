@@ -10,12 +10,23 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
 use yii\filters\AccessControl;
+use app\modules\core\actions\CrudIndexAction;
+use app\modules\core\actions\CrudViewAction;
+use app\modules\core\actions\CrudDeleteAction;
 
 /**
  * ArticleController implements the CRUD actions for Article model.
  */
 class ArticleController extends Controller
 {
+    private $articleClassName;
+
+    public function init()
+    {
+        parent::init();
+
+        $this->articleClassName = Article::className();
+    }
     /**
      * @inheritdoc
      */
@@ -31,31 +42,23 @@ class ArticleController extends Controller
         ];
     }
 
-    /**
-     * Lists all Article models.
-     * @return mixed
-     */
-    public function actionIndex()
+    public function actions()
     {
-        $searchModel = new ArticleSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Displays a single Article model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        return [
+            'index' => [
+                'class'           => CrudIndexAction::className(),
+                'searchModelName' => ArticleSearch::className(),
+                'columnsGridView' => $this->getColumns(),
+            ],
+            'view' => [
+                'class' => CrudViewAction::className(),
+                'modelName' => $this->articleClassName,
+            ],
+            'delete' => [
+                'class' => CrudDeleteAction::className(),
+                'modelName' => $this->articleClassName,
+            ],
+        ];
     }
 
     /**
@@ -96,19 +99,6 @@ class ArticleController extends Controller
         }
     }
 
-    /**
-     * Deletes an existing Article model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
-
     public function actionDeletePreview($id)
     {
         $model = $this->findModel($id);
@@ -137,5 +127,20 @@ class ArticleController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    protected function getColumns()
+    {
+        return [
+            ['class' => 'yii\grid\SerialColumn'],
+            'title',
+            'alias',
+            'image',
+            'active',
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'header' => 'Actions',
+            ],
+        ];
     }
 }

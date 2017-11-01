@@ -17,7 +17,7 @@ use \DateTime;
 class DateTimeBehavior extends AttributeBehavior
 {
     public $dateTimeFields;
-    public $format = 'd-m-Y H:i:s';
+    public $dbFormat = 'd-m-Y H:i:s';
 
     public function init()
     {
@@ -44,14 +44,12 @@ class DateTimeBehavior extends AttributeBehavior
     public function convertDateToDB()
     {
         foreach ($this->dateTimeFields as $attribute) {
-            if (!$this->owner->{$attribute}) {
-                $this->owner->{$attribute} = date('Y-m-d H:i:s');
-
+            if (empty($this->owner->{$attribute})) {
                 continue;
             }
 
             $date = new DateTime($this->owner->{$attribute});
-            $this->owner->{$attribute} = $date->format('Y-m-d H:i:s');
+            $this->owner->{$attribute} = $date->format($this->dbFormat);
         }
     }
 }
