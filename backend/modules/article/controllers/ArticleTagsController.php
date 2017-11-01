@@ -3,18 +3,17 @@
 namespace app\modules\article\controllers;
 
 use Yii;
-use app\modules\article\models\Article;
-use app\modules\article\models\searchModels\ArticleSearch;
+use app\modules\article\models\ArticleTag;
+use app\modules\article\models\searchModels\ArticleTagSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\Response;
 use yii\filters\AccessControl;
 
 /**
- * ArticleController implements the CRUD actions for Article model.
+ * ArticleTagsController implements the CRUD actions for ArticleTag model.
  */
-class ArticleController extends Controller
+class ArticleTagsController extends Controller
 {
     /**
      * @inheritdoc
@@ -32,12 +31,12 @@ class ArticleController extends Controller
     }
 
     /**
-     * Lists all Article models.
+     * Lists all ArticleTag models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ArticleSearch();
+        $searchModel = new ArticleTagSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -47,7 +46,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * Displays a single Article model.
+     * Displays a single ArticleTag model.
      * @param integer $id
      * @return mixed
      */
@@ -59,14 +58,13 @@ class ArticleController extends Controller
     }
 
     /**
-     * Creates a new Article model.
+     * Creates a new ArticleTag model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model          = new Article();
-        $model->user_id = Yii::$app->user->identity->getId();
+        $model = new ArticleTag();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -78,7 +76,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * Updates an existing Article model.
+     * Updates an existing ArticleTag model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -97,7 +95,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * Deletes an existing Article model.
+     * Deletes an existing ArticleTag model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -109,30 +107,16 @@ class ArticleController extends Controller
         return $this->redirect(['index']);
     }
 
-    public function actionDeletePreview($id)
-    {
-        $model = $this->findModel($id);
-
-        $model->deleteImages();
-        $model->updateAttributes(['image' => null]);
-
-        Yii::$app->response->format = Response::FORMAT_JSON;
-
-        return [];
-
-
-    }
-
     /**
-     * Finds the Article model based on its primary key value.
+     * Finds the ArticleTag model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Article the loaded model
+     * @return ArticleTag the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Article::findOne($id)) !== null && empty($model->deleted_at)) {
+        if (($model = ArticleTag::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -34,7 +34,6 @@ class Setting extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['admin_email', 'support_email'], 'required'],
             [['smtp_port'], 'integer'],
             [['admin_email', 'support_email', 'smtp_username', 'smtp_password', 'smtp_host'], 'string', 'max' => 100],
             [['admin_phone'], 'string', 'max' => 15],

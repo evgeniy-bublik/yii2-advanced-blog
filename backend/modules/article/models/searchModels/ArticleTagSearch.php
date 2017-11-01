@@ -5,12 +5,12 @@ namespace app\modules\article\models\searchModels;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\modules\article\models\Article;
+use app\modules\article\models\ArticleTag;
 
 /**
- * ArticleSearch represents the model behind the search form about `app\modules\article\models\Article`.
+ * ArticleTagSearch represents the model behind the search form about `app\modules\article\models\ArticleTag`.
  */
-class ArticleSearch extends Article
+class ArticleTagSearch extends ArticleTag
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class ArticleSearch extends Article
     public function rules()
     {
         return [
-            [['id', 'user_id', 'active'], 'integer'],
-            [['title', 'alias', 'small_description', 'description', 'date', 'image', 'meta_title', 'meta_description', 'meta_keywords'], 'safe'],
+            [['id', 'frequency', 'display_order', 'active'], 'integer'],
+            [['name', 'alias', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class ArticleSearch extends Article
      */
     public function search($params)
     {
-        $query = Article::find();
+        $query = ArticleTag::find();
 
         // add conditions that should always apply here
 
@@ -60,19 +60,15 @@ class ArticleSearch extends Article
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'user_id' => $this->user_id,
-            //'date' => $this->date,
+            'frequency' => $this->frequency,
+            'display_order' => $this->display_order,
             'active' => $this->active,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'alias', $this->alias])
-            ->andFilterWhere(['like', 'small_description', $this->small_description])
-            ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'image', $this->image])
-            ->andFilterWhere(['like', 'meta_title', $this->meta_title])
-            ->andFilterWhere(['like', 'meta_description', $this->meta_description])
-            ->andFilterWhere(['like', 'meta_keywords', $this->meta_keywords]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'alias', $this->alias]);
 
         return $dataProvider;
     }

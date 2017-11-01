@@ -8,6 +8,7 @@ use app\modules\core\models\searchModels\SocialLinkSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * SocialLinksController implements the CRUD actions for SocialLink model.

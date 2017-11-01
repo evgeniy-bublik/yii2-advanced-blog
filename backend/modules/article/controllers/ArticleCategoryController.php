@@ -8,6 +8,7 @@ use app\modules\article\models\searchModels\ArticleCategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * ArticleCategoryController implements the CRUD actions for ArticleCategory model.

@@ -5,6 +5,7 @@ namespace app\modules\core\controllers;
 use Yii;
 use app\modules\core\models\Setting;
 use yii\web\Controller;
+use yii\filters\AccessControl;
 
 /**
  * SettingsController implements the CRUD actions for Setting model.

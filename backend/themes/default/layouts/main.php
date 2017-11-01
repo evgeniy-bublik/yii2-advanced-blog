@@ -51,7 +51,11 @@ AppAsset::register($this);
                 [
                     'label' => 'Articles',
                     'url' => ['/article/article/index'],
-                ]
+                ],
+                [
+                    'label' => 'Tags',
+                    'url' => ['/article/article-tags/index'],
+                ],
             ],
         ];
         $menuItems[] = [

@@ -27,7 +27,8 @@
         "kartik-v/yii2-tabs-x": "*",
         "trntv/yii2-datetime-widget": "*",
         "kartik-v/yii2-widget-fileinput": "*",
-        "kartik-v/yii2-widget-select2": "*"
+        "kartik-v/yii2-widget-select2": "*",
+        "voskobovich/yii2-many-many-behavior": "^3.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
