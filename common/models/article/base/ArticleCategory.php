@@ -19,7 +19,6 @@ use Yii;
  * @property string $meta_keywords
  * @property string $created_at
  * @property string $updated_at
- * @property string $deleted_at
  *
  * @property ArticleLinksArticleCategory[] $articleLinksArticleCategories
  */
@@ -44,7 +43,7 @@ class ArticleCategory extends \yii\db\ActiveRecord
             [['description'], 'string'],
             [['title', 'alias', 'meta_title', 'meta_description', 'meta_keywords'], 'string', 'max' => 255],
             [['alias'], 'unique'],
-            [['created_at', 'updated_at', 'deleted_at'], 'safe']
+            [['created_at', 'updated_at'], 'safe']
         ];
     }
 
@@ -66,7 +65,6 @@ class ArticleCategory extends \yii\db\ActiveRecord
             'meta_keywords' => 'Meta Keywords',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-            'deleted_at' => 'Deleted At',
         ];
     }
 

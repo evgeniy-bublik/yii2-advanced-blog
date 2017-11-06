@@ -21,12 +21,12 @@ class m170929_133125_articles extends Migration
         $this->createTable('{{%article_tags}}', [
             'id'            => $this->primaryKey(),
             'name'          => $this->string(100)->notNull(),
+            'alias'         => $this->string(100)->notNull()->unique(),
             'frequency'     => $this->integer()->defaultValue(0),
             'display_order' => $this->integer()->defaultValue(0),
             'active'        => $this->smallInteger(1)->defaultValue(0),
             'created_at'    => $this->timestamp()->null()->defaultValue(null),
             'updated_at'    => $this->timestamp()->null()->defaultValue(null),
-            'deleted_at'    => $this->timestamp()->null()->defaultValue(null),
         ], $tableOptions);
 
         $this->createTable('{{%article_categories}}', [
@@ -42,7 +42,6 @@ class m170929_133125_articles extends Migration
             'meta_keywords'     => $this->string(255)->null(),
             'created_at'        => $this->timestamp()->null()->defaultValue(null),
             'updated_at'        => $this->timestamp()->null()->defaultValue(null),
-            'deleted_at'        => $this->timestamp()->null()->defaultValue(null),
         ], $tableOptions);
 
         $this->createTable('{{%article_articles}}', [
@@ -60,7 +59,6 @@ class m170929_133125_articles extends Migration
             'meta_keywords'     => $this->string(255)->null(),
             'created_at'        => $this->timestamp()->null()->defaultValue(null),
             'updated_at'        => $this->timestamp()->null()->defaultValue(null),
-            'deleted_at'        => $this->timestamp()->null()->defaultValue(null),
         ], $tableOptions);
 
         $this->createTable('{{%article_links_article_category}}', [

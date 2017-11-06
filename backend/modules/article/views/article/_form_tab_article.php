@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Url;
 use trntv\yii\datetime\DateTimeWidget;
-use kartik\widgets\Select2;
+use kartik\select2\Select2;
 use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\ElFinder;
 use kartik\file\FileInput;
@@ -36,6 +36,14 @@ use kartik\file\FileInput;
         'initialPreview' => ($model->image) ? [$model->getFullImage()] : [],
         'overwriteInitial' => false,
         'deleteUrl' => Url::toRoute(['/article/article/delete-preview', 'id' => $model->id]),
+    ],
+]); ?>
+
+<?= $form->field($model, 'tagsIds')->widget(Select2::classname(), [
+    'data' => $model->getListTags(),
+    'options' => [
+        'placeholder' => 'Select a tag ...',
+        'multiple' => true
     ],
 ]); ?>
 

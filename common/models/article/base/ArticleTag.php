@@ -9,12 +9,12 @@ use Yii;
  *
  * @property integer $id
  * @property string $name
+ * @property string alias
  * @property integer $frequency
  * @property integer $display_order
  * @property integer $active
  * @property string $created_at
  * @property string $updated_at
- * @property string $deleted_at
  *
  * @property ArticleLinksTagArticle[] $articleLinksTagArticles
  */
@@ -36,8 +36,9 @@ class ArticleTag extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['frequency', 'display_order', 'active'], 'integer'],
-            [['name'], 'string', 'max' => 100],
-            [['created_at', 'updated_at', 'deleted_at'], 'safe']
+            [['name', 'alias'], 'string', 'max' => 100],
+            [['created_at', 'updated_at'], 'safe'],
+            ['alias', 'unique'],
         ];
     }
 
@@ -49,12 +50,12 @@ class ArticleTag extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'alias' => 'Alias',
             'frequency' => 'Frequency',
             'display_order' => 'Display Order',
             'active' => 'Active',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-            'deleted_at' => 'Deleted At',
         ];
     }
 

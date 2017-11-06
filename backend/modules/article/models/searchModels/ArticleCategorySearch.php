@@ -19,7 +19,7 @@ class ArticleCategorySearch extends ArticleCategory
     {
         return [
             [['id', 'parent_id', 'display_order', 'active'], 'integer'],
-            [['title', 'alias', 'description', 'meta_title', 'meta_description', 'meta_keywords', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['title', 'alias', 'description', 'meta_title', 'meta_description', 'meta_keywords', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -63,8 +63,6 @@ class ArticleCategorySearch extends ArticleCategory
             'parent_id' => $this->parent_id,
             'display_order' => $this->display_order,
             'active' => $this->active,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
@@ -74,8 +72,7 @@ class ArticleCategorySearch extends ArticleCategory
             ->andFilterWhere(['like', 'meta_description', $this->meta_description])
             ->andFilterWhere(['like', 'meta_keywords', $this->meta_keywords])
             ->andFilterWhere(['like', 'created_at', $this->created_at])
-            ->andFilterWhere(['like', 'updated_at', $this->updated_at])
-            ->andFilterWhere(['like', 'deleted_at', $this->deleted_at]);
+            ->andFilterWhere(['like', 'updated_at', $this->updated_at]);
 
         return $dataProvider;
     }

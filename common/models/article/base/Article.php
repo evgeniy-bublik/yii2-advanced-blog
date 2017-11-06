@@ -22,7 +22,6 @@ use common\models\user\base\User;
  * @property string $meta_keywords
  * @property string $created_at
  * @property string $updated_at
- * @property string $deleted_at
  *
  * @property UserUsers $user
  * @property ArticleLinksArticleCategory[] $articleLinksArticleCategories
@@ -47,7 +46,7 @@ class Article extends \yii\db\ActiveRecord
             [['user_id', 'active'], 'integer'],
             [['title', 'alias', 'small_description', 'description'], 'required'],
             [['description'], 'string'],
-            [['date', 'image', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['date', 'image', 'created_at', 'updated_at'], 'safe'],
             [['title', 'alias', 'small_description', 'meta_title', 'meta_description', 'meta_keywords'], 'string', 'max' => 255],
             [['alias'], 'unique'],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
@@ -74,7 +73,6 @@ class Article extends \yii\db\ActiveRecord
             'meta_keywords' => 'Meta Keywords',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-            'deleted_at' => 'Deleted At',
         ];
     }
 
