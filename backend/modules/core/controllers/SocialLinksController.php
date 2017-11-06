@@ -5,8 +5,6 @@ namespace app\modules\core\controllers;
 use Yii;
 use app\modules\core\models\SocialLink;
 use app\modules\core\models\searchModels\SocialLinkSearch;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use app\modules\core\actions\CrudIndexAction;

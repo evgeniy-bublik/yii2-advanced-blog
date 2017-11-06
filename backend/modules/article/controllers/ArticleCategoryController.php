@@ -5,7 +5,6 @@ namespace app\modules\article\controllers;
 use Yii;
 use app\modules\article\models\ArticleCategory;
 use app\modules\article\models\searchModels\ArticleCategorySearch;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\modules\core\actions\CrudIndexAction;
 use app\modules\core\actions\CrudViewAction;

@@ -5,16 +5,29 @@ namespace app\modules\article\controllers;
 use Yii;
 use app\modules\article\models\ArticleTag;
 use app\modules\article\models\searchModels\ArticleTagSearch;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use app\modules\core\actions\CrudIndexAction;
+use app\modules\core\actions\CrudViewAction;
+use app\modules\core\actions\CrudDeleteAction;
+use app\modules\core\actions\CrudCreateAction;
+use app\modules\core\actions\CrudUpdateAction;
+use app\modules\core\components\BackendController;
 
 /**
  * ArticleTagsController implements the CRUD actions for ArticleTag model.
  */
-class ArticleTagsController extends Controller
+class ArticleTagsController extends BackendController
 {
+    private $articleTagClassName;
+
+    public function init()
+    {
+        parent::init();
+
+        $this->articleTagClassName = ArticleTag::className();
+    }
+
     /**
      * @inheritdoc
      */
@@ -40,95 +53,149 @@ class ArticleTagsController extends Controller
     }
 
     /**
-     * Lists all ArticleTag models.
-     * @return mixed
+     * @inheritdoc
      */
-    public function actionIndex()
+    public function actions()
     {
-        $searchModel = new ArticleTagSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        return [
+            'index' => [
+                'class'           => CrudIndexAction::className(),
+                'searchModelName' => ArticleTagSearch::className(),
+                'gridColumns'     => $this->getGridIndexColumns(),
+                'breadcrumbs'     => $this->getIndexBreadcrumbs(),
+                'title'           => 'List article tags',
+            ],
+            'view' => [
+                'class'                 => CrudViewAction::className(),
+                'modelName'             => $this->articleTagClassName,
+                'detailViewAttributes'  => $this->getDetailViewsAttributes(),
+                'breadcrumbs'           => $this->getViewBreadcrumbs(),
+                'title'                 => 'View article tag',
+            ],
+            'delete' => [
+                'class'     => CrudDeleteAction::className(),
+                'modelName' => $this->articleTagClassName,
+            ],
+            'create' => [
+                'class'       => CrudCreateAction::className(),
+                'modelName'   => $this->articleTagClassName,
+                'breadcrumbs' => $this->getCreateBreadcrumbs(),
+                'title'       => 'Create article tag',
+            ],
+            'update' => [
+                'class'       => CrudUpdateAction::className(),
+                'modelName'   => $this->articleTagClassName,
+                'breadcrumbs' => $this->getUpdateBreadcrumbs(),
+                'title'       => 'Update article tag',
+            ],
+        ];
     }
 
     /**
-     * Displays a single ArticleTag model.
-     * @param integer $id
-     * @return mixed
+     * Get columns which be view in grid widget
+     *
+     * @return array
      */
-    public function actionView($id)
+    private function getGridIndexColumns()
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        return [
+            $this->getGridSerialColumn(),
+            'name',
+            'alias',
+            'frequency',
+            $this->getGridColumnYesOrNow('active'),
+            $this->getGridActions(),
+        ];
     }
 
     /**
-     * Creates a new ArticleTag model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
+     * Get columns which be view in detail view widget
+     *
+     * @return array
      */
-    public function actionCreate()
+    private function getDetailViewsAttributes()
     {
-        $model = new ArticleTag();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
+        return [
+            'id',
+            'name',
+            'alias',
+            'frequency',
+            'display_order',
+            'active',
+            'created_at',
+            'updated_at',
+        ];
     }
 
     /**
-     * Updates an existing ArticleTag model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
+     * Get breadcrumbs which show in index page
+     *
+     * @return array
      */
-    public function actionUpdate($id)
+    private function getIndexBreadcrumbs()
     {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
+        return [
+            [
+                'label' => 'Article tags',
+                'url' => ['index'],
+            ],
+            [
+                'label' => 'List tags',
+            ]
+        ];
     }
 
     /**
-     * Deletes an existing ArticleTag model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
+     * Get breadcrumbs which show in view page
+     *
+     * @return array
      */
-    public function actionDelete($id)
+    private function getViewBreadcrumbs()
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        return [
+            [
+                'label' => 'Article tags',
+                'url' => ['index'],
+            ],
+            [
+                'label' => 'View tag',
+            ]
+        ];
     }
 
     /**
-     * Finds the ArticleTag model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return ArticleTag the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * Get breadcrumbs which show in create page
+     *
+     * @return array
      */
-    protected function findModel($id)
+    private function getCreateBreadcrumbs()
     {
-        if (($model = ArticleTag::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
+        return [
+            [
+                'label' => 'Article tags',
+                'url' => ['index'],
+            ],
+            [
+                'label' => 'Create tag',
+            ]
+        ];
+    }
+
+    /**
+     * Get breadcrumbs which show in update page
+     *
+     * @return array
+     */
+    private function getUpdateBreadcrumbs()
+    {
+        return [
+            [
+                'label' => 'Article tags',
+                'url' => ['index'],
+            ],
+            [
+                'label' => 'Update tag',
+            ]
+        ];
     }
 }

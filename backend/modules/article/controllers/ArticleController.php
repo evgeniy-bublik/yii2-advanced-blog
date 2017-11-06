@@ -5,7 +5,6 @@ namespace app\modules\article\controllers;
 use Yii;
 use app\modules\article\models\Article;
 use app\modules\article\models\searchModels\ArticleSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
@@ -15,7 +14,6 @@ use app\modules\core\actions\CrudViewAction;
 use app\modules\core\actions\CrudDeleteAction;
 use app\modules\core\actions\CrudCreateAction;
 use app\modules\core\actions\CrudUpdateAction;
-use yii\filters\AccessControl;
 use app\modules\core\components\BackendController;
 
 /**
@@ -104,7 +102,12 @@ class ArticleController extends BackendController
      */
     public function actionDeletePreview($id)
     {
-        $model = $this->findModel($id);
+        $model = Article::findOne($id);
+
+        if (!$model) {
+            throw new NotFoundHttpException("Model with id = {$id} not found");
+
+        }
 
         $model->deleteImages();
         $model->updateAttributes(['image' => null]);
