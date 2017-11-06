@@ -14,13 +14,15 @@ class CrudIndexAction extends Action
 
     public $dataProvider;
 
-    public $columnsGridView;
+    public $gridColumns;
 
     public $title;
 
-    public $userHtmlAddButtonOptions = [];
+    public $createButtonOptions;
 
-    public $userAddButtonOptions = [];
+    public $widgetOptions;
+
+    public $beforeAction;
 
     public $methodSearch = 'search';
 
@@ -32,18 +34,7 @@ class CrudIndexAction extends Action
 
     public $widgetClass = '\yii\grid\GridView';
 
-    public $userWidgetOptions = [];
-
     protected $searchModel;
-
-    protected $defaultAddButtonOptions = [
-        'title'   => 'Create',
-        'action'  => ['create'],
-    ];
-
-    protected $defaultHtmlAddButtonOptions = [
-        'class' => 'btn btn-success',
-    ];
 
     public function init()
     {
@@ -53,22 +44,17 @@ class CrudIndexAction extends Action
 
         parent::init();
 
-        $this->controller->viewPath     = $this->viewPath;
-        $this->controller->view->title  = $this->title;
+        $this->controller->viewPath = $this->viewPath;
 
         if (!empty($this->searchModelName)) {
             $this->searchModel              = Yii::createObject($this->searchModelName);
         }
 
         if (empty($this->title)) {
-            $this->title = 'List';
+            $this->title = 'List items';
         }
 
-        if (!empty($this->breadcrumbs)) {
-            $this->controller->view->params[ 'breadcrumbs' ][] = $this->breadcrumbs;
-        }
-
-        if (empty($this->columnsGridView) && !empty($this->searchModel)) {
+        if (empty($this->gridColumns) && !empty($this->searchModel)) {
             $columns = [
                 ['class' => 'yii\grid\SerialColumn']
             ];
@@ -80,11 +66,39 @@ class CrudIndexAction extends Action
                 'header' => 'Actions',
             ]]);
 
-            $this->columnsGridView = $columns;
+            $this->gridColumns = $columns;
         }
+
+        $this->controller->view->params[ 'breadcrumbs' ]  = $this->breadcrumbs;
+        $this->controller->view->title                    = $this->title;
     }
 
     public function run()
+    {
+        if ($this->beforeAction && is_callable($this->beforeAction)) {
+            call_user_func([$this->beforeAction]);
+        }
+
+        return $this->controller->render('crud-content', [
+            'content' => $this->getContent(),
+        ]);
+    }
+
+    private function generateCreateButton()
+    {
+        $buttonOptions = $this->createButtonOptions;
+
+        $title  = ArrayHelper::remove($buttonOptions, 'title', 'Create');
+        $action = ArrayHelper::remove($buttonOptions, 'action', ['create']);
+
+        if (!isset($buttonOptions[ 'class' ])) {
+            $buttonOptions[ 'class' ] = 'btn btn-success';
+        }
+
+        return Html::a($title, $action, $buttonOptions);
+    }
+
+    private function generateWidget()
     {
         if ($this->searchModel) {
             $dataProvider = call_user_func_array([$this->searchModel, $this->methodSearch], [Yii::$app->request->queryParams]);
@@ -92,36 +106,24 @@ class CrudIndexAction extends Action
             $dataProvider = $this->dataProvider;
         }
 
-        $widgetOptions = [
-            'dataProvider'  => $dataProvider,
-            'columns'       => $this->columnsGridView,
-        ];
+        $widgetOptions = $this->widgetOptions;
+
+        ArrayHelper::setValue($widgetOptions, 'dataProvider', $dataProvider);
+        ArrayHelper::setValue($widgetOptions, 'columns', $this->gridColumns);
 
         if ($this->searchModel) {
-            $widgetOptions[ 'filterModel' ] = $this->searchModel;
+            ArrayHelper::setValue($widgetOptions, 'filterModel', $this->searchModel);
         }
 
-        $widgetOptions = array_merge($widgetOptions, $this->userWidgetOptions);
-
-        return $this->controller->render('crud-content', [
-            'content' => $this->getContent($widgetOptions),
-        ]);
+        return call_user_func_array([$this->widgetClass, 'widget'], [$widgetOptions]);
     }
 
-    protected function generateCreateButton()
-    {
-        $buttonOptions      = array_merge($this->defaultAddButtonOptions, $this->userAddButtonOptions);
-        $buttonHtmlOptions  = array_merge($this->defaultHtmlAddButtonOptions, $this->userHtmlAddButtonOptions);
-
-        return Html::a($buttonOptions[ 'title' ], $buttonOptions[ 'action' ], $buttonHtmlOptions);
-    }
-
-    protected function getContent($widgetOptions)
+    protected function getContent()
     {
         return strtr($this->template, [
             '{title}'         => $this->title,
             '{createButton}'  => $this->generateCreateButton(),
-            '{widget}'        => call_user_func_array([$this->widgetClass, 'widget'], [$widgetOptions]),
+            '{widget}'        => $this->generateWidget(),
         ]);
     }
 }

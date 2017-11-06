@@ -5,15 +5,30 @@ namespace app\modules\article\controllers;
 use Yii;
 use app\modules\article\models\ArticleCategory;
 use app\modules\article\models\searchModels\ArticleCategorySearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\modules\core\actions\CrudIndexAction;
+use app\modules\core\actions\CrudViewAction;
+use app\modules\core\actions\CrudDeleteAction;
+use app\modules\core\actions\CrudCreateAction;
+use app\modules\core\actions\CrudUpdateAction;
+use yii\filters\AccessControl;
+use app\modules\core\components\BackendController;
 
 /**
  * ArticleCategoryController implements the CRUD actions for ArticleCategory model.
  */
-class ArticleCategoryController extends Controller
+class ArticleCategoryController extends BackendController
 {
+    private $articleCategoryClassName;
+
+    public function init()
+    {
+        parent::init();
+
+        $this->articleCategoryClassName = ArticleCategory::className();
+    }
+
     /**
      * @inheritdoc
      */
@@ -26,99 +41,166 @@ class ArticleCategoryController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
         ];
     }
 
     /**
-     * Lists all ArticleCategory models.
-     * @return mixed
+     * @inheritdoc
      */
-    public function actionIndex()
+    public function actions()
     {
-        $searchModel = new ArticleCategorySearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        return [
+            'index' => [
+                'class'           => CrudIndexAction::className(),
+                'searchModelName' => ArticleCategorySearch::className(),
+                'gridColumns'     => $this->getGridIndexColumns(),
+                'breadcrumbs'     => $this->getIndexBreadcrumbs(),
+                'title'           => 'List article categories',
+            ],
+            'view' => [
+                'class'                 => CrudViewAction::className(),
+                'modelName'             => $this->articleCategoryClassName,
+                'detailViewAttributes'  => $this->getDetailViewsAttributes(),
+                'breadcrumbs'           => $this->getViewBreadcrumbs(),
+                'title'                 => 'View article category',
+            ],
+            'delete' => [
+                'class'     => CrudDeleteAction::className(),
+                'modelName' => $this->articleCategoryClassName,
+            ],
+            'create' => [
+                'class'       => CrudCreateAction::className(),
+                'modelName'   => $this->articleCategoryClassName,
+                'breadcrumbs' => $this->getCreateBreadcrumbs(),
+                'title'       => 'Create article category',
+            ],
+            'update' => [
+                'class'       => CrudUpdateAction::className(),
+                'modelName'   => $this->articleCategoryClassName,
+                'breadcrumbs' => $this->getUpdateBreadcrumbs(),
+                'title'       => 'Update article category',
+            ],
+        ];
     }
 
     /**
-     * Displays a single ArticleCategory model.
-     * @param integer $id
-     * @return mixed
+     * Get columns which be view in grid widget
+     *
+     * @return array
      */
-    public function actionView($id)
+    private function getGridIndexColumns()
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        return [
+            $this->getGridSerialColumn(),
+            'parent_id',
+            'title',
+            'alias',
+            $this->getGridColumnYesOrNow('active'),
+            $this->getGridActions(),
+        ];
     }
 
     /**
-     * Creates a new ArticleCategory model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
+     * Get columns which be view in detail view widget
+     *
+     * @return array
      */
-    public function actionCreate()
+    private function getDetailViewsAttributes()
     {
-        $model = new ArticleCategory();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
+        return [
+            'id',
+            'title',
+            'parent_id',
+            'alias',
+            'description',
+            'display_order',
+            'active',
+            'meta_title',
+            'meta_description',
+            'meta_keywords',
+            'created_at',
+            'updated_at',
+        ];
     }
 
     /**
-     * Updates an existing ArticleCategory model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
+     * Get breadcrumbs which show in index page
+     *
+     * @return array
      */
-    public function actionUpdate($id)
+    private function getIndexBreadcrumbs()
     {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
+        return [
+            [
+                'label' => 'Article categories',
+                'url' => ['index'],
+            ],
+            [
+                'label' => 'List article categories',
+            ]
+        ];
     }
 
     /**
-     * Deletes an existing ArticleCategory model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
+     * Get breadcrumbs which show in view page
+     *
+     * @return array
      */
-    public function actionDelete($id)
+    private function getViewBreadcrumbs()
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        return [
+            [
+                'label' => 'Article categories',
+                'url' => ['index'],
+            ],
+            [
+                'label' => 'View article category',
+            ]
+        ];
     }
 
     /**
-     * Finds the ArticleCategory model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return ArticleCategory the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * Get breadcrumbs which show in create page
+     *
+     * @return array
      */
-    protected function findModel($id)
+    private function getCreateBreadcrumbs()
     {
-        if (($model = ArticleCategory::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
+        return [
+            [
+                'label' => 'Article categories',
+                'url' => ['index'],
+            ],
+            [
+                'label' => 'Create article category',
+            ]
+        ];
+    }
+
+    /**
+     * Get breadcrumbs which show in update page
+     *
+     * @return array
+     */
+    private function getUpdateBreadcrumbs()
+    {
+        return [
+            [
+                'label' => 'Article categories',
+                'url' => ['index'],
+            ],
+            [
+                'label' => 'Update article category',
+            ]
+        ];
     }
 }

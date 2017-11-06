@@ -8,12 +8,28 @@ use app\modules\core\models\searchModels\SocialLinkSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use app\modules\core\actions\CrudIndexAction;
+use app\modules\core\actions\CrudViewAction;
+use app\modules\core\actions\CrudDeleteAction;
+use app\modules\core\actions\CrudCreateAction;
+use app\modules\core\actions\CrudUpdateAction;
+use app\modules\core\components\BackendController;
 
 /**
  * SocialLinksController implements the CRUD actions for SocialLink model.
  */
-class SocialLinksController extends Controller
+class SocialLinksController extends BackendController
 {
+    private $socialLinkClassName;
+
+    public function init()
+    {
+        parent::init();
+
+        $this->socialLinkClassName = SocialLink::className();
+    }
+
     /**
      * @inheritdoc
      */
@@ -26,99 +42,161 @@ class SocialLinksController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
         ];
     }
 
     /**
-     * Lists all SocialLink models.
-     * @return mixed
+     * @inheritdoc
      */
-    public function actionIndex()
+    public function actions()
     {
-        $searchModel = new SocialLinkSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        return [
+            'index' => [
+                'class'           => CrudIndexAction::className(),
+                'searchModelName' => SocialLinkSearch::className(),
+                'gridColumns'     => $this->getGridIndexColumns(),
+                'breadcrumbs'     => $this->getIndexBreadcrumbs(),
+                'title'           => 'List social links',
+            ],
+            'view' => [
+                'class'                 => CrudViewAction::className(),
+                'modelName'             => $this->socialLinkClassName,
+                'detailViewAttributes'  => $this->getDetailViewsAttributes(),
+                'breadcrumbs'           => $this->getViewBreadcrumbs(),
+                'title'                 => 'View social link',
+            ],
+            'delete' => [
+                'class'     => CrudDeleteAction::className(),
+                'modelName' => $this->socialLinkClassName,
+            ],
+            'create' => [
+                'class'       => CrudCreateAction::className(),
+                'modelName'   => $this->socialLinkClassName,
+                'breadcrumbs' => $this->getCreateBreadcrumbs(),
+                'title'       => 'Create social link',
+            ],
+            'update' => [
+                'class'       => CrudUpdateAction::className(),
+                'modelName'   => $this->socialLinkClassName,
+                'breadcrumbs' => $this->getUpdateBreadcrumbs(),
+                'title'       => 'Update social link',
+            ],
+        ];
     }
 
     /**
-     * Displays a single SocialLink model.
-     * @param integer $id
-     * @return mixed
+     * Get columns which be view in grid widget
+     *
+     * @return array
      */
-    public function actionView($id)
+    private function getGridIndexColumns()
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        return [
+            $this->getGridSerialColumn(),
+            'name',
+            'href',
+            $this->getGridColumnYesOrNow('active'),
+            $this->getGridActions(),
+        ];
     }
 
     /**
-     * Creates a new SocialLink model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
+     * Get columns which be view in detail view widget
+     *
+     * @return array
      */
-    public function actionCreate()
+    private function getDetailViewsAttributes()
     {
-        $model = new SocialLink();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
+        return [
+            'id',
+            'name',
+            'link_class',
+            'href',
+            'display_order',
+            'active',
+            'created_at',
+            'updated_at',
+        ];
     }
 
     /**
-     * Updates an existing SocialLink model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
+     * Get breadcrumbs which show in index page
+     *
+     * @return array
      */
-    public function actionUpdate($id)
+    private function getIndexBreadcrumbs()
     {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
+        return [
+            [
+                'label' => 'Social links',
+                'url' => ['index'],
+            ],
+            [
+                'label' => 'List social links',
+            ]
+        ];
     }
 
     /**
-     * Deletes an existing SocialLink model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
+     * Get breadcrumbs which show in view page
+     *
+     * @return array
      */
-    public function actionDelete($id)
+    private function getViewBreadcrumbs()
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        return [
+            [
+                'label' => 'Social links',
+                'url' => ['index'],
+            ],
+            [
+                'label' => 'View social link',
+            ]
+        ];
     }
 
     /**
-     * Finds the SocialLink model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return SocialLink the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * Get breadcrumbs which show in create page
+     *
+     * @return array
      */
-    protected function findModel($id)
+    private function getCreateBreadcrumbs()
     {
-        if (($model = SocialLink::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
+        return [
+            [
+                'label' => 'Social links',
+                'url' => ['index'],
+            ],
+            [
+                'label' => 'Create social link',
+            ]
+        ];
+    }
+
+    /**
+     * Get breadcrumbs which show in update page
+     *
+     * @return array
+     */
+    private function getUpdateBreadcrumbs()
+    {
+        return [
+            [
+                'label' => 'Social links',
+                'url' => ['index'],
+            ],
+            [
+                'label' => 'Update social link',
+            ]
+        ];
     }
 }

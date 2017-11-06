@@ -7,6 +7,7 @@ use yii\helpers\Html;
 use yii\base\InvalidConfigException;
 use yii\web\NotFoundHttpException;
 use yii\base\Action;
+use yii\helpers\ArrayHelper;
 
 class CrudViewAction extends Action
 {
@@ -16,15 +17,15 @@ class CrudViewAction extends Action
 
     public $title;
 
+    public $deleteButtonOptions;
+
+    public $updateButtonOptions;
+
+    public $widgetOptions;
+
+    public $beforeAction;
+
     public $primaryKey = 'id';
-
-    public $deleteButtonOptions = [];
-
-    public $updateButtonOptions = [];
-
-    public $htmlUpdateButtonOptions = [];
-
-    public $htmlDeleteButtonOptions = [];
 
     public $template = '<div><h1>{title}</h1><p>{updateButton}{deleteButton}</p>{widget}</div>';
 
@@ -33,28 +34,6 @@ class CrudViewAction extends Action
     public $breadcrumbs = null;
 
     public $widgetClass = '\yii\widgets\DetailView';
-
-    public $userWidgetOptions = [];
-
-    protected $defaultUpdateButtonOptions = [
-        'title' => 'Update',
-    ];
-
-    protected $defaultDeleteButtonOptions = [
-        'title' => 'Delete',
-    ];
-
-    protected $defaultHtmlUpdateButtonOptions = [
-        'class' => 'btn btn-primary'
-    ];
-
-    protected $defaultHtmlDeleteButtonOptions = [
-        'class' => 'btn btn-danger',
-        'data' => [
-            'confirm' => 'Are you sure you want to delete this item?',
-            'method' => 'post',
-        ],
-    ];
 
     protected $primaryKeyValue;
 
@@ -66,23 +45,23 @@ class CrudViewAction extends Action
 
         parent::init();
 
-        $this->primaryKeyValue                        = Yii::$app->request->get($this->primaryKey);
-        $this->defaultDeleteButtonOptions[ 'action' ] = ['delete', $this->primaryKey => $this->primaryKeyValue];
-        $this->defaultUpdateButtonOptions[ 'action' ] = ['update', $this->primaryKey => $this->primaryKeyValue];
-        $this->controller->viewPath                   = $this->viewPath;
-        $this->controller->view->title                = $this->title;
-
-        if (!empty($this->breadcrumbs)) {
-            $this->controller->view->params[ 'breadcrumbs' ][] = $this->breadcrumbs;
-        }
+        $this->primaryKeyValue      = Yii::$app->request->get($this->primaryKey);
+        $this->controller->viewPath = $this->viewPath;
 
         if (empty($this->title)) {
             $this->title = 'View';
         }
+
+        $this->controller->view->params[ 'breadcrumbs' ]  = $this->breadcrumbs;
+        $this->controller->view->title                    = $this->title;
     }
 
     public function run()
     {
+        if ($this->beforeAction && is_callable($this->beforeAction)) {
+            call_user_func([$this->beforeAction]);
+        }
+
         $model = call_user_func_array([$this->modelName, 'findOne'], [$this->primaryKeyValue]);
 
         if (!$model) {
@@ -94,37 +73,62 @@ class CrudViewAction extends Action
         ]);
     }
 
-    protected function renderUpdateButton()
+    private function generateUpdateButton()
     {
-        $buttonHtmlOptions  = array_merge($this->defaultHtmlUpdateButtonOptions, $this->htmlUpdateButtonOptions);
-        $buttonOptions      = array_merge($this->defaultUpdateButtonOptions, $this->updateButtonOptions);
+        $buttonOptions = $this->updateButtonOptions;
 
-        return Html::a($buttonOptions[ 'title' ], $buttonOptions[ 'action' ], $buttonHtmlOptions);
+        $title  = ArrayHelper::remove($buttonOptions, 'title', 'Update');
+        $action = ArrayHelper::remove($buttonOptions, 'action', ['update']);
+
+        ArrayHelper::setValue($action, $this->primaryKey, $this->primaryKeyValue);
+
+        if (!isset($buttonOptions[ 'class' ])) {
+            $buttonOptions[ 'class' ] = 'btn btn-primary';
+        }
+
+        return Html::a($title, $action, $buttonOptions);
     }
 
-    protected function renderDeleteButton()
+    private function generateDeleteButton()
     {
-        $buttonHtmlOptions  = array_merge($this->defaultHtmlDeleteButtonOptions, $this->htmlDeleteButtonOptions);
-        $buttonOptions      = array_merge($this->defaultDeleteButtonOptions, $this->deleteButtonOptions);
+        $buttonOptions = $this->deleteButtonOptions;
 
-        return Html::a($buttonOptions[ 'title' ], $buttonOptions[ 'action' ], $buttonHtmlOptions);
+        $title  = ArrayHelper::remove($buttonOptions, 'title', 'Delete');
+        $action = ArrayHelper::remove($buttonOptions, 'action', ['delete']);
+
+        ArrayHelper::setValue($action, $this->primaryKey, $this->primaryKeyValue);
+
+        if (!isset($buttonOptions[ 'class' ])) {
+            $buttonOptions[ 'class' ] = 'btn btn-danger';
+        }
+
+        if (!isset($buttonOptions[ 'data' ])) {
+            $buttonOptions[ 'data' ] = [
+                'confirm' => 'Are you sure you want to delete this item?',
+                'method' => 'post',
+            ];
+        }
+
+        return Html::a($title, $action, $buttonOptions);
+    }
+
+    private function generateWidget($model)
+    {
+        $widgetOptions = $this->widgetOptions;
+
+        ArrayHelper::setValue($widgetOptions, 'model', $model);
+        ArrayHelper::setValue($widgetOptions, 'attributes', $this->detailViewAttributes);
+
+        return call_user_func_array([$this->widgetClass, 'widget'], [$widgetOptions]);
     }
 
     protected function getContent($model)
     {
-        $widgetOptions = [
-        ];
-
         return strtr($this->template, [
             '{title}'         => $this->title,
-            '{updateButton}'  => $this->renderUpdateButton(),
-            '{deleteButton}'  => $this->renderDeleteButton(),
-            '{widget}'        => call_user_func_array([$this->widgetClass, 'widget'], [
-                [
-                    'model'       => $model,
-                    'attributes'  => $this->detailViewAttributes,
-                ]
-            ]),
+            '{updateButton}'  => $this->generateUpdateButton(),
+            '{deleteButton}'  => $this->generateDeleteButton(),
+            '{widget}'        => $this->generateWidget($model),
         ]);
     }
 }

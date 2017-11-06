@@ -12,11 +12,15 @@ use yii\web\Response;
 use app\modules\core\actions\CrudIndexAction;
 use app\modules\core\actions\CrudViewAction;
 use app\modules\core\actions\CrudDeleteAction;
+use app\modules\core\actions\CrudCreateAction;
+use app\modules\core\actions\CrudUpdateAction;
+use yii\filters\AccessControl;
+use app\modules\core\components\BackendController;
 
 /**
  * ArticleController implements the CRUD actions for Article model.
  */
-class ArticleController extends Controller
+class ArticleController extends BackendController
 {
     private $articleClassName;
 
@@ -26,6 +30,7 @@ class ArticleController extends Controller
 
         $this->articleClassName = Article::className();
     }
+
     /**
      * @inheritdoc
      */
@@ -38,66 +43,64 @@ class ArticleController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     public function actions()
     {
         return [
             'index' => [
                 'class'           => CrudIndexAction::className(),
                 'searchModelName' => ArticleSearch::className(),
-                'columnsGridView' => $this->getColumns(),
+                'gridColumns'     => $this->getGridIndexColumns(),
+                'breadcrumbs'     => $this->getIndexBreadcrumbs(),
+                'title'           => 'List articles',
             ],
             'view' => [
-                'class' => CrudViewAction::className(),
-                'modelName' => $this->articleClassName,
+                'class'                 => CrudViewAction::className(),
+                'modelName'             => $this->articleClassName,
+                'detailViewAttributes'  => $this->getDetailViewsAttributes(),
+                'breadcrumbs'           => $this->getViewBreadcrumbs(),
+                'title'                 => 'View article',
             ],
             'delete' => [
-                'class' => CrudDeleteAction::className(),
+                'class'     => CrudDeleteAction::className(),
                 'modelName' => $this->articleClassName,
+            ],
+            'create' => [
+                'class'       => CrudCreateAction::className(),
+                'modelName'   => $this->articleClassName,
+                'breadcrumbs' => $this->getCreateBreadcrumbs(),
+                'title'       => 'Create article',
+            ],
+            'update' => [
+                'class'       => CrudUpdateAction::className(),
+                'modelName'   => $this->articleClassName,
+                'breadcrumbs' => $this->getUpdateBreadcrumbs(),
+                'title'       => 'Update article',
             ],
         ];
     }
 
     /**
-     * Creates a new Article model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
+     * Delete article preview
+     *
+     * @param int id primary key article model
+     *
+     * @return array
      */
-    public function actionCreate()
-    {
-        $model          = new Article();
-        $model->user_id = Yii::$app->user->identity->getId();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
-     * Updates an existing Article model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }
-
     public function actionDeletePreview($id)
     {
         $model = $this->findModel($id);
@@ -113,33 +116,117 @@ class ArticleController extends Controller
     }
 
     /**
-     * Finds the Article model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Article the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * Get columns which be view in grid widget
+     *
+     * @return array
      */
-    protected function findModel($id)
-    {
-        if (($model = Article::findOne($id)) !== null && empty($model->deleted_at)) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
-
-    protected function getColumns()
+    private function getGridIndexColumns()
     {
         return [
-            ['class' => 'yii\grid\SerialColumn'],
+            $this->getGridSerialColumn(),
             'title',
             'alias',
             'image',
+            $this->getGridColumnYesOrNow('active'),
+            $this->getGridActions(),
+        ];
+    }
+
+    /**
+     * Get columns which be view in detail view widget
+     *
+     * @return array
+     */
+    private function getDetailViewsAttributes()
+    {
+        return [
+            'id',
+            'user_id',
+            'title',
+            'alias',
+            'small_description:text',
+            'description:text',
+            'date',
+            'image',
+            'display_order',
             'active',
+            'meta_title',
+            'meta_description',
+            'meta_keywords',
+            'created_at',
+            'updated_at',
+        ];
+    }
+
+    /**
+     * Get breadcrumbs which show in index page
+     *
+     * @return array
+     */
+    private function getIndexBreadcrumbs()
+    {
+        return [
             [
-                'class' => 'yii\grid\ActionColumn',
-                'header' => 'Actions',
+                'label' => 'Articles',
+                'url' => ['index'],
             ],
+            [
+                'label' => 'List articles',
+            ]
+        ];
+    }
+
+    /**
+     * Get breadcrumbs which show in view page
+     *
+     * @return array
+     */
+    private function getViewBreadcrumbs()
+    {
+        return [
+            [
+                'label' => 'Articles',
+                'url' => ['index'],
+            ],
+            [
+                'label' => 'View article',
+            ]
+        ];
+    }
+
+    /**
+     * Get breadcrumbs which show in create page
+     *
+     * @return array
+     */
+    private function getCreateBreadcrumbs()
+    {
+        return [
+            [
+                'label' => 'Articles',
+                'url' => ['index'],
+            ],
+            [
+                'label' => 'Create article',
+            ]
+        ];
+    }
+
+    /**
+     * Get breadcrumbs which show in update page
+     *
+     * @return array
+     */
+    private function getUpdateBreadcrumbs()
+    {
+        return [
+            [
+                'label' => 'Articles',
+                'url' => ['index'],
+            ],
+            [
+                'label' => 'Update article',
+            ]
         ];
     }
 }
