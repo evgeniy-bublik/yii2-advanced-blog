@@ -9,6 +9,11 @@ use backend\modules\user\models\forms\LoginForm;
 
 class SecurityController extends Controller
 {
+    public function init()
+    {
+        parent::init();
+        $this->layout = '//auth';
+    }
 
     /**
      * @inheritdoc

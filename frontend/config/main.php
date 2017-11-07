@@ -41,6 +41,9 @@ return [
                     'css' => [],
                 ],
             ],
+            'assetMap' => [
+                'jquery.js' => 'https://code.jquery.com/jquery-2.2.4.min.js',
+            ],
         ],
         'session' => [
             // this is the name of the session cookie used for login on the frontend

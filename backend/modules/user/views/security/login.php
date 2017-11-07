@@ -8,28 +8,45 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 $this->title = 'Login';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
+<div id="login_wrapper">
+    <div id="login_content">
+        <div class="logo">
+            <img src="<?= Yii::$app->view->theme->getUrl('/img/logo/ml-logo.png'); ?>" alt="logo" class="logo-img">
+        </div>
+        <h1 class="login-title">
+            Sign In to your account
+        </h1>
+        <div class="login-body">
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+            <?php $form = ActiveForm::begin([
+                'id' => 'login-form',
+                'fieldConfig' => [
+                    'options' => [
+                        'class' => 'label-floating form-group',
+                    ],
+                    'template' => '{label}{input}',
+                ],
+            ]); ?>
 
-                <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
+                <?= $form->field($model, 'email')->textInput(); ?>
 
-                <?= $form->field($model, 'password')->passwordInput() ?>
+                <?= $form->field($model, 'password')->passwordInput(); ?>
 
-                <?= $form->field($model, 'rememberMe')->checkbox() ?>
+                <a href="javascript:void(0)" class="forgot-pass pull-right">Forgot Password?</a>
 
-                <div class="form-group">
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                </div>
+                <?= $form->field($model, 'rememberMe', [
+                    'checkboxTemplate' => '<div class="checkbox inline-block">{beginLabel}{input}{labelTitle}{endLabel}{error}{hint}</div>',
+                    'options' => [
+                        'tag' => false,
+                    ]
+                ])->checkbox(); ?>
+
+                <?= Html::submitButton('Sign In', ['class' => 'btn btn-info btn-block m-t-40', 'name' => 'login-button']) ?>
 
             <?php ActiveForm::end(); ?>
+
         </div>
     </div>
 </div>
