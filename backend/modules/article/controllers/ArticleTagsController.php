@@ -19,6 +19,8 @@ use app\modules\core\components\BackendController;
  */
 class ArticleTagsController extends BackendController
 {
+    public $layout = '//form';
+
     private $articleTagClassName;
 
     public function init()
@@ -64,6 +66,7 @@ class ArticleTagsController extends BackendController
                 'gridColumns'     => $this->getGridIndexColumns(),
                 'breadcrumbs'     => $this->getIndexBreadcrumbs(),
                 'title'           => 'List article tags',
+                'template'        => $this->getTemplateIndexCrud(),
             ],
             'view' => [
                 'class'                 => CrudViewAction::className(),
@@ -71,6 +74,7 @@ class ArticleTagsController extends BackendController
                 'detailViewAttributes'  => $this->getDetailViewsAttributes(),
                 'breadcrumbs'           => $this->getViewBreadcrumbs(),
                 'title'                 => 'View article tag',
+                'template'              => $this->getTemplateViewCrud(),
             ],
             'delete' => [
                 'class'     => CrudDeleteAction::className(),
@@ -81,12 +85,14 @@ class ArticleTagsController extends BackendController
                 'modelName'   => $this->articleTagClassName,
                 'breadcrumbs' => $this->getCreateBreadcrumbs(),
                 'title'       => 'Create article tag',
+                'template'    => $this->getTemplateCreateCrud(),
             ],
             'update' => [
                 'class'       => CrudUpdateAction::className(),
                 'modelName'   => $this->articleTagClassName,
                 'breadcrumbs' => $this->getUpdateBreadcrumbs(),
                 'title'       => 'Update article tag',
+                'template'    => $this->getTemplateUpdateCrud(),
             ],
         ];
     }

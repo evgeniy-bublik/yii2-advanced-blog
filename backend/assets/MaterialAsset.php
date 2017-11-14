@@ -15,6 +15,7 @@ class MaterialAsset extends AssetBundle
         'css/vendor.bundle.css',
         'css/app.bundle.css',
         'css/theme-a.css',
+        'css/main.css',
     ];
     public $js = [
         'js/vendor.bundle.js',

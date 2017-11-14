@@ -12,6 +12,8 @@ use yii\filters\AccessControl;
  */
 class SettingsController extends Controller
 {
+    public $layout = '//form';
+
     /**
      * @inheritdoc
      */

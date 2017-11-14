@@ -46,9 +46,17 @@ MaterialAsset::register($this);
                     </div>
                     <div id="content" class="container-fluid">
                         <div class="content-body">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="card">
+                                        <div class="card-body">
 
-                            <?= $content; ?>
+                                            <?= $content; ?>
 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

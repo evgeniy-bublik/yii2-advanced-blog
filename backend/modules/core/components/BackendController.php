@@ -43,4 +43,24 @@ class BackendController extends Controller
             'header'  => 'Actions',
         ]);
     }
+
+    protected function getTemplateIndexCrud()
+    {
+        return '<div><p>{createButton}</p>{widget}</div>';
+    }
+
+    protected function getTemplateViewCrud()
+    {
+        return '<div><p>{updateButton}{deleteButton}</p>{widget}</div>';
+    }
+
+    protected function getTemplateUpdateCrud()
+    {
+        return '{form}';
+    }
+
+    protected function getTemplateCreateCrud()
+    {
+        return '{form}';
+    }
 }

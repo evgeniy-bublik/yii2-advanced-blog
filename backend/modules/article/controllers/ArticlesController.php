@@ -17,10 +17,12 @@ use app\modules\core\actions\CrudUpdateAction;
 use app\modules\core\components\BackendController;
 
 /**
- * ArticleController implements the CRUD actions for Article model.
+ * ArticlesController implements the CRUD actions for Article model.
  */
-class ArticleController extends BackendController
+class ArticlesController extends BackendController
 {
+    public $layout = '//form';
+
     private $articleClassName;
 
     public function init()
@@ -66,6 +68,7 @@ class ArticleController extends BackendController
                 'gridColumns'     => $this->getGridIndexColumns(),
                 'breadcrumbs'     => $this->getIndexBreadcrumbs(),
                 'title'           => 'List articles',
+                'template'        => $this->getTemplateIndexCrud(),
             ],
             'view' => [
                 'class'                 => CrudViewAction::className(),
@@ -73,6 +76,7 @@ class ArticleController extends BackendController
                 'detailViewAttributes'  => $this->getDetailViewsAttributes(),
                 'breadcrumbs'           => $this->getViewBreadcrumbs(),
                 'title'                 => 'View article',
+                'template'              => $this->getTemplateViewCrud(),
             ],
             'delete' => [
                 'class'     => CrudDeleteAction::className(),
@@ -83,12 +87,14 @@ class ArticleController extends BackendController
                 'modelName'   => $this->articleClassName,
                 'breadcrumbs' => $this->getCreateBreadcrumbs(),
                 'title'       => 'Create article',
+                'template'    => $this->getTemplateCreateCrud(),
             ],
             'update' => [
                 'class'       => CrudUpdateAction::className(),
                 'modelName'   => $this->articleClassName,
                 'breadcrumbs' => $this->getUpdateBreadcrumbs(),
                 'title'       => 'Update article',
+                'template'    => $this->getTemplateUpdateCrud(),
             ],
         ];
     }

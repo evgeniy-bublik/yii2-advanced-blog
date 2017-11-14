@@ -19,6 +19,8 @@ use app\modules\core\components\BackendController;
  */
 class SocialLinksController extends BackendController
 {
+    public $layout = '//form';
+
     private $socialLinkClassName;
 
     public function init()
@@ -64,6 +66,7 @@ class SocialLinksController extends BackendController
                 'gridColumns'     => $this->getGridIndexColumns(),
                 'breadcrumbs'     => $this->getIndexBreadcrumbs(),
                 'title'           => 'List social links',
+                'template'        => $this->getTemplateIndexCrud(),
             ],
             'view' => [
                 'class'                 => CrudViewAction::className(),
@@ -71,6 +74,7 @@ class SocialLinksController extends BackendController
                 'detailViewAttributes'  => $this->getDetailViewsAttributes(),
                 'breadcrumbs'           => $this->getViewBreadcrumbs(),
                 'title'                 => 'View social link',
+                'template'              => $this->getTemplateViewCrud(),
             ],
             'delete' => [
                 'class'     => CrudDeleteAction::className(),
@@ -81,12 +85,14 @@ class SocialLinksController extends BackendController
                 'modelName'   => $this->socialLinkClassName,
                 'breadcrumbs' => $this->getCreateBreadcrumbs(),
                 'title'       => 'Create social link',
+                'template'    => $this->getTemplateCreateCrud(),
             ],
             'update' => [
                 'class'       => CrudUpdateAction::className(),
                 'modelName'   => $this->socialLinkClassName,
                 'breadcrumbs' => $this->getUpdateBreadcrumbs(),
                 'title'       => 'Update social link',
+                'template'    => $this->getTemplateUpdateCrud(),
             ],
         ];
     }

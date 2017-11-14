@@ -15,10 +15,12 @@ use yii\filters\AccessControl;
 use app\modules\core\components\BackendController;
 
 /**
- * ArticleCategoryController implements the CRUD actions for ArticleCategory model.
+ * ArticleCategoriesController implements the CRUD actions for ArticleCategory model.
  */
-class ArticleCategoryController extends BackendController
+class ArticleCategoriesController extends BackendController
 {
+    public $layout = '//form';
+
     private $articleCategoryClassName;
 
     public function init()
@@ -64,6 +66,7 @@ class ArticleCategoryController extends BackendController
                 'gridColumns'     => $this->getGridIndexColumns(),
                 'breadcrumbs'     => $this->getIndexBreadcrumbs(),
                 'title'           => 'List article categories',
+                'template'        => $this->getTemplateIndexCrud(),
             ],
             'view' => [
                 'class'                 => CrudViewAction::className(),
@@ -71,6 +74,7 @@ class ArticleCategoryController extends BackendController
                 'detailViewAttributes'  => $this->getDetailViewsAttributes(),
                 'breadcrumbs'           => $this->getViewBreadcrumbs(),
                 'title'                 => 'View article category',
+                'template'              => $this->getTemplateViewCrud(),
             ],
             'delete' => [
                 'class'     => CrudDeleteAction::className(),
@@ -81,12 +85,14 @@ class ArticleCategoryController extends BackendController
                 'modelName'   => $this->articleCategoryClassName,
                 'breadcrumbs' => $this->getCreateBreadcrumbs(),
                 'title'       => 'Create article category',
+                'template'    => $this->getTemplateCreateCrud(),
             ],
             'update' => [
                 'class'       => CrudUpdateAction::className(),
                 'modelName'   => $this->articleCategoryClassName,
                 'breadcrumbs' => $this->getUpdateBreadcrumbs(),
                 'title'       => 'Update article category',
+                'template'    => $this->getTemplateUpdateCrud(),
             ],
         ];
     }

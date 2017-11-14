@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\tabs\TabsX;
+use app\modules\core\widgets\Tabs;
 
 /* @var $this yii\web\View */
 /* @var $model backend\modules\article\models\ArticleCategory */
@@ -13,7 +14,7 @@ use kartik\tabs\TabsX;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= TabsX::widget([
+    <?= Tabs::widget([
         'items' => [
             [
                 'label' => 'Category',
@@ -21,6 +22,7 @@ use kartik\tabs\TabsX;
                     'model' => $model,
                     'form' => $form,
                 ]),
+                'active' => true,
             ],
             [
                 'label' => 'SEO',
@@ -30,9 +32,9 @@ use kartik\tabs\TabsX;
                 ]),
             ]
         ],
-        'position' => TabsX::POS_LEFT,
-        'encodeLabels' => false,
-        'bordered' => true,
+        //'position' => TabsX::POS_LEFT,
+        //'encodeLabels' => false,
+        //'bordered' => true,
     ]); ?>
 
     <div class="form-group">
