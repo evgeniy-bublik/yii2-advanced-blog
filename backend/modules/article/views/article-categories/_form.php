@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use kartik\tabs\TabsX;
 use app\modules\core\widgets\Tabs;
 
 /* @var $this yii\web\View */
@@ -10,9 +9,17 @@ use app\modules\core\widgets\Tabs;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="article-category-form">
-
-    <?php $form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin([
+    'options' => [
+        'class' => 'form-horizontal',
+    ],
+    'fieldConfig' => [
+        'labelOptions' => [
+            'class' => 'col-md-1 control-label',
+        ],
+        'template' => '{label}<div class="col-md-11">{input}{error}</div>',
+    ]
+]); ?>
 
     <?= Tabs::widget([
         'items' => [
@@ -32,15 +39,13 @@ use app\modules\core\widgets\Tabs;
                 ]),
             ]
         ],
-        //'position' => TabsX::POS_LEFT,
-        //'encodeLabels' => false,
-        //'bordered' => true,
     ]); ?>
 
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    <div class="card-footer">
+
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']); ?>
+        <?= Html::a('Cancel', ['index'], ['class' => ($model->isNewRecord) ? 'btn btn-green btn-flat' : 'btn btn-primary btn-flat']); ?>
+
     </div>
 
-    <?php ActiveForm::end(); ?>
-
-</div>
+<?php ActiveForm::end(); ?>

@@ -15,6 +15,8 @@ class CrudUpdateAction extends Action
 
     public $beforeAction;
 
+    public $afterAction;
+
     public $primaryKey = 'id';
 
     public $breadcrumbs = null;
@@ -22,6 +24,8 @@ class CrudUpdateAction extends Action
     public $viewPath = '@app/modules/core/views/crud';
 
     public $formView = '_form';
+
+    public $form = null;
 
     public $redirectAfterAction = ['index'];
 
@@ -49,9 +53,7 @@ class CrudUpdateAction extends Action
 
     public function run()
     {
-        if ($this->beforeAction && is_callable($this->beforeAction)) {
-            call_user_func([$this->beforeAction]);
-        }
+        $this->beforeAction;
 
         $model = call_user_func_array([$this->modelName, 'findOne'], [$this->primaryKeyValue]);
 
@@ -60,12 +62,22 @@ class CrudUpdateAction extends Action
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->afterAction();
+
             return $this->controller->redirect($this->redirectAfterAction);
         }
 
-        $form = $this->controller->renderPartial($this->formView, [
-            'model' => $model,
-        ]);
+        if (is_null($this->form)) {
+            $form = $this->controller->renderPartial($this->formView, [
+                'model' => $model,
+            ]);
+        } else {
+            if ($model->canGetProperty($this->form)) {
+                $form = $model->{$this->form};
+            } else {
+                $form = $this->form;
+            }
+        }
 
         $this->controller->viewPath = $this->viewPath;
 
@@ -80,5 +92,19 @@ class CrudUpdateAction extends Action
             '{title}'   => $this->title,
             '{form}'  => $form,
         ]);
+    }
+
+    private function beforeAction()
+    {
+        if ($this->beforeAction && is_callable($this->beforeAction)) {
+            call_user_func([$this->beforeAction]);
+        }
+    }
+
+    private function afterAction()
+    {
+        if ($this->afterAction && is_callable($this->afterAction)) {
+            call_user_func([$this->afterAction]);
+        }
     }
 }

@@ -13,6 +13,10 @@ class CrudDeleteAction extends Action
 
     public $redirectAfterAction = ['index'];
 
+    public $beforeAction;
+
+    public $afterAction;
+
     public $modelName;
 
     public function init()
@@ -26,6 +30,8 @@ class CrudDeleteAction extends Action
 
     public function run()
     {
+        $this->beforeAction();
+
         $primaryKeyValue = Yii::$app->request->get($this->primaryKey);
 
         $model = call_user_func_array([$this->modelName, 'findOne'], [$primaryKeyValue]);
@@ -36,6 +42,22 @@ class CrudDeleteAction extends Action
 
         $model->delete();
 
+        $this->afterAction();
+
         return $this->controller->redirect($this->redirectAfterAction);
+    }
+
+    private function beforeAction()
+    {
+        if ($this->beforeAction && is_callable($this->beforeAction)) {
+            call_user_func([$this->beforeAction]);
+        }
+    }
+
+    private function afterAction()
+    {
+        if ($this->afterAction && is_callable($this->afterAction)) {
+            call_user_func([$this->afterAction]);
+        }
     }
 }

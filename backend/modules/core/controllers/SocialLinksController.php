@@ -13,6 +13,7 @@ use app\modules\core\actions\CrudDeleteAction;
 use app\modules\core\actions\CrudCreateAction;
 use app\modules\core\actions\CrudUpdateAction;
 use app\modules\core\components\BackendController;
+use yii\data\ActiveDataProvider;
 
 /**
  * SocialLinksController implements the CRUD actions for SocialLink model.
@@ -67,6 +68,7 @@ class SocialLinksController extends BackendController
                 'breadcrumbs'     => $this->getIndexBreadcrumbs(),
                 'title'           => 'List social links',
                 'template'        => $this->getTemplateIndexCrud(),
+                'widgetOptions'   => $this->getDefaultGridViewWidgetOptions(),
             ],
             'view' => [
                 'class'                 => CrudViewAction::className(),
@@ -86,6 +88,7 @@ class SocialLinksController extends BackendController
                 'breadcrumbs' => $this->getCreateBreadcrumbs(),
                 'title'       => 'Create social link',
                 'template'    => $this->getTemplateCreateCrud(),
+                'form'        => 'form',
             ],
             'update' => [
                 'class'       => CrudUpdateAction::className(),
@@ -93,6 +96,7 @@ class SocialLinksController extends BackendController
                 'breadcrumbs' => $this->getUpdateBreadcrumbs(),
                 'title'       => 'Update social link',
                 'template'    => $this->getTemplateUpdateCrud(),
+                'form'        => 'form',
             ],
         ];
     }

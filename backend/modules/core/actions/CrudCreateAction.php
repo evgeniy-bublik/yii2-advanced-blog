@@ -14,11 +14,15 @@ class CrudCreateAction extends Action
 
     public $beforeAction;
 
+    public $afterAction;
+
     public $breadcrumbs = null;
 
     public $viewPath = '@app/modules/core/views/crud';
 
     public $formView = '_form';
+
+    public $form = null;
 
     public $redirectAfterAction = ['index'];
 
@@ -42,19 +46,27 @@ class CrudCreateAction extends Action
 
     public function run()
     {
-        if ($this->beforeAction && is_callable($this->beforeAction)) {
-            call_user_func([$this->beforeAction]);
-        }
+        $this->beforeAction();
 
         $model  = Yii::createObject($this->modelName);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->afterAction();
+
             return $this->controller->redirect($this->redirectAfterAction);
         }
 
-        $form   = $this->controller->renderPartial($this->formView, [
-            'model' => $model,
-        ]);
+        if (is_null($this->form)) {
+            $form = $this->controller->renderPartial($this->formView, [
+                'model' => $model,
+            ]);
+        } else {
+            if ($model->canGetProperty($this->form)) {
+                $form = $model->{$this->form};
+            } else {
+                $form = $this->form;
+            }
+        }
 
         $this->controller->viewPath = $this->viewPath;
 
@@ -66,8 +78,22 @@ class CrudCreateAction extends Action
     protected function getContent($form)
     {
         return strtr($this->template, [
-            '{title}'   => $this->title,
+            '{title}' => $this->title,
             '{form}'  => $form,
         ]);
+    }
+
+    private function beforeAction()
+    {
+        if ($this->beforeAction && is_callable($this->beforeAction)) {
+            call_user_func([$this->beforeAction]);
+        }
+    }
+
+    private function afterAction()
+    {
+        if ($this->afterAction && is_callable($this->afterAction)) {
+            call_user_func([$this->afterAction]);
+        }
     }
 }

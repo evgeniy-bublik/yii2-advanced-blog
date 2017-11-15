@@ -5,6 +5,7 @@ namespace app\modules\core\components;
 use Yii;
 use yii\web\Controller;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 
 class BackendController extends Controller
 {
@@ -26,6 +27,9 @@ class BackendController extends Controller
                     $attributeValueNo   => $valueNo,
                 ]
             );
+            ArrayHelper::setValue($columnOptions, 'filterInputOptions', [
+                'class' => 'select',
+            ]);
         }
 
         return $columnOptions;
@@ -36,11 +40,52 @@ class BackendController extends Controller
         return ['class' => 'yii\grid\SerialColumn'];
     }
 
+    protected function getActiveColumn($attribute = 'active', $withFilter = true)
+    {
+
+    }
+
     public function getGridActions($options = [])
     {
         return ArrayHelper::merge($options, [
             'class'   => 'yii\grid\ActionColumn',
             'header'  => 'Actions',
+            'buttons' => [
+                'update' => function($url, $model, $key) {
+                    return Html::a(
+                        Html::tag('i', '', [
+                            'class' => 'zmdi zmdi-edit',
+                        ]),
+                        $url,
+                        [
+                            'class' => 'btn btn-info btn-fab btn-fab-sm',
+                        ]
+                    ); },
+                'delete' => function($url, $model, $key) {
+                    return Html::a(
+                        Html::tag('i', '', [
+                          'class' => 'zmdi zmdi-delete',
+                        ]),
+                        $url,
+                        [
+                            'class' => 'btn btn-danger btn-fab btn-fab-sm',
+                            'data' => [
+                                'method' => 'post',
+                                'confirm' => 'Are you sure delete this item?',
+                            ],
+                        ]
+                    ); },
+                'view' => function($url, $model, $key) {
+                    return Html::a(
+                        Html::tag('i', '', [
+                            'class' => 'zmdi zmdi-eye',
+                        ]),
+                        $url,
+                        [
+                            'class' => 'btn btn-warning btn-fab btn-fab-sm',
+                        ]
+                    ); },
+            ],
         ]);
     }
 
@@ -62,5 +107,12 @@ class BackendController extends Controller
     protected function getTemplateCreateCrud()
     {
         return '{form}';
+    }
+
+    protected function getDefaultGridViewWidgetOptions()
+    {
+        return [
+            'summary' => false,
+        ];
     }
 }

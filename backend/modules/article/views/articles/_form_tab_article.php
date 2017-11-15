@@ -5,6 +5,7 @@ use kartik\select2\Select2;
 use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\ElFinder;
 use kartik\file\FileInput;
+use app\modules\core\widgets\ToggleCheckbox;
 ?>
 
 <?= $form->field($model, 'title')->textInput(['maxlength' => true]); ?>
@@ -47,4 +48,8 @@ use kartik\file\FileInput;
     ],
 ]); ?>
 
-<?= $form->field($model, 'active')->checkbox(); ?>
+<?= $form->field($model, 'active')->widget(ToggleCheckbox::className(), [
+    'options' => [
+        'class' => 'toggle-success',
+    ],
+]); ?>
