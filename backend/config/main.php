@@ -26,12 +26,12 @@ return [
         ],
         'view' => [
             'theme' => [
-                'basePath' => '@app/themes/material',
-                'baseUrl' => '@web/themes/material',
+                'basePath' => '@app/themes/adminox',
+                'baseUrl' => '@web/themes/adminox',
                 'pathMap' => [
-                    '@app/views' => '@app/themes/material',
-                    '@app/modules' => '@app/themes/material/modules',
-                    '@app/widgets' => '@app/themes/material/modules',
+                    '@app/views' => '@app/themes/adminox',
+                    '@app/modules' => '@app/themes/adminox/modules',
+                    '@app/widgets' => '@app/themes/adminox/modules',
                 ],
             ],
         ],
@@ -40,10 +40,10 @@ return [
                 'yii\bootstrap\BootstrapAsset' => [
                     'css' => [],
                 ],
+                'yii\web\JqueryAsset' => [
+                    'js'=>[]
+                ],
             ],
-            /*'assetMap' => [
-                'jquery.js' => 'https://code.jquery.com/jquery-3.2.1.min.js',
-            ],*/
         ],
         'session' => [
             // this is the name of the session cookie used for login on the backend

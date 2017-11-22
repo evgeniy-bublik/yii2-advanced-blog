@@ -7,7 +7,7 @@ use common\models\core\SocialLink as BaseSocialLink;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 use yii\helpers\ArrayHelper;
-use app\modules\core\behaviors\FormBehavior;
+use evgeniydev\yii2\behaviors\FormCreatorBehavior;
 use app\modules\core\widgets\ToggleCheckbox;
 
 class SocialLink extends BaseSocialLink
@@ -32,7 +32,7 @@ class SocialLink extends BaseSocialLink
                 'value' => new Expression('NOW()'),
             ],
             'formBehavior' => [
-                'class' => FormBehavior::className(),
+                'class' => FormCreatorBehavior::className(),
                 'formOptions' => [
                     'options' => [
                         'class' => 'form-horizontal',
@@ -60,12 +60,31 @@ class SocialLink extends BaseSocialLink
                     ],
                 ],
                 'attributes' => [
-                    'name',
-                    'link_class',
-                    'href',
+                    'name' => [
+                        'type' => FormCreatorBehavior::TEXT_INPUT_TYPE,
+                        //'hint' => 'sdfdsfsdf',
+                        //'label' => false,
+                        /*'items' => ['test1', 'test2'],
+                        'inputOptions' => [
+                            'multiple' => true,
+                        ],*/
+                    ],
+                    'link_class' => [
+                        'type' => FormCreatorBehavior::INPUT_TYPE,
+                        'inputType' => 'tel',
+                        'hint' => 'sdfdsfsdf',
+                        'label' => '34545354'
+                    ],
+                    'href' => [
+                        'type' => FormCreatorBehavior::DROPDOWNLIST_TYPE,
+                        'items' => ['sdfsdf', '32423423'],
+                        'inputOptions' => [
+                            'prompt' => 'тест',
+                        ],
+                    ],
                     'display_order',
                     'active' => [
-                        'type'        => FormBehavior::WIDGET_TYPE,
+                        'type'        => FormCreatorBehavior::WIDGET_TYPE,
                         'widgetClass' => ToggleCheckbox::className(),
                     ],
                 ],
