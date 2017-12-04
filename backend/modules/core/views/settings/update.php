@@ -8,10 +8,15 @@ use yii\helpers\Html;
 $this->title = 'Update Settings';
 $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="setting-update">
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
 
+            <?= $this->render('_form', [
+                'model' => $model,
+            ]) ?>
+
+        </div>
+    </div>
 </div>

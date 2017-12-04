@@ -11,6 +11,8 @@ class CrudUpdateAction extends Action
 {
     public $modelName;
 
+    public $model;
+
     public $title;
 
     public $beforeAction;
@@ -23,9 +25,9 @@ class CrudUpdateAction extends Action
 
     public $viewPath = '@app/modules/core/views/crud';
 
-    public $formView = '_form';
+    public $formViewPath = '@app/modules/core/views/crud';
 
-    public $form = null;
+    public $formView = '_form';
 
     public $redirectAfterAction = ['index'];
 
@@ -35,8 +37,8 @@ class CrudUpdateAction extends Action
 
     public function init()
     {
-        if (empty($this->modelName)) {
-            throw new InvalidConfigException('<modelName> can\'t be empty');
+        if (empty($this->modelName) && empty($this->model)) {
+            throw new InvalidConfigException('modelName or model must be set');
         }
 
         parent::init();
@@ -53,12 +55,16 @@ class CrudUpdateAction extends Action
 
     public function run()
     {
-        $this->beforeAction;
+        $this->beforeAction();
 
-        $model = call_user_func_array([$this->modelName, 'findOne'], [$this->primaryKeyValue]);
+        if ($this->model) {
+            $model = $this->model;
+        } else {
+            $model = call_user_func_array([$this->modelName, 'findOne'], [$this->primaryKeyValue]);
 
-        if (!$model) {
-            throw new NotFoundHttpException("Model with {$this->primaryKey} = {$this->primaryKeyValue} not found");
+            if (!$model) {
+                throw new NotFoundHttpException("Model with {$this->primaryKey} = {$this->primaryKeyValue} not found");
+            }
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -67,17 +73,11 @@ class CrudUpdateAction extends Action
             return $this->controller->redirect($this->redirectAfterAction);
         }
 
-        if (is_null($this->form)) {
-            $form = $this->controller->renderPartial($this->formView, [
-                'model' => $model,
-            ]);
-        } else {
-            if ($model->canGetProperty($this->form)) {
-                $form = $model->{$this->form};
-            } else {
-                $form = $this->form;
-            }
-        }
+        $this->controller->viewPath = $this->formViewPath;
+
+        $form = $this->controller->renderPartial($this->formView, [
+            'model' => $model,
+        ]);
 
         $this->controller->viewPath = $this->viewPath;
 
@@ -97,14 +97,14 @@ class CrudUpdateAction extends Action
     private function beforeAction()
     {
         if ($this->beforeAction && is_callable($this->beforeAction)) {
-            call_user_func([$this->beforeAction]);
+            call_user_func($this->beforeAction);
         }
     }
 
     private function afterAction()
     {
         if ($this->afterAction && is_callable($this->afterAction)) {
-            call_user_func([$this->afterAction]);
+            call_user_func($this->afterAction);
         }
     }
 }

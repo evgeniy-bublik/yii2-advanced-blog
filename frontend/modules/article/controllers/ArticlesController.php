@@ -4,46 +4,142 @@ namespace app\modules\article\controllers;
 
 use Yii;
 use app\modules\core\components\FrontController;
+use yii\data\ActiveDataProvider;
+use app\modules\article\models\Article;
+use yii\db\Expression;
+use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
+use app\modules\article\models\ArticleTag;
+use app\modules\article\models\ArticleCategory;
 
 class ArticlesController extends FrontController
 {
-    public function actionRightIndex()
+    /**
+     * List articles
+     *
+     * @return mixed
+     */
+    public function actionArticles()
     {
-        return $this->render('right-index');
+        $dataProviderArticlesConfig = [
+            'query' => Article::find()
+                ->where(['active' => 1])
+                ->andWhere(['<=', 'date', new Expression('NOW()')])
+                ->with('tags'),
+            'pagination' => [
+                'pageSize' => ArrayHelper::getValue($this->settings, 'posts_on_page'),
+            ],
+        ];
+
+        $dataProvider = new ActiveDataProvider($dataProviderArticlesConfig);
+
+        return $this->render('articles', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
-    public function actionLeftIndex()
+    /**
+     * Find article by user-friendly url
+     *
+     * @param string $articleAlias user-friendly url to article
+     * @return mixed
+     */
+    public function actionArticle($articleAlias)
     {
-        return $this->render('left-index');
+        $article = Article::find()
+            ->where(['active' => 1, 'alias' => $articleAlias])
+            ->andWhere(['<=', 'date', new Expression('NOW()')])
+            ->with('tags')
+            ->one();
+
+        if (!$article) {
+            throw new NotFoundHttpException('Article not found');
+        }
+
+        $this->setMetaTitle($article->meta_title);
+        $this->setMetaDescription($article->meta_description);
+        $this->setMetaKeywords($article->meta_keywords);
+
+        return $this->render('article', [
+            'article' => $article
+        ]);
     }
 
-    public function actionArticleSingleCenter()
+    /**
+     * Find articles by tag
+     *
+     * @param string $tagAlias user-friendly url to tag
+     * @return mixed
+     */
+    public function actionTag($tagAlias)
     {
-        return $this->render('article-single-center');
+        $tag = ArticleTag::find()
+            ->where(['alias' => $tagAlias])
+            ->one();
+
+        if (!$tag) {
+          throw new NotFoundHttpException('Tag not found');
+        }
+
+        $dataProviderArticlesConfig = [
+            'query' => Article::find()
+                ->alias('t')
+                ->with('tags')
+                ->joinWith('tags as tag')
+                ->where(['t.active' => 1, 'tag.alias' => $tagAlias])
+                ->andWhere(['<=', 'date', new Expression('NOW()')]),
+            'pagination' => [
+                'pageSize' => ArrayHelper::getValue($this->settings, 'posts_on_page'),
+            ],
+        ];
+
+        $dataProvider = new ActiveDataProvider($dataProviderArticlesConfig);
+
+        $this->setMetaTitle($tag->meta_title);
+        $this->setMetaDescription($tag->meta_description);
+        $this->setMetaKeywords($tag->meta_keywords);
+
+        return $this->render('articles', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
-    public function actionArticleSingleLeftSidebar()
+    /**
+     * Find articles by category
+     *
+     * @param string $categoryAlias user-friendly url to category
+     * @return mixed
+     */
+    public function actionCategory($categoryAlias)
     {
-        return $this->render('article-single-left-sidebar');
-    }
+        $category = ArticleCategory::find()
+            ->where(['active' => 1, 'alias' => $categoryAlias])
+            ->one();
 
-    public function actionArticleSingleRightSidebar()
-    {
-        return $this->render('article-single-right-sidebar');
-    }
+        if (!$category) {
+          throw new NotFoundHttpException('Category not found');
+        }
 
-    public function actionBlogGridTwo()
-    {
-        return $this->render('blog-grid-two');
-    }
+        $dataProviderArticlesConfig = [
+            'query' => Article::find()
+                ->alias('t')
+                ->with('categories')
+                ->joinWith('categories as category')
+                ->where(['t.active' => 1, 'category.alias' => $categoryAlias])
+                ->andWhere(['<=', 'date', new Expression('NOW()')]),
+            'pagination' => [
+                'pageSize' => ArrayHelper::getValue($this->settings, 'posts_on_page'),
+            ],
+        ];
 
-    public function actionBlogGridThird()
-    {
-        return $this->render('blog-grid-third');
-    }
+        $dataProvider = new ActiveDataProvider($dataProviderArticlesConfig);
 
-    public function actionBlogGridFour()
-    {
-        return $this->render('blog-grid-four');
+        $this->setMetaTitle($category->meta_title);
+        $this->setMetaDescription($category->meta_description);
+        $this->setMetaKeywords($category->meta_keywords);
+
+        return $this->render('articles', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 }

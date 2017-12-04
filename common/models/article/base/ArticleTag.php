@@ -13,6 +13,9 @@ use Yii;
  * @property integer $frequency
  * @property integer $display_order
  * @property integer $active
+ * @property string $meta_title
+ * @property string $meta_description
+ * @property string $meta_keywords
  * @property string $created_at
  * @property string $updated_at
  *
@@ -34,11 +37,13 @@ class ArticleTag extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name', 'alias'], 'required'],
             [['frequency', 'display_order', 'active'], 'integer'],
-            [['name', 'alias'], 'string', 'max' => 100],
+            [['meta_keywords', 'meta_description'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
-            ['alias', 'unique'],
+            [['name', 'alias'], 'string', 'max' => 100],
+            [['meta_title'], 'string', 'max' => 255],
+            [['alias'], 'unique'],
         ];
     }
 
@@ -54,6 +59,9 @@ class ArticleTag extends \yii\db\ActiveRecord
             'frequency' => 'Frequency',
             'display_order' => 'Display Order',
             'active' => 'Active',
+            'meta_title' => 'Meta Title',
+            'meta_description' => 'Meta Description',
+            'meta_keywords' => 'Meta Keywords',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];

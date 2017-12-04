@@ -50,14 +50,14 @@ class CrudDeleteAction extends Action
     private function beforeAction()
     {
         if ($this->beforeAction && is_callable($this->beforeAction)) {
-            call_user_func([$this->beforeAction]);
+            call_user_func($this->beforeAction);
         }
     }
 
     private function afterAction()
     {
         if ($this->afterAction && is_callable($this->afterAction)) {
-            call_user_func([$this->afterAction]);
+            call_user_func($this->afterAction);
         }
     }
 }

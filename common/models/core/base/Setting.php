@@ -8,15 +8,8 @@ use Yii;
  * This is the model class for table "{{%core_settings}}".
  *
  * @property integer $id
- * @property string $admin_email
- * @property string $support_email
- * @property string $admin_phone
- * @property string $admin_address
- * @property string $smtp_username
- * @property string $smtp_password
- * @property string $smtp_host
- * @property integer $smtp_port
- * @property string $smtp_encryption
+ * @property string $key
+ * @property string $value
  */
 class Setting extends \yii\db\ActiveRecord
 {
@@ -34,11 +27,10 @@ class Setting extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['smtp_port'], 'integer'],
-            [['admin_email', 'support_email', 'smtp_username', 'smtp_password', 'smtp_host'], 'string', 'max' => 100],
-            [['admin_phone'], 'string', 'max' => 15],
-            [['admin_address'], 'string', 'max' => 255],
-            [['smtp_encryption'], 'string', 'max' => 10],
+            [['key'], 'required'],
+            [['key'], 'unique'],
+            [['value'], 'string'],
+            [['key'], 'string', 'max' => 255],
         ];
     }
 
@@ -49,15 +41,8 @@ class Setting extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'admin_email' => 'Admin Email',
-            'support_email' => 'Support Email',
-            'admin_phone' => 'Admin Phone',
-            'admin_address' => 'Admin Address',
-            'smtp_username' => 'Smtp Username',
-            'smtp_password' => 'Smtp Password',
-            'smtp_host' => 'Smtp Host',
-            'smtp_port' => 'Smtp Port',
-            'smtp_encryption' => 'Smtp Encryption',
+            'key' => 'Key',
+            'value' => 'Value',
         ];
     }
 }

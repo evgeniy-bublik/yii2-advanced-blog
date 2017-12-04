@@ -23,9 +23,9 @@ class AdminoxAsset extends AssetBundle
         'css/responsive.css',
     ];
     public $js = [
-        'js/jquery.min.js',
+        //'js/jquery.min.js',
         'js/metisMenu.min.js',
-        'js/waves.js',
+        //'js/waves.js',
         'js/jquery.slimscroll.js',
         'plugins/waypoints/jquery.waypoints.min.js',
         'plugins/counterup/jquery.counterup.min.js',
@@ -37,9 +37,9 @@ class AdminoxAsset extends AssetBundle
         'js/jquery.app.js',
     ];
 
-    /*public $depends = [
+    public $depends = [
         'yii\web\YiiAsset',
-    ];*/
+    ];
     /*public $jsOptions = [
         'position' => View::POS_BEGIN,
     ];*/

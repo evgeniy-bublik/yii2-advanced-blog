@@ -175,33 +175,8 @@ use yii\helpers\Url;
                                 <li><a href="portfolio_single.html">Portfolio Single</a></li>
                             </ul>
                         </li>
-                        <li class="has-sub">
-                            <a href="#">Blog</a>
-                            <ul>
-                                <li>
-                                    <a href="#">Blog Grid</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="<?= Url::toRoute(['/article/articles/blog-grid-two']); ?>">Blog Grid 2Col</a></li>
-                                        <li><a href="<?= Url::toRoute(['/article/articles/blog-grid-third']); ?>">Blog Grid 3Col</a></li>
-                                        <li><a href="<?= Url::toRoute(['/article/articles/blog-grid-four']); ?>">Blog Grid 4Col</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Blog With Sidebar</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="<?= Url::toRoute(['/article/articles/left-index']); ?>">Blog Left Sidebar</a></li>
-                                        <li><a href="<?= Url::toRoute(['/article/articles/right-index']); ?>">Blog Right Sidebar</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Blog Single</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="<?= Url::toRoute(['/article/articles/article-single-center']); ?>">Blog Single Centered</a></li>
-                                        <li><a href="<?= Url::toRoute(['/article/articles/article-single-left-sidebar']); ?>">Blog Single Left Sidebar</a></li>
-                                        <li><a href="<?= Url::toRoute(['/article/articles/article-single-right-sidebar']); ?>">Blog Single Right Sidebar</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                        <li>
+                            <a href="<?= Url::toRoute(['/article/articles/articles']); ?>">Публикации</a>
                         </li>
                         <li class="has-sub">
                             <a href="#">Shop</a>

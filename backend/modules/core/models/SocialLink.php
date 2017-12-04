@@ -8,7 +8,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 use yii\helpers\ArrayHelper;
 use evgeniydev\yii2\behaviors\FormCreatorBehavior;
-use app\modules\core\widgets\ToggleCheckbox;
+use app\modules\core\widgets\Switchery;
 
 class SocialLink extends BaseSocialLink
 {
@@ -33,17 +33,6 @@ class SocialLink extends BaseSocialLink
             ],
             'formBehavior' => [
                 'class' => FormCreatorBehavior::className(),
-                'formOptions' => [
-                    'options' => [
-                        'class' => 'form-horizontal',
-                    ],
-                    'fieldConfig' => [
-                        'labelOptions' => [
-                            'class' => 'col-md-1 control-label',
-                        ],
-                        'template' => '{label}<div class="col-md-11">{input}{error}</div>',
-                    ],
-                ],
                 'wrapperBlockButtonsOptions' => [
                     'class' => 'card-footer',
                 ],
@@ -62,30 +51,22 @@ class SocialLink extends BaseSocialLink
                 'attributes' => [
                     'name' => [
                         'type' => FormCreatorBehavior::TEXT_INPUT_TYPE,
-                        //'hint' => 'sdfdsfsdf',
-                        //'label' => false,
-                        /*'items' => ['test1', 'test2'],
-                        'inputOptions' => [
-                            'multiple' => true,
-                        ],*/
                     ],
                     'link_class' => [
-                        'type' => FormCreatorBehavior::INPUT_TYPE,
-                        'inputType' => 'tel',
-                        'hint' => 'sdfdsfsdf',
-                        'label' => '34545354'
+                        'type' => FormCreatorBehavior::TEXT_INPUT_TYPE,
                     ],
                     'href' => [
-                        'type' => FormCreatorBehavior::DROPDOWNLIST_TYPE,
-                        'items' => ['sdfsdf', '32423423'],
-                        'inputOptions' => [
-                            'prompt' => 'тест',
-                        ],
+                        'type' => FormCreatorBehavior::TEXT_INPUT_TYPE,
                     ],
                     'display_order',
                     'active' => [
                         'type'        => FormCreatorBehavior::WIDGET_TYPE,
-                        'widgetClass' => ToggleCheckbox::className(),
+                        'widgetClass' => Switchery::className(),
+                        'widgetOptions' => [
+                            'options' => [
+                                'label' => false,
+                            ],
+                        ],
                     ],
                 ],
             ],

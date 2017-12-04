@@ -1,448 +1,281 @@
 <div class="row">
-    <div class="col-md-4">
-        <div class="card app_accent_bg">
-            <div class="card-body p-b-0">
-                <div class="text-left">
-                    <h3 class="m-0 text-white">PAGE VIEWS</h3>
-                    <span class="text-white block m-b-20">12,322,158</span>
-                    <div id="sparkline1" class="m-t-20"></div>
-                </div>
-            </div>
-            <div class="card-footer p-5">
-                <ul class="card-actions left-bottom">
-                    <li>
-                        <a href="javascript:void(0)" class="btn btn-default btn-flat text-white">
-                        View Details
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="card app_primary_bg">
-            <div class="card-body p-b-0">
-                <h3 class="m-0 text-white">DONATIONS</h3>
-                <span class="text-white block m-b-20">$8,320</span>
-                <span id="sparkline2" class="m-t-20"></span>
-            </div>
-            <div class="card-footer p-5">
-                <ul class="card-actions left-bottom">
-                    <li>
-                        <a href="javascript:void(0)" class="btn btn-default btn-flat text-white">
-                        View Details
-                        </a>
-                    </li>
-                </ul>
+    <div class="col-lg-3 col-md-6">
+        <div class="card-box widget-box-two widget-two-custom">
+            <i class="mdi mdi-currency-usd widget-two-icon"></i>
+            <div class="wigdet-two-content">
+                <p class="m-0 text-uppercase font-bold font-secondary text-overflow" title="Statistics">Total Revenue</p>
+                <h2 class=""><span><i class="mdi mdi-arrow-up"></i></span> <span data-plugin="counterup">65841</span></h2>
+                <p class="m-0">Jan - Apr 2017</p>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card h-400">
-            <header class="card-heading p-b-0">
-                <h2 class="card-title">Developer Work Week</h2>
-                <small>Median hours/week</small>
-                <ul class="card-actions icons right-top">
-                    <li>
-                        <a href="javascript:void(0)" data-toggle="refresh">
-                        <i class="zmdi zmdi-refresh-alt"></i>
-                        </a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" data-toggle="dropdown">
-                        <i class="zmdi zmdi-more-vert"></i>
-                        </a>
-                        <ul class="dropdown-menu btn-primary dropdown-menu-right">
-                            <li>
-                                <a href="javascript:void(0)">Option One</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Option Two</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Option Three</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </header>
-            <div class="card-body p-t-0">
-                <div class="chart">
-                    <div id="dashboardC3Donut"></div>
-                </div>
+    <!-- end col -->
+    <div class="col-lg-3 col-md-6">
+        <div class="card-box widget-box-two widget-two-custom">
+            <i class="mdi mdi-account-multiple widget-two-icon"></i>
+            <div class="wigdet-two-content">
+                <p class="m-0 text-uppercase font-bold font-secondary text-overflow" title="Statistics">Total Unique Visitors</p>
+                <h2 class=""><span><i class="mdi mdi-arrow-up"></i></span> <span data-plugin="counterup">236521</span></h2>
+                <p class="m-0">Jan - Apr 2017</p>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card h-400">
-            <header class="card-heading">
-                <h2 class="card-title">Earnings 3.5% </h2>
-                <small>Last updated 2 hours ago <span class="text-green">0.05% <i class="zmdi zmdi-trending-up"></i></span></small>
-                <ul class="card-actions icons right-top">
-                    <li>
-                        <a href="javascript:void(0)" data-toggle="refresh">
-                        <i class="zmdi zmdi-refresh-alt"></i>
-                        </a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" data-toggle="dropdown">
-                        <i class="zmdi zmdi-more-vert"></i>
-                        </a>
-                        <ul class="dropdown-menu btn-primary dropdown-menu-right">
-                            <li>
-                                <a href="javascript:void(0)">Option One</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Option Two</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Option Three</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </header>
-            <div class="card-body p-0">
-                <div class="ct-chart ct-golden-section" id="chartist_biPolar"></div>
+    <!-- end col -->
+    <div class="col-lg-3 col-md-6">
+        <div class="card-box widget-box-two widget-two-custom">
+            <i class="mdi mdi-crown widget-two-icon"></i>
+            <div class="wigdet-two-content">
+                <p class="m-0 text-uppercase font-bold font-secondary text-overflow" title="Statistics">Number of Transactions</p>
+                <h2 class=""><span><i class="mdi mdi-arrow-up"></i></span> <span data-plugin="counterup">563698</span></h2>
+                <p class="m-0">Jan - Apr 2017</p>
             </div>
         </div>
     </div>
+    <!-- end col -->
+    <div class="col-lg-3 col-md-6">
+        <div class="card-box widget-box-two widget-two-custom">
+            <i class="mdi mdi-auto-fix widget-two-icon"></i>
+            <div class="wigdet-two-content">
+                <p class="m-0 text-uppercase font-bold font-secondary text-overflow" title="Statistics">Conversation Rate</p>
+                <h2 class=""><span><i class="mdi mdi-arrow-up"></i></span> <span data-plugin="counterup">2.07</span>%</h2>
+                <p class="m-0">Jan - Apr 2017</p>
+            </div>
+        </div>
+    </div>
+    <!-- end col -->
 </div>
-<div class="row">
-    <div class="col-md-3 col-lg-3">
-        <div class="card image-over-card m-t-20">
-            <div class="card-image">
-                <a href="javascript:void(0)">
-                <img src="<?= Yii::$app->view->theme->getUrl('/img/gallery/full/full-13.jpg'); ?>">
-                </a>
-            </div>
-            <div class="card-body">
-                <h4 class="card-title">Focus on your growing business</h4>
-                <h6 class="category text-gray">10 min read</h6>
-                <p>
-                    Helvetica letterpress bicycle rights banh mi keffiyeh af. Food truck shabby chic actually mixtape twee...
-                </p>
-            </div>
-            <div class="card-footer border-top">
-                <ul class="card-actions left-bottom">
-                    <li>
-                        <a href="javascript:void(0)" class="btn btn-default btn-flat">
-                        Read More
-                        </a>
-                    </li>
-                </ul>
-                <ul class="card-actions icons right-bottom">
-                    <li>
-                        <a href="javascript:void(0)">
-                        <i class="zmdi zmdi-favorite"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                        <i class="zmdi zmdi-bookmark"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                        <i class="zmdi zmdi-share"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-9 col-lg-9">
-        <div class="card">
-            <header class="card-heading">
-                <h2 class="card-title">Website Analytics</h2>
-                <p>Unique Visitors vs Returning Visitors</p>
-                <ul class="card-actions icons  right-top">
-                    <li>
-                        <a href="javascript:void(0)" onClick="MaterialLab.dashboardWebStats()" data-toggle="refresh">
-                        <i class="zmdi zmdi-refresh-alt"></i>
-                        </a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" data-toggle="dropdown">
-                        <i class="zmdi zmdi-more-vert"></i>
-                        </a>
-                        <ul class="dropdown-menu btn-primary dropdown-menu-right">
-                            <li>
-                                <a href="javascript:void(0)">Option One</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Option Two</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Option Three</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </header>
-            <div class="card-body p-15">
-                <div id="website-stats" style="position: relative;height:265px"></div>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- end row -->
 <div class="row">
     <div class="col-lg-4">
-        <div class="card">
-            <header class="card-heading card-image app_primary_bg">
-                <!-- IMAGE GOES HERE -->
-                <img src="<?= Yii::$app->view->theme->getUrl('/img/headers/header-md-09.jpg'); ?>" alt="">
-                <h2 class="card-title left-bottom overlay text-white">Austin, TX</h2>
-                <ul class="card-actions icons right-top">
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" class="" data-toggle="dropdown" aria-expanded="false">
-                        <i class="zmdi zmdi-more-vert white-text"></i>
-                        </a>
-                        <ul class="dropdown-menu btn-primary dropdown-menu-right">
-                            <li>
-                                <a href="javascript:void(0)">Option One</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Option Two</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Option Three</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </header>
-            <div class="card-body">
-                <p><span class="curr-dd"></span> <span class="curr-mmmm-dd"><sup></sup></span></p>
-                <div class="row">
-                    <div class="col-md-6">
-                        <h3 class="text-center font-size-20 m-t-5">Today</h3>
-                        <div class="text-center">
-                            <i class="wi wi-day-sunny font-size-50 m-b-5"></i>
-                            <h4 class=" font-size-20">78°C</h4>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <h3 class="text-center font-size-20 m-t-5">Tonight</h3>
-                        <div class="text-center">
-                            <i class="wi wi-night-alt-lightning font-size-50 m-b-5"></i>
-                            <h4 class=" font-size-20">42°C</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="row m-t-40">
-                    <div class="col-xs-2">
-                        <div>
-                            <div class="m-b-10">TUE</div>
-                            <i class="wi wi-day-sunny font-size-20 m-b-5"></i>
-                            <div>66°
-                                <span class="font-size-12">C</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-2">
-                        <div>
-                            <div class="m-b-10">WED</div>
-                            <i class="wi wi-day-cloudy font-size-20 m-b-5"></i>
-                            <div>71°
-                                <span class="font-size-12">C</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-2">
-                        <div>
-                            <div class="m-b-10">THU</div>
-                            <i class="wi wi-day-sunny font-size-20 m-b-5"></i>
-                            <div>69°
-                                <span class="font-size-12">C</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-2">
-                        <div>
-                            <div class="m-b-10">FRI</div>
-                            <i class="wi wi-day-cloudy-gusts font-size-30 m-b-5"></i>
-                            <div>62°
-                                <span class="font-size-12">C</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-2">
-                        <div>
-                            <div class="m-b-10">SAT</div>
-                            <i class="wi wi-day-lightning font-size-30 m-b-5"></i>
-                            <div>59°
-                                <span class="font-size-12">C</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-2">
-                        <div>
-                            <div class="m-b-10">SUN</div>
-                            <i class="wi wi-day-storm-showers font-size-30 m-b-5"></i>
-                            <div>61°
-                                <span class="font-size-12">C</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="card-box">
+            <h4 class="header-title m-t-0 m-b-30">Revenue Comparison</h4>
+            <div class="text-center">
+                <h5 class="font-normal text-muted">You have to pay</h5>
+                <h3 class="m-b-30"><i class="mdi mdi-arrow-up-bold-hexagon-outline text-success"></i> 25643 <small>USD</small></h3>
             </div>
-            <div class="card-footer border-top">
-                <ul class="card-actions left-bottom">
-                    <li>
-                        <a href="javascript:void(0)" class="btn btn-default btn-flat">
-                        10 Day Forecast
-                        </a>
-                    </li>
-                </ul>
-                <ul class="card-actions icons right-bottom">
-                    <li>
-                        <a href="javascript:void(0)">
-                        <i class="zmdi zmdi-favorite"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                        <i class="zmdi zmdi-bookmark"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                        <i class="zmdi zmdi-share"></i>
-                        </a>
-                    </li>
-                </ul>
+            <div class="chart-container">
+                <div class="" style="height:280px" id="platform_type_dates_donut"></div>
             </div>
         </div>
     </div>
     <div class="col-lg-4">
-        <div class="card type--profile">
-            <header class="card-heading card-background" id="card_img_02">
-                <img src="<?= Yii::$app->view->theme->getUrl('/img/profiles/18.jpg'); ?>" alt="" class="img-circle">
-                <ul class="card-actions icons  right-top">
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" data-toggle="dropdown">
-                        <i class="zmdi zmdi-more-vert "></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-right btn-primary">
-                            <li>
-                                <a href="javascript:void(0)">Option One</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Option Two</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Option Three</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </header>
-            <div class="card-body">
-                <h3 class="name">Fredrick Palmer</h3>
-                <span class="title">Frontend Developer</span>
-                <button type="button" class="btn btn-primary btn-round">Follow</button>
+        <div class="card-box">
+            <h4 class="header-title m-t-0 m-b-30">Visitors Overview</h4>
+            <div class="text-center">
+                <h5 class="font-normal text-muted">You have to pay</h5>
+                <h3 class="m-b-30"><i class="mdi mdi-arrow-down-bold-hexagon-outline text-danger"></i> 5623 <small>USD</small></h3>
             </div>
-            <footer class="card-footer border-top">
-                <div class="row row p-t-10 p-b-10">
-                    <div class="col-xs-4"><span class="count">1420</span><span>Post</span></div>
-                    <div class="col-xs-4"><span class="count">1.1m</span><span>Followers</span></div>
-                    <div class="col-xs-4"><span class="count">320</span><span>Following</span></div>
-                </div>
-            </footer>
+            <div class="chart-container">
+                <div class="" style="height:280px" id="user_type_bar"></div>
+            </div>
         </div>
     </div>
     <div class="col-lg-4">
-        <div class="card ">
-            <header class="card-heading app_primary_bg">
-                <h2 class="card-title text-white">Contacts</h2>
-                <div class="card-search">
-                    <div class="form-group is-empty">
-                        <a href="javascript:void(0)" class="close-search" data-card-search="close" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"> <i class="zmdi zmdi-close"></i></a>
-                        <input type="text" placeholder="Search and press enter..." class="form-control" autocomplete="off">
-                    </div>
-                </div>
-                <ul class="card-actions icons alt-actions right-top">
-                    <li>
-                        <a href="javascript:void(0)" data-card-search="open">
-                        <i class="zmdi zmdi-search"></i>
-                        </a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" data-toggle="dropdown" aria-expanded="false">
-                        <i class="zmdi zmdi-sort-asc"></i>
-                        </a>
-                        <ul class="dropdown-menu btn-primary dropdown-menu-right">
-                            <li>
-                                <a href="javascript:void(0)">First Name</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"> Last Name</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </header>
-            <div class="card-body p-0">
-                <ul class="list-group ">
-                    <a role="button" data-toggle="modal" href="javascript:void(0)" data-target="#contactEditUser" data-name="Gabriel Saunders" data-email="gabriel@materiallab.pro" data-phone="+1-202-555-0102" data-img="<?= Yii::$app->view->theme->getUrl('/img/profiles/07.jpg'); ?>" data-star="false">
-                        <li class="list-group-item">
-                            <span class="pull-left"><img src="<?= Yii::$app->view->theme->getUrl('/img/profiles/07.jpg'); ?>" alt="" class="img-circle max-w-40 m-r-10 "></span>
-                            <div class="list-group-item-body">
-                                <div class="list-group-item-heading">Gabriel Saunders</div>
-                                <div class="list-group-item-text">gabriel@materiallab@pro</div>
-                            </div>
-                        </li>
-                    </a>
-                    <a role="button" data-toggle="modal" href="javascript:void(0)" data-target="#contactEditUser" data-name="Shawna Cohen" data-email="shawna@materiallab.pro" data-phone="+1-202-555-0107" data-img="<?= Yii::$app->view->theme->getUrl('/img/profiles/06.jpg'); ?>">
-                        <li class="list-group-item ">
-                            <span class="pull-left"><img src="<?= Yii::$app->view->theme->getUrl('/img/profiles/06.jpg'); ?>" alt="" class="img-circle max-w-40 m-r-10 "></span>
-                            <div class="list-group-item-body">
-                                <div class="list-group-item-heading">Shawna Cohen</div>
-                                <div class="list-group-item-text">shawna@materiallab@pro</div>
-                            </div>
-                        </li>
-                    </a>
-                    <a role="button" data-toggle="modal" href="javascript:void(0)" data-target="#contactEditUser" data-name="Jason Kendall" data-email="jason@materiallab.pro" data-phone="+1-202-555-0154" data-img="<?= Yii::$app->view->theme->getUrl('/img/profiles/15.jpg'); ?>">
-                        <li class="list-group-item ">
-                            <span class="pull-left"><img src="<?= Yii::$app->view->theme->getUrl('/img/profiles/15.jpg'); ?>" alt="" class="img-circle max-w-40 m-r-10 "></span>
-                            <div class="list-group-item-body">
-                                <div class="list-group-item-heading">Jason Kendall</div>
-                                <div class="list-group-item-text">jason@materiallab.pro</div>
-                            </div>
-                        </li>
-                    </a>
-                    <a role="button" data-toggle="modal" href="javascript:void(0)" data-target="#contactEditUser" data-name="Thomas Banks" data-email="thomas@materiallab.pro" data-phone="+1-202-555-0143" data-img="<?= Yii::$app->view->theme->getUrl('/img/profiles/17.jpg'); ?>">
-                        <li class="list-group-item ">
-                            <span class="pull-left"><img src="<?= Yii::$app->view->theme->getUrl('/img/profiles/17.jpg'); ?>" alt="" class="img-circle max-w-40 m-r-10 "></span>
-                            <div class="list-group-item-body">
-                                <div class="list-group-item-heading">Thomas Banks</div>
-                                <div class="list-group-item-text">thomas@materiallab.pro</div>
-                            </div>
-                        </li>
-                    </a>
-                    <a role="button" data-toggle="modal" href="javascript:void(0)" data-target="#contactEditUser" data-name="Rebecca Harris" data-email="rebecca@materiallab.pro" data-phone="+1-202-555-0189" data-img="<?= Yii::$app->view->theme->getUrl('/img/profiles/11.jpg'); ?>">
-                        <li class="list-group-item ">
-                            <span class="pull-left"><img src="<?= Yii::$app->view->theme->getUrl('/img/profiles/11.jpg'); ?>" alt="" class="img-circle max-w-40 m-r-10 "></span>
-                            <div class="list-group-item-body">
-                                <div class="list-group-item-heading">Rebecca Harrisr</div>
-                                <div class="list-group-item-text">rebecca@materiallab.pro</div>
-                            </div>
-                        </li>
-                    </a>
-                </ul>
+        <div class="card-box">
+            <h4 class="header-title m-t-0 m-b-30">Goal Completion</h4>
+            <div class="text-center">
+                <h5 class="font-normal text-muted">You have to pay</h5>
+                <h3 class="m-b-30"><i class="mdi mdi-arrow-up-bold-hexagon-outline text-success"></i> 12548 <small>USD</small></h3>
             </div>
-            <div class="card-footer border-top">
-                <ul class="more">
-                    <li>
-                        <a href="javascript:void(0)">View More</a>
-                    </li>
-                </ul>
-                <ul class="card-actions icons right">
-                    <li>
-                        <button class="btn btn-primary btn-fab" data-toggle="modal" data-target="#newContactModal"><i class="zmdi zmdi-account-add"></i></button>
-                    </li>
-                </ul>
+            <div class="chart-container">
+                <div class="chart has-fixed-height" style="height:280px" id="page_views_today"></div>
             </div>
         </div>
     </div>
 </div>
-<!-- ENDS $dashboard_content -->
+<!-- end row -->
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card-box">
+            <h4 class="m-t-0 header-title"><b>Recent Candidates</b></h4>
+            <p class="text-muted font-14 m-b-20">
+                Your awesome text goes here.
+            </p>
+            <div class="table-responsive">
+                <table class="table table-hover m-0 mails table-actions-bar">
+                    <thead>
+                        <tr>
+                            <th>
+                                <div class="btn-group dropdown">
+                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"><i class="caret"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Action</a>
+                                        </li>
+                                        <li><a href="#">Another action</a>
+                                        </li>
+                                        <li><a href="#">Something else here</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Separated link</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </th>
+                            <th>Name</th>
+                            <th>Location</th>
+                            <th>Job Timing</th>
+                            <th>Salary</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <img src="<?= $this->theme->getUrl('/images/users/avatar-2.jpg'); ?>" alt="contact-img" title="contact-img" class="img-circle thumb-sm" />
+                            </td>
+                            <td>
+                                <h5 class="m-b-0 m-t-0">Tomaslau</h5>
+                                <p class="m-b-0"><small>Web Designer</small>
+                                </p>
+                            </td>
+                            <td>
+                                <i class="mdi mdi-map-marker text-primary"></i> New York
+                            </td>
+                            <td>
+                                <i class="mdi mdi-clock text-success"></i> Full Time
+                            </td>
+                            <td>
+                                <i class="mdi mdi-currency-usd text-warning"></i> 3265
+                            </td>
+                            <td>
+                                <a href="#" class="table-action-btn"><i class="mdi mdi-pencil"></i></a>
+                                <a href="#" class="table-action-btn"><i class="mdi mdi-close"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="<?= $this->theme->getUrl('/images/users/avatar-3.jpg'); ?>" alt="contact-img" title="contact-img" class="img-circle thumb-sm" />
+                            </td>
+                            <td>
+                                <h5 class="m-b-0 m-t-0">Erwin E. Brown</h5>
+                                <p class="m-b-0"><small>Programmer</small>
+                                </p>
+                            </td>
+                            <td>
+                                <i class="mdi mdi-map-marker text-primary"></i> California
+                            </td>
+                            <td>
+                                <i class="mdi mdi-clock text-success"></i> Part Time
+                            </td>
+                            <td>
+                                <i class="mdi mdi-currency-usd text-warning"></i> 1365
+                            </td>
+                            <td>
+                                <a href="#" class="table-action-btn"><i class="mdi mdi-pencil"></i></a>
+                                <a href="#" class="table-action-btn"><i class="mdi mdi-close"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="<?= $this->theme->getUrl('/images/users/avatar-4.jpg'); ?>" alt="contact-img" title="contact-img" class="img-circle thumb-sm" />
+                            </td>
+                            <td>
+                                <h5 class="m-b-0 m-t-0">Margeret V. Ligon</h5>
+                                <p class="m-b-0"><small>Web Designer</small>
+                                </p>
+                            </td>
+                            <td>
+                                <i class="mdi mdi-map-marker text-primary"></i> New York
+                            </td>
+                            <td>
+                                <i class="mdi mdi-clock text-success"></i> Full Time
+                            </td>
+                            <td>
+                                <i class="mdi mdi-currency-usd text-warning"></i> 115248
+                            </td>
+                            <td>
+                                <a href="#" class="table-action-btn"><i class="mdi mdi-pencil"></i></a>
+                                <a href="#" class="table-action-btn"><i class="mdi mdi-close"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="<?= $this->theme->getUrl('/images/users/avatar-5.jpg'); ?>" alt="contact-img" title="contact-img" class="img-circle thumb-sm" />
+                            </td>
+                            <td>
+                                <h5 class="m-b-0 m-t-0">Jose D. Delacruz</h5>
+                                <p class="m-b-0"><small>Web Developer</small>
+                                </p>
+                            </td>
+                            <td>
+                                <i class="mdi mdi-map-marker text-primary"></i> New York
+                            </td>
+                            <td>
+                                <i class="mdi mdi-clock text-success"></i> Part Time
+                            </td>
+                            <td>
+                                <i class="mdi mdi-currency-usd text-warning"></i> 2451
+                            </td>
+                            <td>
+                                <a href="#" class="table-action-btn"><i class="mdi mdi-pencil"></i></a>
+                                <a href="#" class="table-action-btn"><i class="mdi mdi-close"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="<?= $this->theme->getUrl('/images/users/avatar-8.jpg'); ?>" alt="contact-img" title="contact-img" class="img-circle thumb-sm" />
+                            </td>
+                            <td>
+                                <h5 class="m-b-0 m-t-0">Luke J. Sain</h5>
+                                <p class="m-b-0"><small>Web Designer</small>
+                                </p>
+                            </td>
+                            <td>
+                                <i class="mdi mdi-map-marker text-primary"></i> Australia
+                            </td>
+                            <td>
+                                <i class="mdi mdi-clock text-success"></i> Part Time
+                            </td>
+                            <td>
+                                <i class="mdi mdi-currency-usd text-warning"></i> 3265
+                            </td>
+                            <td>
+                                <a href="#" class="table-action-btn"><i class="mdi mdi-pencil"></i></a>
+                                <a href="#" class="table-action-btn"><i class="mdi mdi-close"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- end col -->
+    <div class="col-lg-3">
+        <div class="card-box">
+            <h4 class="text-dark header-title m-t-0 m-b-30">Total Unique Visitors</h4>
+            <div class="widget-chart text-center">
+                <div id="donut-chart" style="height: 270px;"></div>
+                <div class="row text-center m-t-30">
+                    <div class="col-xs-6">
+                        <h3 data-plugin="counterup">1,507</h3>
+                        <p class="text-muted">Visitors Male</p>
+                    </div>
+                    <div class="col-xs-6">
+                        <h3 data-plugin="counterup">854</h3>
+                        <p class="text-muted">Visitors Female</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="card-box">
+            <h4 class="text-dark header-title m-t-0 m-b-30">Number of Transactions</h4>
+            <div class="widget-chart text-center">
+                <div id="pie-chart" style="height: 270px;"></div>
+                <div class="row text-center m-t-30">
+                    <div class="col-xs-6">
+                        <h3 data-plugin="counterup">2,854</h3>
+                        <p class="text-muted">Payment Done</p>
+                    </div>
+                    <div class="col-xs-6">
+                        <h3 data-plugin="counterup">22</h3>
+                        <p class="text-muted">Payment Due</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--- end row -->

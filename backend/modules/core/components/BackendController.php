@@ -54,21 +54,17 @@ class BackendController extends Controller
                 'update' => function($url, $model, $key) {
                     return Html::a(
                         Html::tag('i', '', [
-                            'class' => 'zmdi zmdi-edit',
+                            'class' => 'fa fa-pencil fa-lg',
                         ]),
-                        $url,
-                        [
-                            'class' => 'btn btn-info btn-fab btn-fab-sm',
-                        ]
+                        $url
                     ); },
                 'delete' => function($url, $model, $key) {
                     return Html::a(
                         Html::tag('i', '', [
-                          'class' => 'zmdi zmdi-delete',
+                          'class' => 'fa fa-trash fa-lg',
                         ]),
                         $url,
                         [
-                            'class' => 'btn btn-danger btn-fab btn-fab-sm',
                             'data' => [
                                 'method' => 'post',
                                 'confirm' => 'Are you sure delete this item?',
@@ -78,12 +74,9 @@ class BackendController extends Controller
                 'view' => function($url, $model, $key) {
                     return Html::a(
                         Html::tag('i', '', [
-                            'class' => 'zmdi zmdi-eye',
+                            'class' => 'fa fa-eye fa-lg',
                         ]),
-                        $url,
-                        [
-                            'class' => 'btn btn-warning btn-fab btn-fab-sm',
-                        ]
+                        $url
                     ); },
             ],
         ]);
@@ -91,22 +84,22 @@ class BackendController extends Controller
 
     protected function getTemplateIndexCrud()
     {
-        return '<div><p>{createButton}</p>{widget}</div>';
+        return '<div class="row"><div class="col-md-12"><div class="card-box"><p>{createButton}</p>{widget}</div><div></div>';
     }
 
     protected function getTemplateViewCrud()
     {
-        return '<div><p>{updateButton}{deleteButton}</p>{widget}</div>';
+        return '<div class="row"><div class="col-md-12"><div class="card-box"><p>{updateButton}{deleteButton}</p>{widget}</div></div></div>';
     }
 
     protected function getTemplateUpdateCrud()
     {
-        return '{form}';
+        return '<div class="row"><div class="col-md-12"><div class="card-box">{form}</div></div></div>';
     }
 
     protected function getTemplateCreateCrud()
     {
-        return '{form}';
+        return '<div class="row"><div class="col-md-12"><div class="card-box">{form}</div></div></div>';
     }
 
     protected function getDefaultGridViewWidgetOptions()

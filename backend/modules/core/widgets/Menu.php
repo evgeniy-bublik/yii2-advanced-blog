@@ -9,6 +9,45 @@ use yii\helpers\Url;
 
 class Menu extends YiiBaseMenu
 {
+    public $firtsItemSubmenuTemplate = '<a href="#">{label}</a>';
+
+    /**
+     * Recursively renders the menu items (without the container tag).
+     * @param array $items the menu items to be rendered recursively
+     * @return string the rendering result
+     */
+    protected function renderItems($items)
+    {
+        $n = count($items);
+        $lines = [];
+        foreach ($items as $i => $item) {
+            $options = array_merge($this->itemOptions, ArrayHelper::getValue($item, 'options', []));
+            $tag = ArrayHelper::remove($options, 'tag', 'li');
+            $class = [];
+            if ($item['active']) {
+                $class[] = $this->activeCssClass;
+            }
+            if ($i === 0 && $this->firstItemCssClass !== null) {
+                $class[] = $this->firstItemCssClass;
+            }
+            if ($i === $n - 1 && $this->lastItemCssClass !== null) {
+                $class[] = $this->lastItemCssClass;
+            }
+            Html::addCssClass($options, $class);
+
+            $menu = $this->renderItem($item);
+            if (!empty($item['items'])) {
+                $submenuTemplate = ArrayHelper::getValue($item, 'submenuTemplate', $this->submenuTemplate);
+                $menu .= strtr($submenuTemplate, [
+                    '{items}' => $this->renderItems($item['items']),
+                ]);
+            }
+            $lines[] = Html::tag($tag, $menu, $options);
+        }
+
+        return implode("\n", $lines);
+    }
+
     /**
      * Renders the content of a menu item.
      * Note that the container and the sub-menus are not rendered here.
@@ -17,7 +56,7 @@ class Menu extends YiiBaseMenu
      */
     protected function renderItem($item)
     {
-        $iconOptions  = ArrayHelper::getValue($item, 'icon', null);
+        $iconOptions  = ArrayHelper::getValue($item, 'iconOptions', null);
         $iconTag      = null;
 
         if ($iconOptions) {
@@ -43,7 +82,11 @@ class Menu extends YiiBaseMenu
             ]);
         }
 
-        $template = ArrayHelper::getValue($item, 'template', $this->labelTemplate);
+        if (isset($item[ 'items' ])) {
+            $template = ArrayHelper::getValue($item, 'template', $this->firtsItemSubmenuTemplate);
+        } else {
+            $template = ArrayHelper::getValue($item, 'template', $this->labelTemplate);
+        }
 
         if ($iconTag) {
             $template = strtr($template, [

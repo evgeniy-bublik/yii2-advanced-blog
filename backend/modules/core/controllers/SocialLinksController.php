@@ -20,7 +20,7 @@ use yii\data\ActiveDataProvider;
  */
 class SocialLinksController extends BackendController
 {
-    public $layout = '//form';
+    //public $layout = '//form';
 
     private $socialLinkClassName;
 
@@ -60,6 +60,7 @@ class SocialLinksController extends BackendController
      */
     public function actions()
     {
+        //$model = $this->findModel(Yii::$app->request->get('id'))
         return [
             'index' => [
                 'class'           => CrudIndexAction::className(),
@@ -88,7 +89,6 @@ class SocialLinksController extends BackendController
                 'breadcrumbs' => $this->getCreateBreadcrumbs(),
                 'title'       => 'Create social link',
                 'template'    => $this->getTemplateCreateCrud(),
-                'form'        => 'form',
             ],
             'update' => [
                 'class'       => CrudUpdateAction::className(),
@@ -96,9 +96,17 @@ class SocialLinksController extends BackendController
                 'breadcrumbs' => $this->getUpdateBreadcrumbs(),
                 'title'       => 'Update social link',
                 'template'    => $this->getTemplateUpdateCrud(),
-                'form'        => 'form',
             ],
         ];
+    }
+
+    protected function findModel($id)
+    {
+        if ($model = call_user_func_array([$this->className, 'findOne'], [$id]) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
     /**

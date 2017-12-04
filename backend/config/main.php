@@ -40,9 +40,9 @@ return [
                 'yii\bootstrap\BootstrapAsset' => [
                     'css' => [],
                 ],
-                'yii\web\JqueryAsset' => [
+/*                'yii\web\JqueryAsset' => [
                     'js'=>[]
-                ],
+                ],*/
             ],
         ],
         'session' => [

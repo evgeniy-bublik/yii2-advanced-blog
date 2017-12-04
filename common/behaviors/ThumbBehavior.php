@@ -115,7 +115,7 @@ class ThumbBehavior extends AttributeBehavior
         $attribute  = $this->fileAttribute;
 
         if (file_exists($this->basePath . $this->thumbsSaveDir . $size[ 0 ] . 'x' . $size[ 1 ] . $model->{$attribute})) {
-            return $size[ 0 ] . 'x' . $size[1] . $model->{$attribute};
+            return '/' . $this->thumbsSaveDir . $size[ 0 ] . 'x' . $size[1] . $model->{$attribute};
         } else {
             return false;
         }

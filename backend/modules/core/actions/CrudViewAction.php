@@ -58,9 +58,7 @@ class CrudViewAction extends Action
 
     public function run()
     {
-        if ($this->beforeAction && is_callable($this->beforeAction)) {
-            call_user_func([$this->beforeAction]);
-        }
+        $this->beforeAction();
 
         $model = call_user_func_array([$this->modelName, 'findOne'], [$this->primaryKeyValue]);
 
@@ -130,5 +128,12 @@ class CrudViewAction extends Action
             '{deleteButton}'  => $this->generateDeleteButton(),
             '{widget}'        => $this->generateWidget($model),
         ]);
+    }
+
+    private function beforeAction()
+    {
+        if ($this->beforeAction && is_callable($this->beforeAction)) {
+            call_user_func($this->beforeAction);
+        }
     }
 }

@@ -17,7 +17,7 @@ use \DateTime;
 class DateTimeBehavior extends AttributeBehavior
 {
     public $dateTimeFields;
-    public $dbFormat = 'd-m-Y H:i:s';
+    public $dbFormat = 'Y-m-d H:i:s';
 
     public function init()
     {

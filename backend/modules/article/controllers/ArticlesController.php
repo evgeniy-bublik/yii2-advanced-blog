@@ -21,7 +21,7 @@ use app\modules\core\components\BackendController;
  */
 class ArticlesController extends BackendController
 {
-    public $layout = '//form';
+    //public $layout = '//form';
 
     private $articleClassName;
 
@@ -90,6 +90,10 @@ class ArticlesController extends BackendController
                 'template'    => $this->getTemplateCreateCrud(),
             ],
             'update' => [
+                /*'beforeAction' => function(){
+                    $view = $this->view;
+                    \kartik\file\FileInputAsset::register($view);
+                },*/
                 'class'       => CrudUpdateAction::className(),
                 'modelName'   => $this->articleClassName,
                 'breadcrumbs' => $this->getUpdateBreadcrumbs(),

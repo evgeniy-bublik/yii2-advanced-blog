@@ -75,9 +75,7 @@ class CrudIndexAction extends Action
 
     public function run()
     {
-        if ($this->beforeAction && is_callable($this->beforeAction)) {
-            call_user_func([$this->beforeAction]);
-        }
+        $this->beforeAction();
 
         return $this->controller->render('crud-content', [
             'content' => $this->getContent(),
@@ -125,6 +123,13 @@ class CrudIndexAction extends Action
             '{createButton}'  => $this->generateCreateButton(),
             '{widget}'        => $this->generateWidget(),
         ]);
+    }
+
+    private function beforeAction()
+    {
+        if ($this->beforeAction && is_callable($this->beforeAction)) {
+            call_user_func($this->beforeAction);
+        }
     }
 }
 ?>

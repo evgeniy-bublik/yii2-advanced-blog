@@ -20,9 +20,9 @@ class CrudCreateAction extends Action
 
     public $viewPath = '@app/modules/core/views/crud';
 
-    public $formView = '_form';
+    public $formViewPath = '@app/modules/core/views/crud';
 
-    public $form = null;
+    public $formView = '_form';
 
     public $redirectAfterAction = ['index'];
 
@@ -56,17 +56,11 @@ class CrudCreateAction extends Action
             return $this->controller->redirect($this->redirectAfterAction);
         }
 
-        if (is_null($this->form)) {
-            $form = $this->controller->renderPartial($this->formView, [
-                'model' => $model,
-            ]);
-        } else {
-            if ($model->canGetProperty($this->form)) {
-                $form = $model->{$this->form};
-            } else {
-                $form = $this->form;
-            }
-        }
+        $this->controller->viewPath = $this->formViewPath;
+
+        $form = $this->controller->renderPartial($this->formView, [
+            'model' => $model,
+        ]);
 
         $this->controller->viewPath = $this->viewPath;
 
@@ -86,14 +80,14 @@ class CrudCreateAction extends Action
     private function beforeAction()
     {
         if ($this->beforeAction && is_callable($this->beforeAction)) {
-            call_user_func([$this->beforeAction]);
+            call_user_func($this->beforeAction);
         }
     }
 
     private function afterAction()
     {
         if ($this->afterAction && is_callable($this->afterAction)) {
-            call_user_func([$this->afterAction]);
+            call_user_func($this->afterAction);
         }
     }
 }
