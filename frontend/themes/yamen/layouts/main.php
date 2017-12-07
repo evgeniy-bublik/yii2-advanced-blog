@@ -1,6 +1,8 @@
 <?php
 use yii\helpers\Html;
 use app\assets\YamenAsset;
+use app\modules\core\widgets\SettingWidget;
+use yii\helpers\Url;
 
 YamenAsset::register($this);
 ?>
@@ -36,17 +38,27 @@ YamenAsset::register($this);
                 <div class="container">
                     <div class="row">
                         <div class="Contact-h col-md-6">
-                            <div class="PhoneNamber">
-                                <p><i class="fa fa-phone"></i>+1 (888) 520-4567</p>
-                            </div>
-                            <div class="Email-Site">
-                                <p><i class="fa fa-envelope"></i>name@domain.com</p>
-                            </div>
+
+                            <?php if ($adminPhone = SettingWidget::widget(['key' => 'admin_phone'])) : ?>
+
+                                <div class="PhoneNamber">
+                                    <p><i class="fa fa-phone"></i><?= $adminPhone; ?></p>
+                                </div>
+
+                            <?php endif; ?>
+                            <?php if ($adminEmail = SettingWidget::widget(['key' => 'admin_email'])) : ?>
+
+                                <div class="Email-Site">
+                                    <p><i class="fa fa-envelope"></i><?= $adminEmail; ?></p>
+                                </div>
+
+                            <?php endif; ?>
+
                         </div>
                         <div class="col-md-6">
                             <div class="Link-ul">
                                 <ul class="icons-ul">
-                                    <li><a href="#"><span>About Us</span></a></li>
+                                    <li><a href="<?= Url::toRoute(['/core/index/about']); ?>"><span>О себе</span></a></li>
                                     <li><a href="#"><span>Join our Community</span></a></li>
                                     <li class="sidebar-menu"><a href="#" id="open-button" ><span>Login / Sign Up</span></a></li>
                                 </ul>

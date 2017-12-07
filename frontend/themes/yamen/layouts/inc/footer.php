@@ -1,3 +1,9 @@
+<?php
+use yii\helpers\Html;
+use yii\helpers\Url;
+use app\modules\core\widgets\SettingWidget;
+?>
+
 <!-- Start Footer -->
 <section id="footer-4">
     <div class="container inner-f">
@@ -18,23 +24,37 @@
                 <!-- Start Last Post Footer -->
                 <div class="col-md-4">
                     <div class="Top-Block-Footer">
-                        <h2>Contact Info</h2>
+                        <h2>Контактные данные</h2>
                     </div>
                     <div class="divcod20"></div>
                     <div class="Contact-Footer">
                         <ul>
-                            <li>
-                                <i class="fa fa-map-marker"></i>
-                                <p>245 Street name, Address, City</p>
-                            </li>
-                            <li>
-                                <i class="fa fa-phone"></i>
-                                <p>+1 (888) 520-4567</p>
-                            </li>
-                            <li>
-                                <i class="fa fa-envelope"></i>
-                                <p>support@fobles.com</p>
-                            </li>
+
+                            <?php if ($adminAddress = SettingWidget::widget(['key' => 'admin_address'])) : ?>
+
+                                <li>
+                                    <i class="fa fa-map-marker"></i>
+                                    <p><?= $adminAddress; ?></p>
+                                </li>
+
+                            <?php endif; ?>
+                            <?php if ($adminPhone = SettingWidget::widget(['key' => 'admin_phone'])) : ?>
+
+                                <li>
+                                    <i class="fa fa-phone"></i>
+                                    <p><?= $adminPhone; ?></p>
+                                </li>
+
+                            <?php endif; ?>
+                            <?php if ($adminEmail = SettingWidget::widget(['key' => 'admin_email'])) : ?>
+
+                                <li>
+                                    <i class="fa fa-envelope"></i>
+                                    <p><?= $adminEmail; ?></p>
+                                </li>
+
+                            <?php endif; ?>
+
                         </ul>
                     </div>
                 </div>
@@ -79,17 +99,17 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="Rights-Reserved">
-                    <h2>All Rights Reserved © 2015. <a href="#"><span>Privacy</span></a> / <a href="#"><span>TOS</span></a> / <a href="#"><span>FAQ</span></a></h2>
+                    <h2>All Rights Reserved © <?= date('Y'); ?>. <a href="#"><span>Privacy</span></a> / <a href="#"><span>TOS</span></a> / <a href="#"><span>FAQ</span></a></h2>
                 </div>
             </div>
             <div class="col-md-6 text-right">
                 <div class="Link-Footer">
                     <ul>
-                        <li><a href="#">Home</a></li>
+                        <li><a href="<?= Url::toRoute(['/core/index/index']); ?>">Главная</a></li>
                         <li><a href="#">Features</a></li>
                         <li><a href="#">Portfolio</a></li>
-                        <li><a href="#">Pages</a></li>
-                        <li><a href="#">Blog</a></li>
+                        <li><a href="<?= Url::toRoute(['/core/index/about']); ?>">О себе</a></li>
+                        <li><a href="<?= Url::toRoute(['/article/articles/article']); ?>">Публикации</a></li>
                         <li><a href="#">Contact</a></li>
                     </ul>
                 </div>

@@ -20,20 +20,8 @@ use yii\helpers\Url;
             <div class="collapse pull-right navbar-collapse">
                 <div id="cssmenu" class="Menu-Header top-menu">
                     <ul>
-                        <li class="has-sub current">
-                            <a href="/">Home</a>
-                            <ul>
-                                <li class="active"><a href="index.html">Homepage 1</a></li>
-                                <li><a href="index_v2.html">Homepage 2</a></li>
-                                <li><a href="index_v3.html">Homepage 3</a></li>
-                                <li><a href="index_v4.html">Homepage 4</a></li>
-                                <li><a href="image_parallax.html">Image Parallax</a></li>
-                                <li><a href="image_parallax_v2.html">Image Parallax 2</a></li>
-                                <li><a href="image_fixed.html">Image Fixed</a></li>
-                                <li><a href="image_fixed_v2.html">Image Fixed 2</a></li>
-                                <li><a href="pattern_background.html">Pattern Background</a></li>
-                                <li><a href="video_background.html">Video Background</a></li>
-                            </ul>
+                        <li>
+                            <a href="<?= Url::toRoute(['/core/index/index']); ?>">Главная</a>
                         </li>
                         <li class="has-sub yamm-fullwidth">
                             <a href="#">Features</a>
