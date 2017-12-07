@@ -67,4 +67,16 @@ class IndexController extends FrontController
         return $this->render('about');
     }
 
+    /**
+     * Display page for all requests.
+     *
+     * @return mixed
+     */
+    public function actionCatchAll()
+    {
+        $this->layout = '//stub';
+        $this->view->title = 'Скоро мы откроемя))';
+        return $this->render('catch-all');
+    }
+
 }

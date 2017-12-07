@@ -13,6 +13,8 @@ return [
     'controllerNamespace' => 'frontend\controllers',
     'defaultRoute' => '/core/index/index',
     'modules' => include(__DIR__ . DIRECTORY_SEPARATOR . 'modules.php'),
+    'catchAll' => ['/core/index/catch-all'],
+    'language' => 'ru',
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
@@ -41,9 +43,9 @@ return [
                     'css' => [],
                 ],
             ],
-            'assetMap' => [
+            /*'assetMap' => [
                 'jquery.js' => 'https://code.jquery.com/jquery-2.2.4.min.js',
-            ],
+            ],*/
         ],
         'session' => [
             // this is the name of the session cookie used for login on the frontend
@@ -59,7 +61,7 @@ return [
             ],
         ],
         'errorHandler' => [
-            'errorAction' => '/core/index/error',
+            'errorAction' => ['/core/index/error'],
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
