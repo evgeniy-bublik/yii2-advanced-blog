@@ -16,7 +16,7 @@ class FrontController extends Controller
     {
         parent::init();
 
-        $this->settings = ArrayHelper::map(Setting::find()->all(), 'key', 'value');
+        //$this->settings = ArrayHelper::map(Setting::find()->all(), 'key', 'value');
     }
 
     protected function setMetaTitle($metaTitle)
