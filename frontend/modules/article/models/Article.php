@@ -6,6 +6,8 @@ use Yii;
 use app\models\user\models\User;
 use common\models\article\Article as BaseArticle;
 use common\behaviors\ThumbBehavior;
+use yii\helpers\Url;
+use yii\helpers\Html;
 
 class Article extends BaseArticle
 {
@@ -29,42 +31,73 @@ class Article extends BaseArticle
         ];
     }
 
-    public function getDate()
+    public function getDate($format = '{day}/{monthNumber}/{year}', $monthType = 'simple')
     {
-        $articleDatePartials = explode(' ', $this->date);
+        $articleDatePartials      = explode(' ', $this->date);
+        $articleDayDatePartials   = explode('-', $articleDatePartials[ 0 ]);
+        $articleTimeDatePartials  = explode(':', $articleDatePartials[ 1 ]);
 
-        $articleDayDatePartials = explode('-', $articleDatePartials[ 0 ]);
+        $monthType = ($monthType === 'simple') ? true : false;
+
+        $monthName = $this->getMonthByNumber($articleDayDatePartials[ 1 ]);
+
+        return strtr($format, [
+            '{day}'         => $articleDayDatePartials[ 0 ],
+            '{monthNumber}' => $articleDayDatePartials[ 1 ],
+            '{monthName}'   => $monthName,
+            '{year}'        => $articleDayDatePartials[ 2 ],
+            '{hour}'        => $articleTimeDatePartials[ 0 ],
+            '{minutes}'     => $articleTimeDatePartials[ 1 ],
+            '{seconds}'     => $articleTimeDatePartials[ 2 ],
+        ]);
 
         return $articleDayDatePartials[ 2 ] . ' ' . $this->getMonthByNumber($articleDayDatePartials[ 1 ]) . ' ' . $articleDayDatePartials[ 0 ];
     }
 
-    protected function getMonthByNumber($monthNumber)
+    public function getArticleTags($template = '{linkTag}')
+    {
+        $blockTags = null;
+
+        foreach ($this->tags as $tag) {
+            $tagUrl = Url::toRoute(['/article/articles/tag', 'tagAlias' => $tag->alias]);
+            
+            $blockTags .= strtr($template, [
+                '{linkTag}'   => Html::a($tag->name, $tagUrl),
+                '{tagUrl}'    => $tagUrl,
+                '{tagTitle}'  => $tag->name,
+            ]);
+        }
+
+        return $blockTags;
+    }
+
+    protected function getMonthByNumber($monthNumber, $simple = true)
     {
         switch ((int)$monthNumber) {
             case 1:
-                return 'Января';
+                return ($simple) ? 'Январь' : 'Января';
             case 2:
-                return 'Февраля';
+                return ($simple) ? 'Февраль' : 'Февраля';
             case 3:
-                return 'Марта';
+                return ($simple) ? 'Март' : 'Марта';
             case 4:
-                return 'Апреля';
+                return ($simple) ? 'Апрель' : 'Апреля';
             case 5:
-                return 'Мая';
+                return ($simple) ? 'Май' : 'Мая';
             case 6:
-                return 'Июня';
+                return ($simple) ? 'Июнь' : 'Июня';
             case 7:
-                return 'Июля';
+                return ($simple) ? 'Июль' : 'Июля';
             case 8:
-                return 'Августа';
+                return ($simple) ? 'Август' : 'Августа';
             case 9:
-                return 'Сентября';
+                return ($simple) ? 'Сентябрь' : 'Сентября';
             case 10:
-                return 'Октября';
+                return ($simple) ? 'Октябрь' : 'Октября';
             case 11:
-                return 'Ноября';
+                return ($simple) ? 'Ноябрь' : 'Ноября';
             case 12:
-                return 'Декабря';
+                return ($simple) ? 'Декабрь' : 'Декабря';
         }
     }
 

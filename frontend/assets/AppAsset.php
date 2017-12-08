@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\assets;
+namespace app\assets;
 
 use yii\web\AssetBundle;
 
@@ -10,14 +10,22 @@ use yii\web\AssetBundle;
 class AppAsset extends AssetBundle
 {
     public $basePath = '@webroot';
-    public $baseUrl = '@web/themes/default';
+    public $baseUrl = '@web';
+
     public $css = [
-        'css/site.css',
+        'css/style.css',
+        'css/fonts.css',
     ];
     public $js = [
+        'js/core.min.js',
+        'js/script.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
+    ];
+
+    public $publishOptions = [
+        'forceCopy' => true,
     ];
 }

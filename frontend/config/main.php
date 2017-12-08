@@ -13,6 +13,7 @@ return [
     'controllerNamespace' => 'frontend\controllers',
     'defaultRoute' => '/core/index/index',
     'modules' => include(__DIR__ . DIRECTORY_SEPARATOR . 'modules.php'),
+    'layoutPath' => '@app/modules/core/views/layouts',
     //'catchAll' => ['/core/index/catch-all'],
     'language' => 'ru',
     'components' => [
@@ -26,18 +27,7 @@ return [
             'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
             'loginUrl' => ['/user/security/login'],
         ],
-        'view' => [
-            'theme' => [
-                'basePath' => '@app/themes/yamen',
-                'baseUrl' => '@web/themes/yamen',
-                'pathMap' => [
-                    '@app/views' => '@app/themes/yamen',
-                    '@app/modules' => '@app/themes/yamen/modules',
-                    '@app/widgets' => '@app/themes/yamen/modules',
-                ],
-            ],
-        ],
-        'assetManager' => [
+        /*'assetManager' => [
             'bundles' => [
                 'yii\bootstrap\BootstrapAsset' => [
                     'css' => [],
@@ -46,7 +36,7 @@ return [
             'assetMap' => [
                 'jquery.js' => 'https://code.jquery.com/jquery-2.2.4.min.js',
             ],
-        ],
+        ],*/
         'session' => [
             // this is the name of the session cookie used for login on the frontend
             'name' => 'advanced-frontend',
