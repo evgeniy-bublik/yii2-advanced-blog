@@ -40,7 +40,7 @@ return [
                 'yii\bootstrap\BootstrapAsset' => [
                     'css' => [],
                 ],
-/*                'yii\web\JqueryAsset' => [
+                /*'yii\web\JqueryAsset' => [
                     'js'=>[]
                 ],*/
             ],
@@ -85,9 +85,4 @@ return [
         ]
     ],
     'params' => $params,
-    'on beforeRequest' => function ($event) {
-        header("HTTP/1.1 301 Moved Permanently");
-        header("Location: /");
-        exit;
-    },
 ];
