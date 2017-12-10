@@ -1,5 +1,7 @@
 <?php
 use app\modules\article\widgets\TagsWidget\Tags;
+use app\modules\article\widgets\CategoriesWidget\Categories;
+use app\modules\article\widgets\PopularArticlesWidget\PopularArticles;
 
 /* @var yii\web\View $this */
 /* @var app\modules\article\models\Article $article */
@@ -16,10 +18,17 @@ use app\modules\article\widgets\TagsWidget\Tags;
         <div class="row row-50">
             <div class="col-lg-8 col-xl-9">
                 <article class="post post-single">
-                    <div class="post-image">
-                        <figure><img src="/images/post-1-870x412.jpg" alt="" width="870" height="412"/>
-                        </figure>
-                    </div>
+
+                    <?php if ($article->image) : ?>
+
+                        <div class="post-image">
+                            <figure>
+                                <img src="<?= $article->getFullImage(); ?>" alt="<?= $article->title; ?>"/>
+                            </figure>
+                        </div>
+
+                    <?php endif; ?>
+
                     <div class="post-header">
                         <h4><?= $article->title; ?></h4>
                     </div>
@@ -39,18 +48,24 @@ use app\modules\article\widgets\TagsWidget\Tags;
                                     <dd>Евгений Бублик</dd>
                                 </dl>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <dl class="list-terms-inline">
                                     <dt>Комментарии</dt>
                                     <dd>3</dd>
                                 </dl>
-                            </li>
-                            <li>
-                                <dl class="list-terms-inline">
-                                    <dt>Категория</dt>
-                                    <dd>Marketing</dd>
-                                </dl>
-                            </li>
+                            </li> -->
+
+                            <?php if ($category = $article->getCategory()) : ?>
+
+                                <li>
+                                    <dl class="list-terms-inline">
+                                        <dt>Категория</dt>
+                                        <dd><?= $category->title; ?></dd>
+                                    </dl>
+                                </li>
+
+                            <?php endif ; ?>
+
                         </ul>
                     </div>
                     <div class="divider-fullwidth bg-gray-light"></div>
@@ -70,7 +85,7 @@ use app\modules\article\widgets\TagsWidget\Tags;
                     </div>
                 </article>
                 <div class="divider-fullwidth bg-gray-lighter"></div>
-                <div class="comment-list-wrap">
+                <!-- <div class="comment-list-wrap">
                     <h4>3 Comments</h4>
                     <div class="comment-list inset-md-right-60 inset-lg-right-30 inset-xl-right-100 offset-top-30">
                         <div class="comment-group">
@@ -181,7 +196,7 @@ use app\modules\article\widgets\TagsWidget\Tags;
                             </div>
                         </form>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="col-lg-4 col-xl-3">
                 <div class="blog-aside">
@@ -194,91 +209,13 @@ use app\modules\article\widgets\TagsWidget\Tags;
                             <button class="rd-search-submit" type="submit"></button>
                         </form>
                     </div>
-                    <div class="blog-aside-item">
-                        <h6>Categories</h6>
-                        <ul class="list-marked-bordered">
-                            <li><a href="#"><span>Marketing</span><span class="list-counter">(4)</span></a></li>
-                            <li><a href="#"><span>Events</span><span class="list-counter">(4)</span></a></li>
-                            <li><a href="#"><span>Design</span><span class="list-counter">(4)</span></a></li>
-                        </ul>
-                    </div>
-                    <div class="blog-aside-item">
-                        <h6>Popular posts</h6>
-                        <div class="offset-top-30">
-                            <article class="post post-preview">
-                                <a href="blog-post.html">
-                                    <div class="unit unit-spacing-sm">
-                                        <div class="unit-left">
-                                            <figure class="post-image"><img src="/images/post-preview-1-70x70.jpg" alt="" width="70" height="70"/>
-                                            </figure>
-                                        </div>
-                                        <div class="unit-body">
-                                            <div class="post-header">
-                                                <p>The Ultimate Technique to Pitch Anything</p>
-                                            </div>
-                                            <div class="post-meta">
-                                                <ul class="list-meta">
-                                                    <li>
-                                                        <time datetime="2016-02-04">Feb 4, 2016</time>
-                                                    </li>
-                                                    <li>3 Comments</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </article>
-                            <article class="post post-preview">
-                                <a href="blog-post.html">
-                                    <div class="unit unit-spacing-sm">
-                                        <div class="unit-left">
-                                            <figure class="post-image"><img src="/images/post-preview-2-70x70.jpg" alt="" width="70" height="70"/>
-                                            </figure>
-                                        </div>
-                                        <div class="unit-body">
-                                            <div class="post-header">
-                                                <p>Four Types of Verbal Communication</p>
-                                            </div>
-                                            <div class="post-meta">
-                                                <ul class="list-meta">
-                                                    <li>
-                                                        <time datetime="2016-02-04">Feb 4, 2016</time>
-                                                    </li>
-                                                    <li>3 Comments</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </article>
-                            <article class="post post-preview">
-                                <a href="blog-post.html">
-                                    <div class="unit unit-spacing-sm">
-                                        <div class="unit-left">
-                                            <figure class="post-image"><img src="/images/post-preview-3-70x70.jpg" alt="" width="70" height="70"/>
-                                            </figure>
-                                        </div>
-                                        <div class="unit-body">
-                                            <div class="post-header">
-                                                <p>Proper Color Solutions For The Office</p>
-                                            </div>
-                                            <div class="post-meta">
-                                                <ul class="list-meta">
-                                                    <li>
-                                                        <time datetime="2016-02-04">Feb 4, 2016</time>
-                                                    </li>
-                                                    <li>3 Comments</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </article>
-                        </div>
-                    </div>
+
+                    <?= Categories::widget(); ?>
+
+                    <?= PopularArticles::widget(); ?>
 
                     <?= Tags::widget(); ?>
-                
+
                 </div>
             </div>
         </div>

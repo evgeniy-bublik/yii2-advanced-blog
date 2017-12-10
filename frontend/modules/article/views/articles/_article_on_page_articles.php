@@ -3,10 +3,17 @@ use yii\helpers\Url;
 /* @var app\modules\article\models\Article $model */
 ?>
 <article class="post-classic">
-    <div class="post-media">
-        <figure><img src="/images/blog-classic-1-971x649.jpg" alt="" width="971" height="649"/>
-        </figure>
-    </div>
+
+    <?php if ($model->image): ?>
+
+        <div class="post-media">
+            <figure>
+                <img src="<?= $model->getFullImage(); ?>" alt="<?= $model->title; ?>"/>
+            </figure>
+        </div>
+
+    <?php endif; ?>
+
     <div class="post-main">
         <div class="post-body">
             <h4><a href="<?= Url::toRoute(['/article/articles/article', 'articleAlias' => $model->alias]); ?>"><?= $model->title; ?></a></h4>

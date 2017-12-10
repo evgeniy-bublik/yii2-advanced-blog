@@ -20,12 +20,15 @@ use common\models\user\base\User;
  * @property string $meta_title
  * @property string $meta_description
  * @property string $meta_keywords
+ * @property string $total_views
+ * @property string $unique_views
  * @property string $created_at
  * @property string $updated_at
  *
  * @property UserUsers $user
  * @property ArticleLinksArticleCategory[] $articleLinksArticleCategories
  * @property ArticleLinksTagArticle[] $articleLinksTagArticles
+ * @property UniqueArticleView[] $uniqueArticleViews
  */
 class Article extends \yii\db\ActiveRecord
 {
@@ -43,7 +46,7 @@ class Article extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'active'], 'integer'],
+            [['user_id', 'active', 'total_views', 'unique_views'], 'integer'],
             [['title', 'alias', 'small_description', 'description'], 'required'],
             [['description'], 'string'],
             [['date', 'image', 'created_at', 'updated_at'], 'safe'],
@@ -71,6 +74,8 @@ class Article extends \yii\db\ActiveRecord
             'meta_title' => 'Meta Title',
             'meta_description' => 'Meta Description',
             'meta_keywords' => 'Meta Keywords',
+            'total_views' => 'Total Views',
+            'unique_views' => 'Unique Views',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
@@ -98,5 +103,13 @@ class Article extends \yii\db\ActiveRecord
     public function getArticleLinksTagArticles()
     {
         return $this->hasMany(ArticleLinksTagArticle::className(), ['article_id' => 'id']);
+    }
+
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getUniqueArticleViews()
+    {
+       return $this->hasMany(UniqueArticleView::className(), ['article_id' => 'id']);
     }
 }

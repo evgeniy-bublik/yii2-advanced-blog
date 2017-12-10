@@ -21,10 +21,9 @@
                             </div>
 
                             <?= $this->render('nav'); ?>
-                            
+
                         </div>
                     </div>
-                    <div class="rd-navbar-shop"><a class="novi-icon link-shop material-icons-shopping_cart" href="shop-cart.html"></a></div>
                 </div>
             </div>
         </nav>

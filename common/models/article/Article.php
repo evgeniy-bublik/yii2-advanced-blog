@@ -31,4 +31,12 @@ class Article extends BaseArticle
     {
         return $this->hasMany(ArticleLinksTagArticle::className(), ['article_id' => 'id']);
     }
+
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getUniqueArticleViews()
+    {
+       return $this->hasMany(UniqueArticleView::className(), ['article_id' => 'id']);
+    }
 }

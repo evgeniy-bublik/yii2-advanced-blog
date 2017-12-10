@@ -1,14 +1,16 @@
+<?php
+use app\modules\core\widgets\SocialLinksWidget\SocialLinks;
+?>
+
 <footer class="section page-foot section-35 bg-cod-gray novi-background">
   <div class="container text-center">
     <div class="row row-15 flex-row-md-reverse justify-content-md-between align-items-md-center">
       <div class="col-md-6 text-md-right">
-        <div class="group-sm group-middle"> 
-          <p class="font-italic text-default">Follow Us:</p>
-          <ul class="list-inline list-inline-reset">
-            <li><a class="novi-icon icon icon-circle icon-gray-dark-filled icon-xxs-smallest fa fa-facebook" href="#"></a></li>
-            <li><a class="novi-icon icon icon-circle icon-gray-dark-filled icon-xxs-smallest fa fa-twitter" href="#"></a></li>
-            <li><a class="novi-icon icon icon-circle icon-gray-dark-filled icon-xxs-smallest fa fa-google-plus" href="#"></a></li>
-          </ul>
+        <div class="group-sm group-middle">
+          <p class="font-italic text-default">Я в социальных сетях:</p>
+
+          <?= SocialLinks::widget(); ?>
+
         </div>
       </div>
       <div class="col-md-6 text-md-left">

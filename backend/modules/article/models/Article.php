@@ -29,7 +29,8 @@ class Article extends BaseArticle
                 ['alias', 'unique'],
                 ['alias', 'match', 'pattern' => '/^[a-z\d-]+[a-z\d]$/'],
                 //['tagsIds', 'exist', 'targetClass' => ArticleTag::className(), 'targetAttribute' => 'id'],
-                ['tagsIds', 'safe'],
+                [['tags', 'categories'], 'safe'],
+                //['category', 'exist', 'targetClass' => ArticleCategory::className(), 'targetAttribute' => 'id'],
             ]
         );
     }
@@ -42,7 +43,7 @@ class Article extends BaseArticle
                 'fileAttribute' => 'image', //атрибут модели для картинки
                 'saveDir' => 'files/articles/', //путь для сохранения картинок
                 'thumbsSaveDir' => 'files/articles/thumbs/', // путь для сохранения превью картинок
-                'previewSize' => [[700, 300]] //размеры генерируемых превью
+                'previewSize' => [[70, 70]] //размеры генерируемых превью
             ],
             'timestampBehavior' => [
                 'class' => TimestampBehavior::className(),
@@ -54,11 +55,8 @@ class Article extends BaseArticle
                     'date'
                 ],
             ],
-            'tagsBahevior' => [
-                'class' => \voskobovich\behaviors\ManyToManyBehavior::className(),
-                'relations' => [
-                    'tagsIds' => 'tags',
-                ],
+            'relationBehaviors' => [
+                'class' => \e96\behavior\RelationalBehavior::className(),
             ],
             'formBehavior' => [
                 'class' => FormCreatorBehavior::className(),
@@ -120,7 +118,7 @@ class Article extends BaseArticle
                             ],
                         ]);
                     },
-                    'tagsIds' => [
+                    'tags' => [
                         'type' => FormCreatorBehavior::WIDGET_TYPE,
                         'widgetClass' => Select2::classname(),
                         'widgetOptions' => [
@@ -128,6 +126,21 @@ class Article extends BaseArticle
                             'options' => [
                                 'placeholder' => 'Select a tag ...',
                                 'multiple' => true
+                            ],
+                        ],
+                    ],
+                    'categories' => [
+                        'type' => FormCreatorBehavior::WIDGET_TYPE,
+                        'widgetClass' => Select2::className(),
+                        'widgetOptions' => [
+                            'data' => $this->getListArticleCategories(),
+                            'options' => [
+                                'prompt' => 'Select category',
+                                'placeholder' => 'Select category',
+                                'allowClear' => true,
+                            ],
+                            'pluginOptions' => [
+                                'allowClear' => true,
                             ],
                         ],
                     ],
@@ -161,11 +174,12 @@ class Article extends BaseArticle
                             'tabAttributes' => [
                                 'title',
                                 'alias',
+                                'categories',
                                 'small_description',
                                 'description',
                                 'date',
                                 'image',
-                                'tagsIds',
+                                'tags',
                                 'active',
                             ],
                         ],
@@ -213,8 +227,19 @@ class Article extends BaseArticle
             ->viaTable(ArticleLinksTagArticle::tableName(), ['article_id' => 'id']);
     }
 
+    public function getCategories()
+    {
+        return $this->hasMany(Article::className(), ['id' => 'article_id'])
+            ->viaTable(ArticleLinksArticleCategory::tableName(), ['category_id' => 'id']);
+    }
+
     public function getListTags()
     {
         return ArrayHelper::map(ArticleTag::find()->orderBy(['name' => SORT_ASC])->all(), 'id', 'name');
+    }
+
+    public function getListArticleCategories()
+    {
+        return ArrayHelper::map(ArticleCategory::find()->orderBy(['title' => SORT_ASC])->all(), 'id', 'title');
     }
 }

@@ -56,6 +56,14 @@ class ArticlesController extends FrontController
             throw new NotFoundHttpException('Article not found');
         }
 
+        $ip = Yii::$app->request->userIp;
+
+        $article->updateTotalViews();
+
+        if (!$article->hasUniqueView($ip)) {
+            $article->setUniqueView($ip);
+        }
+
         $this->setMetaTitle($article->meta_title);
         $this->setMetaDescription($article->meta_description);
         $this->setMetaKeywords($article->meta_keywords);
@@ -78,7 +86,7 @@ class ArticlesController extends FrontController
             ->one();
 
         if (!$tag) {
-          throw new NotFoundHttpException('Tag not found');
+            throw new NotFoundHttpException('Tag not found');
         }
 
         $dataProviderArticlesConfig = [

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "acef81da0c12b42ceaedc0333d539592",
+    "content-hash": "24c68bc7ca6e14f4d3d5449ec7c90ce7",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -434,6 +434,52 @@
                 "yii"
             ],
             "time": "2014-11-13T08:50:41+00:00"
+        },
+        {
+            "name": "e96/yii2-relational-behavior",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/E96/yii2-relational-behavior.git",
+                "reference": "3587a6faf4a79407ede245a3db598ea48ca49c89"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/E96/yii2-relational-behavior/zipball/3587a6faf4a79407ede245a3db598ea48ca49c89",
+                "reference": "3587a6faf4a79407ede245a3db598ea48ca49c89",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "e96\\behavior\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "m8rge",
+                    "email": "to.merge@gmail.com",
+                    "homepage": "http://aputilov.ru"
+                }
+            ],
+            "description": "Easy saving relational models in yii2",
+            "keywords": [
+                "Behavior",
+                "pk",
+                "primary",
+                "related",
+                "relational",
+                "yii2"
+            ],
+            "time": "2017-08-07T11:49:44+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -4064,7 +4110,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "e96/yii2-relational-behavior": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

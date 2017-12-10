@@ -60,7 +60,7 @@ class Article extends BaseArticle
 
         foreach ($this->tags as $tag) {
             $tagUrl = Url::toRoute(['/article/articles/tag', 'tagAlias' => $tag->alias]);
-            
+
             $blockTags .= strtr($template, [
                 '{linkTag}'   => Html::a($tag->name, $tagUrl),
                 '{tagUrl}'    => $tagUrl,
@@ -69,6 +69,30 @@ class Article extends BaseArticle
         }
 
         return $blockTags;
+    }
+
+    public function updateTotalViews()
+    {
+        $this->updateCounters(['total_views' => 1]);
+    }
+
+    public function hasUniqueView($ip)
+    {
+        return UniqueArticleView::find()
+            ->where(['article_id' => $this->id, 'ip' => $ip])
+            ->count();
+    }
+
+    public function setUniqueView($ip)
+    {
+        $uniqueArticleView = new UniqueArticleView();
+
+        $uniqueArticleView->article_id  = $this->id;
+        $uniqueArticleView->ip          = $ip;
+
+        $uniqueArticleView->save();
+
+        $this->updateCounters(['unique_views' => 1]);
     }
 
     protected function getMonthByNumber($monthNumber, $simple = true)
@@ -101,6 +125,15 @@ class Article extends BaseArticle
         }
     }
 
+    public function getCategory()
+    {
+        if ($this->categories) {
+            return array_shift($this->categories);
+        }
+
+        return null;
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -123,6 +156,14 @@ class Article extends BaseArticle
     public function getArticleLinksTagArticles()
     {
         return $this->hasMany(ArticleLinksTagArticle::className(), ['article_id' => 'id']);
+    }
+
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getUniqueArticleViews()
+    {
+       return $this->hasMany(UniqueArticleView::className(), ['article_id' => 'id']);
     }
 
     public function getTags()
