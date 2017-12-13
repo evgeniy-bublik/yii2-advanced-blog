@@ -1,31 +1,29 @@
 <?php
 
-namespace app\modules\article\controllers;
+namespace app\modules\portfolio\controllers;
 
 use Yii;
-use app\modules\article\models\ArticleCategory;
-use app\modules\article\models\searchModels\ArticleCategorySearch;
+use app\modules\portfolio\models\Work;
+use app\modules\portfolio\models\searchModels\WorkSearch;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 use app\modules\core\actions\CrudIndexAction;
 use app\modules\core\actions\CrudViewAction;
 use app\modules\core\actions\CrudDeleteAction;
 use app\modules\core\actions\CrudCreateAction;
 use app\modules\core\actions\CrudUpdateAction;
-use yii\filters\AccessControl;
 use app\modules\core\components\BackendController;
+use yii\web\Response;
 
-/**
- * ArticleCategoriesController implements the CRUD actions for ArticleCategory model.
- */
-class ArticleCategoriesController extends BackendController
+class WorksController extends BackendController
 {
-    private $articleCategoryClassName;
+    private $workClassName;
 
     public function init()
     {
         parent::init();
 
-        $this->articleCategoryClassName = ArticleCategory::className();
+        $this->workClassName = Work::className();
     }
 
     /**
@@ -60,39 +58,63 @@ class ArticleCategoriesController extends BackendController
         return [
             'index' => [
                 'class'           => CrudIndexAction::className(),
-                'searchModelName' => ArticleCategorySearch::className(),
+                'searchModelName' => WorkSearch::className(),
                 'gridColumns'     => $this->getGridIndexColumns(),
                 'breadcrumbs'     => $this->getIndexBreadcrumbs(),
-                'title'           => 'List article categories',
+                'title'           => 'List works',
                 'template'        => $this->getTemplateIndexCrud(),
             ],
             'view' => [
                 'class'                 => CrudViewAction::className(),
-                'modelName'             => $this->articleCategoryClassName,
+                'modelName'             => $this->workClassName,
                 'detailViewAttributes'  => $this->getDetailViewsAttributes(),
                 'breadcrumbs'           => $this->getViewBreadcrumbs(),
-                'title'                 => 'View article category',
+                'title'                 => 'View work',
                 'template'              => $this->getTemplateViewCrud(),
             ],
             'delete' => [
                 'class'     => CrudDeleteAction::className(),
-                'modelName' => $this->articleCategoryClassName,
+                'modelName' => $this->workClassName,
             ],
             'create' => [
                 'class'       => CrudCreateAction::className(),
-                'modelName'   => $this->articleCategoryClassName,
+                'modelName'   => $this->workClassName,
                 'breadcrumbs' => $this->getCreateBreadcrumbs(),
-                'title'       => 'Create article category',
+                'title'       => 'Create work',
                 'template'    => $this->getTemplateCreateCrud(),
             ],
             'update' => [
                 'class'       => CrudUpdateAction::className(),
-                'modelName'   => $this->articleCategoryClassName,
+                'modelName'   => $this->workClassName,
                 'breadcrumbs' => $this->getUpdateBreadcrumbs(),
-                'title'       => 'Update article category',
+                'title'       => 'Update work',
                 'template'    => $this->getTemplateUpdateCrud(),
             ],
         ];
+    }
+
+    /**
+     * Delete work image
+     *
+     * @param integer Id primary key work model
+     *
+     * @return array
+     */
+    public function actionDeleteImage($id)
+    {
+        $model = Work::findOne($id);
+
+        if (!$model) {
+            throw new NotFoundHttpException("Model with id = {$id} not found");
+
+        }
+
+        $model->deleteImages();
+        $model->updateAttributes(['image' => null]);
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        return [];
     }
 
     /**
@@ -104,9 +126,9 @@ class ArticleCategoriesController extends BackendController
     {
         return [
             $this->getGridSerialColumn(),
-            'parent_id',
-            'title',
+            'name',
             'alias',
+            'image',
             $this->getGridColumnYesOrNow('active'),
             $this->getGridActions(),
         ];
@@ -121,15 +143,14 @@ class ArticleCategoriesController extends BackendController
     {
         return [
             'id',
-            'title',
-            'parent_id',
+            'name',
             'alias',
             'description',
-            'display_order',
+            'date',
             'active',
             'meta_title',
-            'meta_description',
             'meta_keywords',
+            'meta_description',
             'created_at',
             'updated_at',
         ];
@@ -144,11 +165,11 @@ class ArticleCategoriesController extends BackendController
     {
         return [
             [
-                'label' => 'Article categories',
+                'label' => 'Portfolio works',
                 'url' => ['index'],
             ],
             [
-                'label' => 'List article categories',
+                'label' => 'List works',
             ]
         ];
     }
@@ -162,11 +183,11 @@ class ArticleCategoriesController extends BackendController
     {
         return [
             [
-                'label' => 'Article categories',
+                'label' => 'Portfolio works',
                 'url' => ['index'],
             ],
             [
-                'label' => 'View article category',
+                'label' => 'View work',
             ]
         ];
     }
@@ -180,11 +201,11 @@ class ArticleCategoriesController extends BackendController
     {
         return [
             [
-                'label' => 'Article categories',
+                'label' => 'Portfolio works',
                 'url' => ['index'],
             ],
             [
-                'label' => 'Create article category',
+                'label' => 'Create work',
             ]
         ];
     }
@@ -198,11 +219,11 @@ class ArticleCategoriesController extends BackendController
     {
         return [
             [
-                'label' => 'Article categories',
+                'label' => 'Portfolio works',
                 'url' => ['index'],
             ],
             [
-                'label' => 'Update article category',
+                'label' => 'Update work',
             ]
         ];
     }

@@ -9,8 +9,8 @@ return [
     'article' => [
         'class' => 'app\modules\article\Module',
     ],
-    'comment' => [
-        'class' => 'app\modules\comment\Module',
+    'portfolio' => [
+        'class' => 'app\modules\portfolio\Module',
     ],
 ];
 ?>

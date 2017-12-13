@@ -19,8 +19,6 @@ use app\modules\core\components\BackendController;
  */
 class ArticleTagsController extends BackendController
 {
-    //public $layout = '//form';
-
     private $articleTagClassName;
 
     public function init()

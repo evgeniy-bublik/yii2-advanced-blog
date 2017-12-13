@@ -49,6 +49,26 @@ use app\modules\core\widgets\Menu;
             ],
         ],
         [
+            'label' => 'Portfolio management',
+            'items' => [
+                [
+                    'label' => 'Portfolio categories',
+                    'url' => ['/portfolio/categories/index'],
+                ],
+                [
+                    'label' => 'Portfolio tags',
+                    'url' => ['/portfolio/tags/index'],
+                ],
+                [
+                    'label' => 'Portfolio works',
+                    'url' => ['/portfolio/works/index'],
+                ],
+            ],
+            'iconOptions' => [
+                'class' => 'dripicons-view-list',
+            ],
+        ],
+        [
             'label' => 'Admin icons',
             'iconOptions' => [
                 'class' => 'mdi mdi-cube',

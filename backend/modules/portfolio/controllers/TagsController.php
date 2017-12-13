@@ -1,31 +1,32 @@
 <?php
 
-namespace app\modules\article\controllers;
+namespace app\modules\portfolio\controllers;
 
 use Yii;
-use app\modules\article\models\ArticleCategory;
-use app\modules\article\models\searchModels\ArticleCategorySearch;
+use app\modules\portfolio\models\Tag;
+use app\modules\portfolio\models\searchModels\TagSearch;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 use app\modules\core\actions\CrudIndexAction;
 use app\modules\core\actions\CrudViewAction;
 use app\modules\core\actions\CrudDeleteAction;
 use app\modules\core\actions\CrudCreateAction;
 use app\modules\core\actions\CrudUpdateAction;
-use yii\filters\AccessControl;
 use app\modules\core\components\BackendController;
 
 /**
- * ArticleCategoriesController implements the CRUD actions for ArticleCategory model.
+ * TagsController implements the CRUD actions for Tag model.
  */
-class ArticleCategoriesController extends BackendController
+class TagsController extends BackendController
 {
-    private $articleCategoryClassName;
+
+    private $tagClassName;
 
     public function init()
     {
         parent::init();
 
-        $this->articleCategoryClassName = ArticleCategory::className();
+        $this->tagClassName = Tag::className();
     }
 
     /**
@@ -60,36 +61,36 @@ class ArticleCategoriesController extends BackendController
         return [
             'index' => [
                 'class'           => CrudIndexAction::className(),
-                'searchModelName' => ArticleCategorySearch::className(),
+                'searchModelName' => TagSearch::className(),
                 'gridColumns'     => $this->getGridIndexColumns(),
                 'breadcrumbs'     => $this->getIndexBreadcrumbs(),
-                'title'           => 'List article categories',
+                'title'           => 'List portfolio tags',
                 'template'        => $this->getTemplateIndexCrud(),
             ],
             'view' => [
                 'class'                 => CrudViewAction::className(),
-                'modelName'             => $this->articleCategoryClassName,
+                'modelName'             => $this->tagClassName,
                 'detailViewAttributes'  => $this->getDetailViewsAttributes(),
                 'breadcrumbs'           => $this->getViewBreadcrumbs(),
-                'title'                 => 'View article category',
+                'title'                 => 'View portfolio tag',
                 'template'              => $this->getTemplateViewCrud(),
             ],
             'delete' => [
                 'class'     => CrudDeleteAction::className(),
-                'modelName' => $this->articleCategoryClassName,
+                'modelName' => $this->tagClassName,
             ],
             'create' => [
                 'class'       => CrudCreateAction::className(),
-                'modelName'   => $this->articleCategoryClassName,
+                'modelName'   => $this->tagClassName,
                 'breadcrumbs' => $this->getCreateBreadcrumbs(),
-                'title'       => 'Create article category',
+                'title'       => 'Create portfolio tag',
                 'template'    => $this->getTemplateCreateCrud(),
             ],
             'update' => [
                 'class'       => CrudUpdateAction::className(),
-                'modelName'   => $this->articleCategoryClassName,
+                'modelName'   => $this->tagClassName,
                 'breadcrumbs' => $this->getUpdateBreadcrumbs(),
-                'title'       => 'Update article category',
+                'title'       => 'Update portfolio tag',
                 'template'    => $this->getTemplateUpdateCrud(),
             ],
         ];
@@ -104,10 +105,8 @@ class ArticleCategoriesController extends BackendController
     {
         return [
             $this->getGridSerialColumn(),
-            'parent_id',
-            'title',
+            'name',
             'alias',
-            $this->getGridColumnYesOrNow('active'),
             $this->getGridActions(),
         ];
     }
@@ -121,15 +120,9 @@ class ArticleCategoriesController extends BackendController
     {
         return [
             'id',
-            'title',
-            'parent_id',
+            'name',
             'alias',
-            'description',
             'display_order',
-            'active',
-            'meta_title',
-            'meta_description',
-            'meta_keywords',
             'created_at',
             'updated_at',
         ];
@@ -144,11 +137,11 @@ class ArticleCategoriesController extends BackendController
     {
         return [
             [
-                'label' => 'Article categories',
+                'label' => 'Portfolio tags',
                 'url' => ['index'],
             ],
             [
-                'label' => 'List article categories',
+                'label' => 'List tags',
             ]
         ];
     }
@@ -162,11 +155,11 @@ class ArticleCategoriesController extends BackendController
     {
         return [
             [
-                'label' => 'Article categories',
+                'label' => 'Portfolio tags',
                 'url' => ['index'],
             ],
             [
-                'label' => 'View article category',
+                'label' => 'View tag',
             ]
         ];
     }
@@ -180,11 +173,11 @@ class ArticleCategoriesController extends BackendController
     {
         return [
             [
-                'label' => 'Article categories',
+                'label' => 'Portfolio tags',
                 'url' => ['index'],
             ],
             [
-                'label' => 'Create article category',
+                'label' => 'Create tag',
             ]
         ];
     }
@@ -198,11 +191,11 @@ class ArticleCategoriesController extends BackendController
     {
         return [
             [
-                'label' => 'Article categories',
+                'label' => 'Portfolio tags',
                 'url' => ['index'],
             ],
             [
-                'label' => 'Update article category',
+                'label' => 'Update tag',
             ]
         ];
     }

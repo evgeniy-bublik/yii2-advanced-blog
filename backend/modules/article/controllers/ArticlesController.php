@@ -21,10 +21,14 @@ use app\modules\core\components\BackendController;
  */
 class ArticlesController extends BackendController
 {
-    //public $layout = '//form';
-
+    /**
+     * @var string $articleClassName Article class name
+     */
     private $articleClassName;
 
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
         parent::init();
@@ -34,6 +38,8 @@ class ArticlesController extends BackendController
 
     /**
      * @inheritdoc
+     *
+     * @return array
      */
     public function behaviors()
     {
@@ -58,6 +64,8 @@ class ArticlesController extends BackendController
 
     /**
      * @inheritdoc
+     *
+     * @return array
      */
     public function actions()
     {
@@ -90,10 +98,6 @@ class ArticlesController extends BackendController
                 'template'    => $this->getTemplateCreateCrud(),
             ],
             'update' => [
-                /*'beforeAction' => function(){
-                    $view = $this->view;
-                    \kartik\file\FileInputAsset::register($view);
-                },*/
                 'class'       => CrudUpdateAction::className(),
                 'modelName'   => $this->articleClassName,
                 'breadcrumbs' => $this->getUpdateBreadcrumbs(),
@@ -106,7 +110,7 @@ class ArticlesController extends BackendController
     /**
      * Delete article preview
      *
-     * @param int id primary key article model
+     * @param integer Id primary key article model
      *
      * @return array
      */
@@ -125,8 +129,6 @@ class ArticlesController extends BackendController
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         return [];
-
-
     }
 
     /**

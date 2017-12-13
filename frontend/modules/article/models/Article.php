@@ -50,8 +50,6 @@ class Article extends BaseArticle
             '{minutes}'     => $articleTimeDatePartials[ 1 ],
             '{seconds}'     => $articleTimeDatePartials[ 2 ],
         ]);
-
-        return $articleDayDatePartials[ 2 ] . ' ' . $this->getMonthByNumber($articleDayDatePartials[ 1 ]) . ' ' . $articleDayDatePartials[ 0 ];
     }
 
     public function getArticleTags($template = '{linkTag}')

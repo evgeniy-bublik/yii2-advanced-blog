@@ -1,10 +1,9 @@
 <?php
 
-namespace app\modules\article\models;
+namespace app\modules\portfolio\models;
 
 use Yii;
-use app\models\user\models\User;
-use common\models\article\Article as BaseArticle;
+use common\models\portfolio\Work as BaseWork;
 use yii\behaviors\TimestampBehavior;
 use common\behaviors\ThumbBehavior;
 use common\behaviors\DateTimeBehavior;
@@ -19,8 +18,13 @@ use mihaildev\elfinder\ElFinder;
 use kartik\file\FileInput;
 use app\modules\core\widgets\Switchery;
 
-class Article extends BaseArticle
+class Work extends BaseWork
 {
+    /**
+     * @inheritdoc
+     *
+     * @return array
+     */
     public function rules()
     {
         return ArrayHelper::merge(
@@ -33,17 +37,22 @@ class Article extends BaseArticle
         );
     }
 
+    /**
+     * @inheritdoc
+     *
+     * @return array
+     */
     public function behaviors()
     {
         return  [
             'thumbBehavior' => [
                 'class'         => ThumbBehavior::className(),
                 'fileAttribute' => 'image', //атрибут модели для картинки
-                'saveDir'       => 'files/articles/', //путь для сохранения картинок
-                'thumbsSaveDir' => 'files/articles/thumbs/', // путь для сохранения превью картинок
+                'saveDir'       => 'files/portfolio/', //путь для сохранения картинок
+                'thumbsSaveDir' => 'files/portfolio/thumbs/', // путь для сохранения превью картинок
                 'previewSize'   => [
-                    [70, 70],
-                    [900, 500],
+                    [370, 278],
+                    [220, 224],
                 ], //размеры генерируемых превью
             ],
             'timestampBehavior' => [
@@ -78,14 +87,8 @@ class Article extends BaseArticle
                     ],
                 ],
                 'attributes' => [
-                    'title',
+                    'name',
                     'alias',
-                    'small_description' => [
-                        'type' => FormCreatorBehavior::TEXTAREA_TYPE,
-                        'inputOptions' => [
-                            'rows' => 5,
-                        ],
-                    ],
                     'description' => [
                         'type' => FormCreatorBehavior::WIDGET_TYPE,
                         'widgetClass' => CKEditor::className(),
@@ -115,7 +118,7 @@ class Article extends BaseArticle
                                 'initialPreviewAsData' => true,
                                 'initialPreview' => ($model->image) ? [$model->getFullImage()] : [],
                                 'overwriteInitial' => false,
-                                'deleteUrl' => Url::toRoute(['/article/articles/delete-preview', 'id' => $model->id]),
+                                'deleteUrl' => Url::toRoute(['/portfolio/works/delete-image', 'id' => $model->id]),
                             ],
                         ]);
                     },
@@ -123,7 +126,7 @@ class Article extends BaseArticle
                         'type' => FormCreatorBehavior::WIDGET_TYPE,
                         'widgetClass' => Select2::classname(),
                         'widgetOptions' => [
-                            'data' => $this->getListTags(),
+                            'data' => Tag::hashListTags(),
                             'options' => [
                                 'placeholder' => 'Select a tag ...',
                                 'multiple' => true
@@ -134,7 +137,7 @@ class Article extends BaseArticle
                         'type' => FormCreatorBehavior::WIDGET_TYPE,
                         'widgetClass' => Select2::className(),
                         'widgetOptions' => [
-                            'data' => $this->getListArticleCategories(),
+                            'data' => Category::hashListCategories(),
                             'options' => [
                                 'prompt' => 'Select category',
                                 'placeholder' => 'Select category',
@@ -173,10 +176,9 @@ class Article extends BaseArticle
                         [
                             'label' => 'Primary',
                             'tabAttributes' => [
-                                'title',
+                                'name',
                                 'alias',
                                 'categories',
-                                'small_description',
                                 'description',
                                 'date',
                                 'image',
@@ -201,46 +203,34 @@ class Article extends BaseArticle
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
+    public function getLinksWorkToCategory()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasMany(LinksWorkToCategory::className(), ['work_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getLinksArticleCategory()
+    public function getLinksWorkToTag()
     {
-        return $this->hasMany(ArticleLinksArticleCategory::className(), ['article_id' => 'id']);
+        return $this->hasMany(LinksWorkToTag::className(), ['work_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getArticleLinksTagArticles()
-    {
-        return $this->hasMany(ArticleLinksTagArticle::className(), ['article_id' => 'id']);
-    }
-
-    public function getTags()
-    {
-        return $this->hasMany(ArticleTag::className(), ['id' => 'tag_id'])
-            ->viaTable(ArticleLinksTagArticle::tableName(), ['article_id' => 'id']);
-    }
-
     public function getCategories()
     {
-        return $this->hasMany(Article::className(), ['id' => 'article_id'])
-            ->viaTable(ArticleLinksArticleCategory::tableName(), ['category_id' => 'id']);
+        return $this->hasMany(Category::className(), ['id' => 'category_id'])
+            ->viaTable(LinksWorkToCategory::tableName(), ['work_id' => 'id']);
     }
 
-    public function getListTags()
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTags()
     {
-        return ArrayHelper::map(ArticleTag::find()->orderBy(['name' => SORT_ASC])->all(), 'id', 'name');
-    }
-
-    public function getListArticleCategories()
-    {
-        return ArrayHelper::map(ArticleCategory::find()->orderBy(['title' => SORT_ASC])->all(), 'id', 'title');
+        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
+            ->viaTable(LinksWorkToTag::tableName(), ['work_id' => 'id']);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Url;
+
 /* @var app\modules\article\models\Article $model */
 ?>
 <article class="post-classic">
@@ -8,7 +9,7 @@ use yii\helpers\Url;
 
         <div class="post-media">
             <figure>
-                <img src="<?= $model->getFullImage(); ?>" alt="<?= $model->title; ?>"/>
+                <img src="<?= $model->getPreview([900, 500]); ?>" alt="<?= $model->title; ?>"/>
             </figure>
         </div>
 

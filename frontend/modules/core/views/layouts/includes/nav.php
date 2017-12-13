@@ -72,17 +72,7 @@ use yii\helpers\Url;
         </ul>
     </li>
     <li>
-        <a href="#">Portfolio</a>
-        <ul class="rd-navbar-dropdown">
-            <li><a href="gallery-grid.html">Gallery grid</a>
-            </li>
-            <li><a href="gallery-masonry.html">Gallery masonry</a>
-            </li>
-            <li><a href="gallery-cobbles.html">Gallery cobbles</a>
-            </li>
-            <li><a href="gallery-item.html">Gallery item</a>
-            </li>
-        </ul>
+        <a href="<?= Url::toRoute(['/portfolio/works/index']); ?>">Портфолио</a>
     </li>
     <li>
         <a href="<?= Url::toRoute(['/article/articles/articles']); ?>">Блог</a>

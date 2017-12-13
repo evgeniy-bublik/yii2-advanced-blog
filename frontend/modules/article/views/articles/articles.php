@@ -13,7 +13,7 @@ if ($dataProvider->pagination->getPageCount()) {
 <section class="section section-30 section-xxl-40 section-xxl-66 section-xxl-bottom-90 novi-background bg-gray-dark page-title-wrap" style="background-image: url(/images/bg-blog.jpg);">
     <div class="container">
         <div class="page-title">
-            <h2>Blog</h2>
+            <h2>Блог</h2>
         </div>
     </div>
 </section>
@@ -39,7 +39,7 @@ if ($dataProvider->pagination->getPageCount()) {
                         ]
                     ]
                 ]); ?>
-                
+
             </div>
         </div>
     </div>
