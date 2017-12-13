@@ -18,9 +18,9 @@ AppAsset::register($this);
         <meta charset="<?= Yii::$app->charset; ?>">
         <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Montserrat:400,700%7CLato:300,300italic,400,400italic,700,900%7CPlayfair+Display:700italic,900">
-        <!--[if lt IE 10]> 
+        <!--[if lt IE 10]>
         <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="/images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
-        <![endif]--> 
+        <![endif]-->
         <?php $this->head(); ?>
     </head>
     <body>
@@ -45,12 +45,12 @@ AppAsset::register($this);
             </div>
 
             <?= $this->render('includes/header'); ?>
-          
+
             <?= $content; ?>
 
-            <?= $this->render('includes/prefooter'); ?>
+            <?= $this->render('includes/prefooter2'); ?>
 
-            <?= $this->render('includes/footer'); ?>
+            <?= $this->render('includes/footer2'); ?>
 
         </div>
         <div class="snackbars" id="form-output-global"></div>

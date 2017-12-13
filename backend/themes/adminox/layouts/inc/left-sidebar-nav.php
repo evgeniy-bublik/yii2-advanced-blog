@@ -22,10 +22,30 @@ use app\modules\core\widgets\Menu;
             ],
         ],
         [
-            'label' => 'Settings',
-            'url' => ['/core/settings/update'],
+            'label' => 'Site management',
+            'items' => [
+                [
+                    'label' => 'Core pages',
+                    'url' => ['/core/core-pages/index'],
+                ],
+                [
+                    'label' => 'Text blocks',
+                    'url' => ['/core/text-blocks/index'],
+                ],
+                [
+                    'label' => 'Settings',
+                    'url' => ['/core/settings/update'],
+                ],
+            ],
             'iconOptions' => [
                 'class' => 'dripicons-gear',
+            ],
+        ],
+        [
+            'label' => 'Proffessional skills',
+            'url' => ['/user/proffessional-skills/index'],
+            'iconOptions' => [
+                'class' => 'mdi mdi-share',
             ],
         ],
         [

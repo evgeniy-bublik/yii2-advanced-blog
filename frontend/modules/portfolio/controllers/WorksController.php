@@ -88,6 +88,10 @@ class WorksController extends FrontController
             ->where(['lwtt.tag_id' => $tag->id])
             ->all();
 
+        $this->setMetaTitle($tag->meta_title);
+        $this->setMetaDescription($tag->meta_description);
+        $this->setMetaKeywords($tag->meta_keywords);
+
         return $this->render('index', [
             'categories' => $categories,
             'works' => $works,

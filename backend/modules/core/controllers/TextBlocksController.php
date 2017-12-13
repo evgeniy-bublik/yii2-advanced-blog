@@ -3,8 +3,8 @@
 namespace app\modules\core\controllers;
 
 use Yii;
-use app\modules\core\models\SocialLink;
-use app\modules\core\models\searchModels\SocialLinkSearch;
+use app\modules\core\models\TextBlock;
+use app\modules\core\models\searchModels\TextBlockSearch;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use app\modules\core\actions\CrudIndexAction;
@@ -16,22 +16,28 @@ use app\modules\core\components\BackendController;
 use yii\data\ActiveDataProvider;
 
 /**
- * SocialLinksController implements the CRUD actions for SocialLink model.
+ * TextBlocksController implements the CRUD actions for TextBlock model.
  */
-class SocialLinksController extends BackendController
+class TextBlocksController extends BackendController
 {
+    /** @var string Text block class name */
+    private $textBlockClassName;
 
-    private $socialLinkClassName;
-
+    /**
+     * {@inheritdoc}
+     *
+     */
     public function init()
     {
         parent::init();
 
-        $this->socialLinkClassName = SocialLink::className();
+        $this->textBlockClassName = TextBlock::className();
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
+     * @return array
      */
     public function behaviors()
     {
@@ -55,44 +61,46 @@ class SocialLinksController extends BackendController
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
+     * @return array
      */
     public function actions()
     {
         return [
             'index' => [
                 'class'           => CrudIndexAction::className(),
-                'searchModelName' => SocialLinkSearch::className(),
+                'searchModelName' => TextBlockSearch::className(),
                 'gridColumns'     => $this->getGridIndexColumns(),
                 'breadcrumbs'     => $this->getIndexBreadcrumbs(),
-                'title'           => 'List social links',
+                'title'           => 'List text blocks',
                 'template'        => $this->getTemplateIndexCrud(),
                 'widgetOptions'   => $this->getDefaultGridViewWidgetOptions(),
             ],
             'view' => [
                 'class'                 => CrudViewAction::className(),
-                'modelName'             => $this->socialLinkClassName,
+                'modelName'             => $this->textBlockClassName,
                 'detailViewAttributes'  => $this->getDetailViewsAttributes(),
                 'breadcrumbs'           => $this->getViewBreadcrumbs(),
-                'title'                 => 'View social link',
+                'title'                 => 'View text block',
                 'template'              => $this->getTemplateViewCrud(),
             ],
             'delete' => [
                 'class'     => CrudDeleteAction::className(),
-                'modelName' => $this->socialLinkClassName,
+                'modelName' => $this->textBlockClassName,
             ],
             'create' => [
                 'class'       => CrudCreateAction::className(),
-                'modelName'   => $this->socialLinkClassName,
+                'modelName'   => $this->textBlockClassName,
                 'breadcrumbs' => $this->getCreateBreadcrumbs(),
-                'title'       => 'Create social link',
+                'title'       => 'Create text block',
                 'template'    => $this->getTemplateCreateCrud(),
             ],
             'update' => [
                 'class'       => CrudUpdateAction::className(),
-                'modelName'   => $this->socialLinkClassName,
+                'modelName'   => $this->textBlockClassName,
                 'breadcrumbs' => $this->getUpdateBreadcrumbs(),
-                'title'       => 'Update social link',
+                'title'       => 'Update text block',
                 'template'    => $this->getTemplateUpdateCrud(),
             ],
         ];
@@ -108,7 +116,7 @@ class SocialLinksController extends BackendController
         return [
             $this->getGridSerialColumn(),
             'name',
-            'href',
+            'code',
             $this->getGridColumnYesOrNow('active'),
             $this->getGridActions(),
         ];
@@ -124,12 +132,10 @@ class SocialLinksController extends BackendController
         return [
             'id',
             'name',
-            'link_class',
-            'href',
-            'display_order',
+            'code',
+            'description',
+            'text',
             'active',
-            'created_at',
-            'updated_at',
         ];
     }
 
@@ -142,11 +148,11 @@ class SocialLinksController extends BackendController
     {
         return [
             [
-                'label' => 'Social links',
+                'label' => 'Text blocks',
                 'url' => ['index'],
             ],
             [
-                'label' => 'List social links',
+                'label' => 'List text blocks',
             ]
         ];
     }
@@ -160,11 +166,11 @@ class SocialLinksController extends BackendController
     {
         return [
             [
-                'label' => 'Social links',
+                'label' => 'Text blocks',
                 'url' => ['index'],
             ],
             [
-                'label' => 'View social link',
+                'label' => 'View text block',
             ]
         ];
     }
@@ -178,11 +184,11 @@ class SocialLinksController extends BackendController
     {
         return [
             [
-                'label' => 'Social links',
+                'label' => 'Text blocks',
                 'url' => ['index'],
             ],
             [
-                'label' => 'Create social link',
+                'label' => 'Create text block',
             ]
         ];
     }
@@ -196,11 +202,11 @@ class SocialLinksController extends BackendController
     {
         return [
             [
-                'label' => 'Social links',
+                'label' => 'Text blocks',
                 'url' => ['index'],
             ],
             [
-                'label' => 'Update social link',
+                'label' => 'Update text block',
             ]
         ];
     }

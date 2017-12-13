@@ -1,10 +1,10 @@
 <?php
 
-namespace app\modules\core\controllers;
+namespace app\modules\user\controllers;
 
 use Yii;
-use app\modules\core\models\SocialLink;
-use app\modules\core\models\searchModels\SocialLinkSearch;
+use app\modules\user\models\ProffessionalSkill;
+use app\modules\user\models\searchModels\ProffessionalSkillSearch;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use app\modules\core\actions\CrudIndexAction;
@@ -16,22 +16,28 @@ use app\modules\core\components\BackendController;
 use yii\data\ActiveDataProvider;
 
 /**
- * SocialLinksController implements the CRUD actions for SocialLink model.
+ * ProffessionalSkillsController implements the CRUD actions for ProffessionalSkill model.
  */
-class SocialLinksController extends BackendController
+class ProffessionalSkillsController extends BackendController
 {
+    /** @var string Text block class name */
+    private $proffessionalSkillClassName;
 
-    private $socialLinkClassName;
-
+    /**
+     * {@inheritdoc}
+     *
+     */
     public function init()
     {
         parent::init();
 
-        $this->socialLinkClassName = SocialLink::className();
+        $this->proffessionalSkillClassName = ProffessionalSkill::className();
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
+     * @return array
      */
     public function behaviors()
     {
@@ -55,44 +61,46 @@ class SocialLinksController extends BackendController
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
+     * @return array
      */
     public function actions()
     {
         return [
             'index' => [
                 'class'           => CrudIndexAction::className(),
-                'searchModelName' => SocialLinkSearch::className(),
+                'searchModelName' => ProffessionalSkillSearch::className(),
                 'gridColumns'     => $this->getGridIndexColumns(),
                 'breadcrumbs'     => $this->getIndexBreadcrumbs(),
-                'title'           => 'List social links',
+                'title'           => 'List proffessional skills',
                 'template'        => $this->getTemplateIndexCrud(),
                 'widgetOptions'   => $this->getDefaultGridViewWidgetOptions(),
             ],
             'view' => [
                 'class'                 => CrudViewAction::className(),
-                'modelName'             => $this->socialLinkClassName,
+                'modelName'             => $this->proffessionalSkillClassName,
                 'detailViewAttributes'  => $this->getDetailViewsAttributes(),
                 'breadcrumbs'           => $this->getViewBreadcrumbs(),
-                'title'                 => 'View social link',
+                'title'                 => 'View proffessional skill',
                 'template'              => $this->getTemplateViewCrud(),
             ],
             'delete' => [
                 'class'     => CrudDeleteAction::className(),
-                'modelName' => $this->socialLinkClassName,
+                'modelName' => $this->proffessionalSkillClassName,
             ],
             'create' => [
                 'class'       => CrudCreateAction::className(),
-                'modelName'   => $this->socialLinkClassName,
+                'modelName'   => $this->proffessionalSkillClassName,
                 'breadcrumbs' => $this->getCreateBreadcrumbs(),
-                'title'       => 'Create social link',
+                'title'       => 'Create proffessional skill',
                 'template'    => $this->getTemplateCreateCrud(),
             ],
             'update' => [
                 'class'       => CrudUpdateAction::className(),
-                'modelName'   => $this->socialLinkClassName,
+                'modelName'   => $this->proffessionalSkillClassName,
                 'breadcrumbs' => $this->getUpdateBreadcrumbs(),
-                'title'       => 'Update social link',
+                'title'       => 'Update proffessional skill',
                 'template'    => $this->getTemplateUpdateCrud(),
             ],
         ];
@@ -108,7 +116,7 @@ class SocialLinksController extends BackendController
         return [
             $this->getGridSerialColumn(),
             'name',
-            'href',
+            'value',
             $this->getGridColumnYesOrNow('active'),
             $this->getGridActions(),
         ];
@@ -124,12 +132,10 @@ class SocialLinksController extends BackendController
         return [
             'id',
             'name',
-            'link_class',
-            'href',
+            'value',
+            'color_bar',
             'display_order',
             'active',
-            'created_at',
-            'updated_at',
         ];
     }
 
@@ -142,11 +148,11 @@ class SocialLinksController extends BackendController
     {
         return [
             [
-                'label' => 'Social links',
+                'label' => 'Proffessional skills',
                 'url' => ['index'],
             ],
             [
-                'label' => 'List social links',
+                'label' => 'List proffessional skills',
             ]
         ];
     }
@@ -160,11 +166,11 @@ class SocialLinksController extends BackendController
     {
         return [
             [
-                'label' => 'Social links',
+                'label' => 'Proffessional skills',
                 'url' => ['index'],
             ],
             [
-                'label' => 'View social link',
+                'label' => 'View proffessional skill',
             ]
         ];
     }
@@ -178,11 +184,11 @@ class SocialLinksController extends BackendController
     {
         return [
             [
-                'label' => 'Social links',
+                'label' => 'Proffessional skills',
                 'url' => ['index'],
             ],
             [
-                'label' => 'Create social link',
+                'label' => 'Create proffessional skill',
             ]
         ];
     }
@@ -196,11 +202,11 @@ class SocialLinksController extends BackendController
     {
         return [
             [
-                'label' => 'Social links',
+                'label' => 'Proffessional skills',
                 'url' => ['index'],
             ],
             [
-                'label' => 'Update social link',
+                'label' => 'Update proffessional skill',
             ]
         ];
     }

@@ -3,31 +3,28 @@
 namespace app\modules\core\controllers;
 
 use Yii;
-use app\modules\core\models\SocialLink;
-use app\modules\core\models\searchModels\SocialLinkSearch;
+use app\modules\core\models\CorePage;
+use app\modules\core\models\searchModels\CorePageSearch;
+use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 use app\modules\core\actions\CrudIndexAction;
 use app\modules\core\actions\CrudViewAction;
-use app\modules\core\actions\CrudDeleteAction;
-use app\modules\core\actions\CrudCreateAction;
 use app\modules\core\actions\CrudUpdateAction;
 use app\modules\core\components\BackendController;
-use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 
 /**
- * SocialLinksController implements the CRUD actions for SocialLink model.
+ * CorePagesController implements the CRUD actions for CorePage model.
  */
-class SocialLinksController extends BackendController
+class CorePagesController extends BackendController
 {
-
-    private $socialLinkClassName;
+    private $corePageClassName;
 
     public function init()
     {
         parent::init();
 
-        $this->socialLinkClassName = SocialLink::className();
+        $this->corePageClassName = CorePage::className();
     }
 
     /**
@@ -36,12 +33,6 @@ class SocialLinksController extends BackendController
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
@@ -62,37 +53,26 @@ class SocialLinksController extends BackendController
         return [
             'index' => [
                 'class'           => CrudIndexAction::className(),
-                'searchModelName' => SocialLinkSearch::className(),
+                'searchModelName' => CorePageSearch::className(),
                 'gridColumns'     => $this->getGridIndexColumns(),
                 'breadcrumbs'     => $this->getIndexBreadcrumbs(),
-                'title'           => 'List social links',
+                'title'           => 'List core pages',
                 'template'        => $this->getTemplateIndexCrud(),
                 'widgetOptions'   => $this->getDefaultGridViewWidgetOptions(),
             ],
             'view' => [
                 'class'                 => CrudViewAction::className(),
-                'modelName'             => $this->socialLinkClassName,
+                'modelName'             => $this->corePageClassName,
                 'detailViewAttributes'  => $this->getDetailViewsAttributes(),
                 'breadcrumbs'           => $this->getViewBreadcrumbs(),
-                'title'                 => 'View social link',
+                'title'                 => 'View core page',
                 'template'              => $this->getTemplateViewCrud(),
-            ],
-            'delete' => [
-                'class'     => CrudDeleteAction::className(),
-                'modelName' => $this->socialLinkClassName,
-            ],
-            'create' => [
-                'class'       => CrudCreateAction::className(),
-                'modelName'   => $this->socialLinkClassName,
-                'breadcrumbs' => $this->getCreateBreadcrumbs(),
-                'title'       => 'Create social link',
-                'template'    => $this->getTemplateCreateCrud(),
             ],
             'update' => [
                 'class'       => CrudUpdateAction::className(),
-                'modelName'   => $this->socialLinkClassName,
+                'modelName'   => $this->corePageClassName,
                 'breadcrumbs' => $this->getUpdateBreadcrumbs(),
-                'title'       => 'Update social link',
+                'title'       => 'Update core page',
                 'template'    => $this->getTemplateUpdateCrud(),
             ],
         ];
@@ -108,9 +88,10 @@ class SocialLinksController extends BackendController
         return [
             $this->getGridSerialColumn(),
             'name',
-            'href',
             $this->getGridColumnYesOrNow('active'),
-            $this->getGridActions(),
+            $this->getGridActions([
+                'template' => '{update}{view}',
+            ]),
         ];
     }
 
@@ -124,12 +105,11 @@ class SocialLinksController extends BackendController
         return [
             'id',
             'name',
-            'link_class',
-            'href',
-            'display_order',
+            'route',
             'active',
-            'created_at',
-            'updated_at',
+            'meta_title',
+            'meta_description',
+            'meta_keywords',
         ];
     }
 
@@ -142,11 +122,11 @@ class SocialLinksController extends BackendController
     {
         return [
             [
-                'label' => 'Social links',
+                'label' => 'Core pages',
                 'url' => ['index'],
             ],
             [
-                'label' => 'List social links',
+                'label' => 'List core pages',
             ]
         ];
     }
@@ -160,29 +140,11 @@ class SocialLinksController extends BackendController
     {
         return [
             [
-                'label' => 'Social links',
+                'label' => 'Core pages',
                 'url' => ['index'],
             ],
             [
-                'label' => 'View social link',
-            ]
-        ];
-    }
-
-    /**
-     * Get breadcrumbs which show in create page
-     *
-     * @return array
-     */
-    private function getCreateBreadcrumbs()
-    {
-        return [
-            [
-                'label' => 'Social links',
-                'url' => ['index'],
-            ],
-            [
-                'label' => 'Create social link',
+                'label' => 'View core page',
             ]
         ];
     }
@@ -196,12 +158,22 @@ class SocialLinksController extends BackendController
     {
         return [
             [
-                'label' => 'Social links',
+                'label' => 'Core pages',
                 'url' => ['index'],
             ],
             [
-                'label' => 'Update social link',
+                'label' => 'Update core page',
             ]
         ];
+    }
+
+    protected function getTemplateIndexCrud()
+    {
+        return '<div class="row"><div class="col-md-12"><div class="card-box">{widget}</div><div></div>';
+    }
+
+    protected function getTemplateViewCrud()
+    {
+        return '<div class="row"><div class="col-md-12"><div class="card-box"><p>{updateButton}</p>{widget}</div></div></div>';
     }
 }
