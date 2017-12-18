@@ -14,7 +14,6 @@ return [
     'defaultRoute' => '/core/index/index',
     'modules' => include(__DIR__ . DIRECTORY_SEPARATOR . 'modules.php'),
     'layoutPath' => '@app/modules/core/views/layouts',
-    //'catchAll' => ['/core/index/catch-all'],
     'language' => 'ru',
     'components' => [
         'request' => [
@@ -51,7 +50,7 @@ return [
             ],
         ],
         'errorHandler' => [
-            'errorAction' => ['/core/index/error'],
+            'errorAction' => '/core/index/error',
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,

@@ -12,7 +12,7 @@ class Setting extends BaseSetting
     {
         return [
             [['admin_email', 'support_email'], 'email'],
-            [['admin_email', 'support_email'], 'string', ['max' => 100]],
+            [['admin_email', 'support_email', 'admin_skype', 'admin_linkedin'], 'string', ['max' => 100]],
             [['admin_address'], 'string'],
             [['admin_phone'], 'string', ['max' => 15]],
             [['smtp_username', 'smtp_password', 'smtp_password', 'smtp_host'], 'string', ['max' => 50]],
@@ -20,6 +20,7 @@ class Setting extends BaseSetting
             [['smtp_encryption'], 'string', ['max' => 10]],
             [['posts_on_page'], 'integer'],
             [['order_posts'], 'in', ['range' => self::getListPostTypesOrder()]],
+            [['admin_photo'], 'safe'],
         ];
     }
 

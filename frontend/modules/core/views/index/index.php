@@ -17,7 +17,7 @@ use app\modules\user\widgets\SkillsWidget\Skills;
         <div class="row row-40 justify-content-md-center justify-content-lg-start">
             <div class="col-md-6">
                 <div class="thumbnail thumbnail-profile">
-                    <div class="thumbnail-image"><img src="/images/profile-1-570x570.jpg" alt="" width="570" height="570"/>
+                    <div class="thumbnail-image"><img src="<?= SettingWidget::widget(['key' => 'admin_photo']); ?>" alt="Евгений Бублик">
                     </div>
                     <div class="thumbnail-caption">
                         <div class="thumbnail-caption-inner">
@@ -54,7 +54,7 @@ use app\modules\user\widgets\SkillsWidget\Skills;
                 <div class="inset-md-left-50 inset-lg-left-40 inset-xl-left-100">
                     <h4>Евгений Бублик</h4>
                     <p class="offset-top-0">Web Developer</p>
-                    <p>Julien is our leading web developer who specializes in designing a website “from scratch”. He is responsible for building the essence of a website – its code.</p>
+                    <p><?= TextBlockWidget::widget(['code' => 'before-quote']); ?></p>
                 </div>
                 <blockquote class="quote-default">
                     <div class="quote-open">
@@ -74,26 +74,10 @@ use app\modules\user\widgets\SkillsWidget\Skills;
                     </div>
                 </blockquote>
                 <div class="inset-md-left-50 inset-lg-left-40 inset-xl-left-100">
-                    <p>Web development and programming is what Julien is known for in our company. However, his area of interest also lies in other spheres of website building – from web design to online marketing or SEO.</p>4
+                    <p><?= TextBlockWidget::widget(['code' => 'after-quote']); ?></p>
+
                     <?= Skills::widget(); ?>
-                    <ul class="list-progress">
-                        <li>
-                            <p class="animated fadeIn">HTML/CSS</p>
-                            <div class="progress-bar-js progress-bar-horizontal progress-bar-red-orange-1" data-value="70" data-stroke="4" data-easing="linear" data-counter="true" data-duration="1000" data-trail="100"></div>
-                        </li>
-                        <li>
-                            <p class="animated fadeIn">JavaScript</p>
-                            <div class="progress-bar-js progress-bar-horizontal progress-bar-dodger-blue" data-value="54" data-stroke="4" data-easing="linear" data-counter="true" data-duration="1000" data-trail="100"></div>
-                        </li>
-                        <li>
-                            <p class="animated fadeIn">Rails</p>
-                            <div class="progress-bar-js progress-bar-horizontal progress-bar-gorse" data-value="87" data-stroke="4" data-easing="linear" data-counter="true" data-duration="1000" data-trail="100"></div>
-                        </li>
-                        <li>
-                            <p class="animated fadeIn">UI/UX</p>
-                            <div class="progress-bar-js progress-bar-horizontal progress-bar-primary" data-value="90" data-stroke="4" data-easing="linear" data-counter="true" data-duration="1000" data-trail="100"></div>
-                        </li>
-                    </ul>
+
                 </div>
             </div>
         </div>

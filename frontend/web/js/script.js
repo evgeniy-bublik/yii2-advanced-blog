@@ -60,7 +60,7 @@
   /**
    * Initialize All Scripts
    */
-  
+
 
   $(function () {
     var isNoviBuilder = window.xMode;
@@ -725,6 +725,7 @@
 
           bar.path.removeAttribute("stroke");
           bar.path.className.baseVal = "progress-bar__stroke";
+          bar.path.style.stroke = progressItem.getAttribute('data-stroke-color');
           if (bar.trail) {
             bar.trail.removeAttribute("stroke");
             bar.trail.className.baseVal = "progress-bar__trail";

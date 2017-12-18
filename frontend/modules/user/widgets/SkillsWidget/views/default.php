@@ -17,12 +17,12 @@ use yii\helpers\Html;
                 [
                     'class' => 'progress-bar-js progress-bar-horizontal',
                     'data-value' => $skill->value,
-                    'style' => 'stroke: ' . $skill->color_bar . '!important',
                     'data-stroke' => 4,
                     'data-easing' => 'linear',
                     'data-counter' => 'true',
                     'data-duration' => 1000,
                     'data-trail' => 100,
+                    'data-stroke-color' => $skill->color_bar,
                 ]
             ); ?>
 
