@@ -1,14 +1,8 @@
 <?php
 use yii\widgets\ListView;
-use yii\helpers\Html;
 
 /* @var yii\web\View $this */
 /* @var yii\data\ActiveDataProvider $dataProvider Data list of articles*/
-$layoutArticles = '{items}';
-
-if ($dataProvider->pagination->getPageCount()) {
-    $layoutArticles .= '{pager}';
-}
 ?>
 <section class="section section-30 section-xxl-40 section-xxl-66 section-xxl-bottom-90 novi-background bg-gray-dark page-title-wrap" style="background-image: url(/images/bg-blog.jpg);">
     <div class="container">

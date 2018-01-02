@@ -209,7 +209,7 @@
         liveSearch: options.live,
         dataType: "html",
         liveCount: options.liveCount,
-        filter: options.filter,
+        //filter: options.filter,
         template: options.template
       }, function (data) {
         options.processed++;
@@ -944,7 +944,7 @@
       var defaultTemplate = '<h6 class="search_title"><a target="_top" href="#{href}" class="search_link">#{title}</a></h6>' +
         '<p>...#{token}...</p>' +
         '<p class="match"><em>Terms matched: #{count} - URL: #{href}</em></p>';
-      var defaultFilter = '*.html';
+      //var defaultFilter = '*.html';
 
       if (plugins.search.length) {
 
@@ -952,7 +952,7 @@
           var searchItem = $(plugins.search[i]),
             options = {
               element: searchItem,
-              filter: (searchItem.attr('data-search-filter')) ? searchItem.attr('data-search-filter') : defaultFilter,
+              //filter: (searchItem.attr('data-search-filter')) ? searchItem.attr('data-search-filter') : defaultFilter,
               template: (searchItem.attr('data-search-template')) ? searchItem.attr('data-search-template') : defaultTemplate,
               live: (searchItem.attr('data-search-live')) ? searchItem.attr('data-search-live') : false,
               liveCount: (searchItem.attr('data-search-live-count')) ? parseInt(searchItem.attr('data-search-live-count')) : 4,
@@ -995,14 +995,6 @@
               }
             }, options, this));
           }
-
-          searchItem.submit($.proxy(function () {
-            $('<input />').attr('type', 'hidden')
-              .attr('name', "filter")
-              .attr('value', this.filter)
-              .appendTo(this.element);
-            return true;
-          }, options, this))
         }
       }
 

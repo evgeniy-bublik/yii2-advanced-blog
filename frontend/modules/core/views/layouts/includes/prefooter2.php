@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Url;
 use app\modules\core\widgets\SettingWidget;
+use app\modules\core\widgets\SocialLinks;
 ?>
 
 <section class="section section-40 section-md-top-75 section-md-bottom-60 bg-cod-gray novi-background">
@@ -43,15 +44,17 @@ use app\modules\core\widgets\SettingWidget;
                 </div>
             </div>
             <div class="col-md-5 col-xl-4 text-lg-center">
-                <ul class="list-inline list-inline-xs">
-                    <li><a class="novi-icon icon icon-sm-custom link-tundora fa-facebook" href="#"></a></li>
-                    <li><a class="novi-icon icon icon-sm-custom link-tundora fa-twitter" href="#"></a></li>
-                    <li><a class="novi-icon icon icon-sm-custom link-tundora fa-google-plus" href="#"></a></li>
-                    <li><a class="novi-icon icon icon-sm-custom link-tundora fa-linkedin" href="#"></a></li>
-                    <li><a class="novi-icon icon icon-sm-custom link-tundora fa-skype" href="#"></a></li>
-                    <li><a class="novi-icon icon icon-sm-custom link-tundora fa-vine" href="#"> </a></li>
-                    <li><a class="novi-icon icon icon-sm-custom link-tundora fa-youtube" href="#"></a></li>
-                </ul>
+
+                <?= SocialLinks::widget([
+                    'options' => [
+                        'class' => 'list-inline list-inline-xs',
+                    ],
+                    'linkOptions' => [
+                        'class' => 'novi-icon icon icon-sm-custom link-tundora',
+                        'target' => '_blank',
+                    ],
+                ]); ?>
+
             </div>
         </div>
     </div>

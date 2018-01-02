@@ -18,7 +18,7 @@ class SocialLink extends BaseSocialLink
             parent::rules(),
             [
                 ['display_order', 'default', 'value' => 0],
-                ['href', 'url'],
+                //['href', 'url'],
             ]
         );
 

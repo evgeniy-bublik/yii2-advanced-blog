@@ -11,6 +11,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use app\modules\article\models\ArticleTag;
 use app\modules\article\models\ArticleCategory;
+use app\modules\article\models\forms\SearchForm;
 
 class ArticlesController extends FrontController
 {
@@ -33,9 +34,7 @@ class ArticlesController extends FrontController
 
         $dataProvider = new ActiveDataProvider($dataProviderArticlesConfig);
 
-        return $this->render('articles', [
-            'dataProvider' => $dataProvider,
-        ]);
+        return $this->render('articles', compact('dataProvider'));
     }
 
     /**
@@ -68,9 +67,7 @@ class ArticlesController extends FrontController
         $this->setMetaDescription($article->meta_description);
         $this->setMetaKeywords($article->meta_keywords);
 
-        return $this->render('article', [
-            'article' => $article
-        ]);
+        return $this->render('article', compact('article'));
     }
 
     /**
@@ -107,9 +104,7 @@ class ArticlesController extends FrontController
         $this->setMetaDescription($tag->meta_description);
         $this->setMetaKeywords($tag->meta_keywords);
 
-        return $this->render('articles', [
-            'dataProvider' => $dataProvider,
-        ]);
+        return $this->render('articles', compact('dataProvider'));
     }
 
     /**
@@ -146,8 +141,17 @@ class ArticlesController extends FrontController
         $this->setMetaDescription($category->meta_description);
         $this->setMetaKeywords($category->meta_keywords);
 
-        return $this->render('articles', [
-            'dataProvider' => $dataProvider,
-        ]);
+        return $this->render('articles', compact('dataProvider'));
+    }
+
+    public function actionSearch()
+    {
+        $searchForm = new SearchForm();
+
+        $searchForm->load(Yii::$app->request->get());
+
+        $dataProvider = $searchForm->search();
+
+        return $this->render('search_articles', compact('dataProvider', 'searchForm'));
     }
 }
