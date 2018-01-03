@@ -7,7 +7,7 @@ use app\modules\core\widgets\SocialLinks;
 <section class="section section-40 section-md-top-75 section-md-bottom-60 bg-cod-gray novi-background">
     <div class="container text-center text-md-left">
         <div class="row row-30 align-items-md-center justify-content-lg-center justify-content-xl-start">
-            <div class="col-lg-11 col-xl-3"><a class="brand" href="index.html"><img src="/images/logo-white.svg" width="139" height="22" alt="logo"/></a></div>
+            <div class="col-lg-11 col-xl-3"><a class="brand" href="/"><img src="/images/logo.png" width="139" height="22" alt="logo"/></a></div>
             <div class="col-md-7 col-lg-6 col-xl-5">
                 <div class="wrap-justify">
 

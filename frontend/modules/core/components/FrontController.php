@@ -9,6 +9,7 @@ use yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
 use app\modules\core\models\CorePage;
 use yii\web\NotFoundHttpException;
+use app\modules\core\models\Helper as FrontHelper;
 
 class FrontController extends Controller
 {
@@ -19,28 +20,29 @@ class FrontController extends Controller
         parent::init();
 
         $this->settings = ArrayHelper::map(Setting::find()->all(), 'key', 'value');
+        $this->settings[ 'siteName' ] = 'DevLife';
 
         $this->setCorePageMeta();
     }
 
-    protected function setMetaTitle($metaTitle)
+    protected function setMetaTitle($metaTitle, $placeholders = [])
     {
-        Yii::$app->view->title = $metaTitle;
+        Yii::$app->view->title = FrontHelper::replacePlaceholders($metaTitle, $placeholders);
     }
 
-    protected function setMetaDescription($metaDescription)
+    protected function setMetaDescription($metaDescription, $placeholders = [])
     {
         Yii::$app->view->registerMetaTag([
             'name'    => 'description',
-            'content' => $metaDescription,
+            'content' => FrontHelper::replacePlaceholders($metaDescription, $placeholders),
         ]);
     }
 
-    protected function setMetaKeywords($metaKeywords)
+    protected function setMetaKeywords($metaKeywords, $placeholders = [])
     {
         Yii::$app->view->registerMetaTag([
             'name'    => 'keywords',
-            'content' => $metaKeywords,
+            'content' => FrontHelper::replacePlaceholders($metaKeywords, $placeholders),
         ]);
     }
 
@@ -57,8 +59,18 @@ class FrontController extends Controller
             throw new NotFoundHttpException('Данная страница не существует или не была перемещена');
         }
 
-        $this->setMetaTitle($page->meta_title);
-        $this->setMetaDescription($page->meta_description);
-        $this->setMetaKeywords($page->meta_keywords);
+        $siteName = ArrayHelper::getValue($this->settings, 'siteName', '');
+
+        $this->setMetaTitle($page->meta_title, [
+            '{siteName}' => $siteName,
+        ]);
+
+        $this->setMetaDescription($page->meta_description, [
+            '{siteName}' => $siteName,
+        ]);
+
+        $this->setMetaKeywords($page->meta_keywords, [
+            '{siteName}' => $siteName,
+        ]);
     }
 }

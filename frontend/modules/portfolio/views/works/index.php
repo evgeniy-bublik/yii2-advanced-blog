@@ -3,7 +3,7 @@
 /* @var app\modules\portfolio\models\Work[] $works */
 /* @var yii\web\View $this */
 ?>
-<section class="section section-30 section-xxl-40 section-xxl-66 section-xxl-bottom-90 novi-background bg-gray-dark page-title-wrap" style="background-image: url(/images/bg-gallery.jpg);">
+<section class="section section-30 section-xxl-40 section-xxl-66 section-xxl-bottom-90 novi-background bg-gray-dark page-title-wrap" style="background-image: url(/images/bg-image-5.jpg);">
     <div class="container">
         <div class="page-title">
             <h2>Портфолио</h2>

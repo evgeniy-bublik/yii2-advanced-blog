@@ -12,6 +12,8 @@ use yii\web\NotFoundHttpException;
 use app\modules\article\models\ArticleTag;
 use app\modules\article\models\ArticleCategory;
 use app\modules\article\models\forms\SearchForm;
+use yii\helpers\Url;
+use app\modules\core\models\Helper as FrontHelper;
 
 class ArticlesController extends FrontController
 {
@@ -66,6 +68,8 @@ class ArticlesController extends FrontController
         $this->setMetaTitle($article->meta_title);
         $this->setMetaDescription($article->meta_description);
         $this->setMetaKeywords($article->meta_keywords);
+
+        $this->registerSocialMeta($article);
 
         return $this->render('article', compact('article'));
     }
@@ -144,6 +148,11 @@ class ArticlesController extends FrontController
         return $this->render('articles', compact('dataProvider'));
     }
 
+    /**
+     * Search articles
+     *
+     * @return mixed
+     */
     public function actionSearch()
     {
         $searchForm = new SearchForm();
@@ -153,5 +162,47 @@ class ArticlesController extends FrontController
         $dataProvider = $searchForm->search();
 
         return $this->render('search_articles', compact('dataProvider', 'searchForm'));
+    }
+
+    /**
+     * Register meta tags for share buttons
+     *
+     * @param app\modules\article\models\Article $article
+     * @return void
+     */
+    private function registerSocialMeta(Article $article)
+    {
+        $siteName = ArrayHelper::getValue($this->settings, 'siteName', '');
+
+        Yii::$app->view->registerMetaTag([
+            'name'    => 'og:url',
+            'content' => Url::toRoute(['/article/articles/article', 'articleAlias' => $article->alias], true),
+        ]);
+
+        Yii::$app->view->registerMetaTag([
+            'name'    => 'og:type',
+            'content' => 'website',
+        ]);
+
+        Yii::$app->view->registerMetaTag([
+            'name'    => 'og:title',
+            'content' => FrontHelper::replacePlaceholders($article->meta_title, [
+                '{siteName}' => $siteName,
+            ]),
+        ]);
+
+        Yii::$app->view->registerMetaTag([
+            'name'    => 'og:description',
+            'content' => FrontHelper::replacePlaceholders($article->meta_description, [
+                '{siteName}' => $siteName,
+            ]),
+        ]);
+
+        if ($article->image) {
+            Yii::$app->view->registerMetaTag([
+                'name'    => 'og:image',
+                'content' => $article->getFullImage(),
+            ]);
+        }
     }
 }

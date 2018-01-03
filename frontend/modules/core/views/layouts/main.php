@@ -16,7 +16,7 @@ AppAsset::register($this);
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta charset="<?= Yii::$app->charset; ?>">
-        <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Montserrat:400,700%7CLato:300,300italic,400,400italic,700,900%7CPlayfair+Display:700italic,900">
         <!--[if lt IE 10]>
         <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="/images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
@@ -28,7 +28,7 @@ AppAsset::register($this);
         <div class="page">
             <div class="page-loader page-loader-variant-1">
                 <div>
-                    <a class="brand brand-md" href="index.html"><img src="/images/logo-white.svg" width="139" height="22" alt="logo"/></a>
+                    <a class="brand brand-md" href="/"><img src="/images/logo.png" width="139" height="22" alt="logo"/></a>
                     <div class="page-loader-body">
                         <div id="spinningSquaresG">
                             <div class="spinningSquaresG" id="spinningSquaresG_1"></div>

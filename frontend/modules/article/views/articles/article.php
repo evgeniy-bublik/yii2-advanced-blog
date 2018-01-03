@@ -9,7 +9,7 @@ use app\modules\article\widgets\PopularArticlesWidget\PopularArticles;
 <section class="section section-30 section-xxl-40 section-xxl-66 section-xxl-bottom-90 novi-background bg-gray-dark page-title-wrap" style="background-image: url(/images/bg-blog.jpg);">
     <div class="container">
         <div class="page-title">
-            <h2>Blog</h2>
+            <h2>Блог</h2>
         </div>
     </div>
 </section>
@@ -74,7 +74,7 @@ use app\modules\article\widgets\PopularArticlesWidget\PopularArticles;
                         <?= $article->description; ?>
 
                     </div>
-                    <div class="post-footer">
+                    <!-- <div class="post-footer">
                         <h5>Поделиться:</h5>
                         <ul class="list-inline list-inline-xs">
                             <li><a class="novi-icon icon icon-xxs-small link-tundora fa-facebook" href="#"></a></li>
@@ -82,7 +82,7 @@ use app\modules\article\widgets\PopularArticlesWidget\PopularArticles;
                             <li><a class="novi-icon icon icon-xxs-small link-tundora fa-google-plus" href="#"></a></li>
                             <li><a class="novi-icon icon icon-xxs-small link-tundora fa-pinterest-p" href="#"></a></li>
                         </ul>
-                    </div>
+                    </div> -->
                 </article>
                 <div class="divider-fullwidth bg-gray-lighter"></div>
                 <!-- <div class="comment-list-wrap">
@@ -200,7 +200,7 @@ use app\modules\article\widgets\PopularArticlesWidget\PopularArticles;
             </div>
             <div class="col-lg-4 col-xl-3">
                 <div class="blog-aside">
-                    <div class="blog-aside-item">
+                    <!-- <div class="blog-aside-item">
                         <form class="rd-search rd-search-classic" action="search-results.html" method="GET">
                             <div class="form-wrap">
                                 <label class="form-label" for="rd-search-form-input-1">Search...</label>
@@ -208,7 +208,7 @@ use app\modules\article\widgets\PopularArticlesWidget\PopularArticles;
                             </div>
                             <button class="rd-search-submit" type="submit"></button>
                         </form>
-                    </div>
+                    </div> -->
 
                     <?= Categories::widget(); ?>
 

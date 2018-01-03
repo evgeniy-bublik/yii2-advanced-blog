@@ -12,7 +12,7 @@ use app\modules\core\widgets\SettingWidget;
                     <div class="row row-50">
                         <div class="col-md-6 col-lg-10 col-xl-3">
                             <div class="inset-xl-right-20" style="max-width: 510px;">
-                                <a class="brand" href="index.html"><img src="/images/logo-white.svg" width="139" height="22" alt="logo"/></a>
+                                <a class="brand" href="index.html"><img src="/images/logo.png" width="139" height="22" alt="logo"/></a>
                                 <p>TemplateMonster is an A-size depot of website templates - more than 46,000 designs to choose from. Since coming up in May 2002, we've gone 25 partners.</p>
                                 <a class="link link-group link-group-animated link-bold link-white" href="//www.templatemonster.com/website-templates/starbis.html" target="_blank"><span>Get Starbis Now</span><span class="novi-icon icon icon-xxs icon-primary fa fa-angle-right"></span></a>
                             </div>
