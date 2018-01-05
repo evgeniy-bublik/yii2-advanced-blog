@@ -6,9 +6,9 @@ use yii\web\View;
 use yii\web\AssetBundle;
 
 /**
- * Asset bundle for lt ie 10.
+ * Asset bundle position head.
  */
-class AppIeAsset extends AssetBundle
+class HeadAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
@@ -16,11 +16,10 @@ class AppIeAsset extends AssetBundle
     public $css = [
     ];
     public $js = [
-        'js/html5shiv.min.js',
+        'js/google-tag-manager.js',
     ];
 
     public $jsOptions = [
         'position' => View::POS_HEAD,
-        'condition' => 'lt IE 10',
     ];
 }

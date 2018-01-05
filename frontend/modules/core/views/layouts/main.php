@@ -1,10 +1,13 @@
 <?php
+
 use app\assets\AppAsset;
 use app\assets\AppIeAsset;
+use app\assets\HeadAsset;
 use yii\helpers\Html;
 
 AppIeAsset::register($this);
 AppAsset::register($this);
+HeadAsset::register($this);
 /* @var yii\web\View $this*/
 ?>
 <?php $this->beginPage(); ?>
@@ -25,6 +28,7 @@ AppAsset::register($this);
     </head>
     <body>
         <?php $this->beginBody(); ?>
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M839S3Z" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="page">
             <div class="page-loader page-loader-variant-1">
                 <div>
