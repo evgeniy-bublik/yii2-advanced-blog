@@ -65,7 +65,13 @@ class ArticlesController extends FrontController
             $article->setUniqueView($ip);
         }
 
-        $this->setMetaTitle($article->meta_title);
+        $this->setMetaTitle(FrontHelper::replacePlaceholders(
+            $article->meta_title,
+            [
+                '{titleArticle}'  => $article->title,
+                '{siteName}'      => ArrayHelper::getValue($this->settings, 'siteName'),
+            ]
+        ));
         $this->setMetaDescription($article->meta_description);
         $this->setMetaKeywords($article->meta_keywords);
 
@@ -104,7 +110,13 @@ class ArticlesController extends FrontController
 
         $dataProvider = new ActiveDataProvider($dataProviderArticlesConfig);
 
-        $this->setMetaTitle($tag->meta_title);
+        $this->setMetaTitle(FrontHelper::replacePlaceholders(
+            $tag->meta_title,
+            [
+                '{tagName}'   => $tag->name,
+                '{siteName}'  => ArrayHelper::getValue($this->settings, 'siteName'),
+            ]
+        ));
         $this->setMetaDescription($tag->meta_description);
         $this->setMetaKeywords($tag->meta_keywords);
 
@@ -141,7 +153,13 @@ class ArticlesController extends FrontController
 
         $dataProvider = new ActiveDataProvider($dataProviderArticlesConfig);
 
-        $this->setMetaTitle($category->meta_title);
+        $this->setMetaTitle(FrontHelper::replacePlaceholders(
+            $category->meta_title,
+            [
+                '{categoryTitle}' => $category->title,
+                '{siteName}'      => ArrayHelper::getValue($this->settings, 'siteName'),
+            ]
+        ));
         $this->setMetaDescription($category->meta_description);
         $this->setMetaKeywords($category->meta_keywords);
 

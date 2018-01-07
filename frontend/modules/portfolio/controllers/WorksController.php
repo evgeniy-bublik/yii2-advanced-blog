@@ -8,6 +8,8 @@ use app\modules\portfolio\models\Tag as PortfolioTag;
 use app\modules\portfolio\models\Work;
 use yii\db\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
+use app\modules\core\models\Helper as FrontHelper;
+use yii\helpers\ArrayHelper;
 
 class WorksController extends FrontController
 {
@@ -30,8 +32,8 @@ class WorksController extends FrontController
 
 
         return $this->render('index', [
-            'categories' => $categories,
-            'works' => $works,
+            'categories'  => $categories,
+            'works'       => $works,
         ]);
     }
 
@@ -54,7 +56,13 @@ class WorksController extends FrontController
             throw new NotFoundHttpException('Страница не существует или же была удалена');
         }
 
-        $this->setMetaTitle($portfolioWork->meta_title);
+        $this->setMetaTitle(FrontHelper::replacePlaceholders(
+            $portfolioWork->meta_title,
+            [
+                '{workName}' => $portfolioWork->name,
+                '{siteName}' => ArrayHelper::getValue($this->settings, 'siteName'),
+            ]
+        ));
         $this->setMetaDescription($portfolioWork->meta_description);
         $this->setMetaKeywords($portfolioWork->meta_keywords);
 
@@ -88,7 +96,13 @@ class WorksController extends FrontController
             ->where(['lwtt.tag_id' => $tag->id])
             ->all();
 
-        $this->setMetaTitle($tag->meta_title);
+        $this->setMetaTitle(FrontHelper::replacePlaceholders(
+            $tag->meta_title,
+            [
+                '{tagName}'   => $tag->name,
+                '{siteName}'  => ArrayHelper::getValue($this->settings, 'siteName'),
+            ]
+        ));
         $this->setMetaDescription($tag->meta_description);
         $this->setMetaKeywords($tag->meta_keywords);
 
