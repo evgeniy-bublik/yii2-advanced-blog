@@ -14,6 +14,7 @@ use Yii;
  * @property string $meta_title
  * @property string $meta_keywords
  * @property string $meta_description
+ * @property string $updated_at
  */
 class CorePage extends \yii\db\ActiveRecord
 {
@@ -37,6 +38,7 @@ class CorePage extends \yii\db\ActiveRecord
             [['name', 'meta_title'], 'string', 'max' => 255],
             [['route'], 'string', 'max' => 100],
             [['route'], 'unique'],
+            [['updated_at'], 'safe'],
         ];
     }
 
@@ -53,6 +55,7 @@ class CorePage extends \yii\db\ActiveRecord
             'meta_title' => 'Meta Title',
             'meta_keywords' => 'Meta Keywords',
             'meta_description' => 'Meta Description',
+            'updated_at' => 'Updated At',
         ];
     }
 }

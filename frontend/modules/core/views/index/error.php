@@ -1,15 +1,16 @@
 <?php
 
-/* @var $this yii\web\View */
-/* @var $name string */
-/* @var $message string */
-/* @var $exception Exception */
+/** @var $this yii\web\View */
+/** @var $name string */
+/** @var $message string */
+/** @var $exception Exception */
 
 use yii\helpers\Html;
 use yii\widgets\Menu;
 
 $this->title = $name;
-$this->context->layout = '404';
+$this->context->layout = 'error';
+
 ?>
 <!-- Page-->
 <div class="page context-dark text-center">
@@ -41,7 +42,7 @@ $this->context->layout = '404';
                     <div class="cell-md-8 cell-sm-10">
                         <a class="reveal-inline-block brand" href="/"><img src="/images/logo.png" width="166" height="45" alt=""></a>
                         <h2><?= $message; ?></h2>
-                        <h1><span class="big">404</span></h1>
+                        <h1><span class="big"><?= $exception->statusCode; ?></span></h1>
                         <div class="group"><a class="button button-primary" href="/">Главная</a>
                         </div>
                     </div>

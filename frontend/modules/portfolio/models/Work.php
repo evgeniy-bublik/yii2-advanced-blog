@@ -7,11 +7,12 @@ use common\models\portfolio\Work as BaseWork;
 use common\behaviors\ThumbBehavior;
 use yii\helpers\Url;
 use yii\helpers\Html;
+use DateTime;
 
 class Work extends BaseWork
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @return array
      */
@@ -27,6 +28,13 @@ class Work extends BaseWork
         ];
     }
 
+    /**
+     * Generate string tags for this work
+     *
+     * @param string $template Template for tag url
+     * @param string $separatorTags Separator for link tag
+     * @return string
+     */
     public function getListWorkTags($template = '{linkTag}', $separatorTags = ', ')
     {
         $listTags = [];
@@ -45,6 +53,13 @@ class Work extends BaseWork
         return implode($separatorTags, $listTags);
     }
 
+    /**
+     * Get date work by format
+     *
+     * @param string $format Return date format by this format
+     * @param bool $monthType
+     * @return string
+     */
     public function getDate($format = '{day}/{monthNumber}/{year}', $monthType = 'simple')
     {
         $workDayDatePartials   = explode('-', $this->date);
@@ -61,6 +76,13 @@ class Work extends BaseWork
         ]);
     }
 
+    /**
+     * Get name month by number
+     *
+     * @param integer $monthNumber Month number
+     * @param bool $simple
+     * @return string
+     */
     protected function getMonthByNumber($monthNumber, $simple = true)
     {
         switch ((int)$monthNumber) {
@@ -89,6 +111,34 @@ class Work extends BaseWork
             case 12:
                 return ($simple) ? 'Декабрь' : 'Декабря';
         }
+    }
+
+    /**
+     * Generate list url for sitemap
+     *
+     * @param string $frequently Value frequently
+     * @param string $priority Value priority
+     * @return array
+     */
+    public static function getListItemsForSitemap($frequently, $priority = '0.5')
+    {
+        $items = [];
+        $works = static::find()
+            ->where(['active' => 1])
+            ->all();
+
+        foreach ($works as $work) {
+            $dateUpdateWork = new DateTime($work->updated_at);
+
+            $items[] = [
+                'loc'         => Url::toRoute(['/portfolio/works/work', 'workAlias' => $work->alias], true),
+                'lastmod'     => $dateUpdateWork->format(DateTime::W3C),
+                'changefreq'  => $frequently,
+                'priority'    => $priority,
+            ];
+        }
+
+        return $items;
     }
 
     /**

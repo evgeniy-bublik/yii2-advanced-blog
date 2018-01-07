@@ -12,7 +12,9 @@ use yii\helpers\Html;
  */
 class TextBlockWidget extends Widget
 {
-    /** @var string $code Code string */
+    /**
+     * @var string $code Code string
+    */
     public $code;
 
     /**

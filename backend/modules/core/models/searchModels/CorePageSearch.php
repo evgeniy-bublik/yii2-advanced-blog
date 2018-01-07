@@ -19,7 +19,7 @@ class CorePageSearch extends CorePage
     {
         return [
             [['id', 'active'], 'integer'],
-            [['name', 'route', 'meta_title', 'meta_keywords', 'meta_description'], 'safe'],
+            [['name', 'route', 'meta_title', 'meta_keywords', 'meta_description', 'updated_at'], 'safe'],
         ];
     }
 
@@ -67,7 +67,8 @@ class CorePageSearch extends CorePage
             ->andFilterWhere(['like', 'route', $this->route])
             ->andFilterWhere(['like', 'meta_title', $this->meta_title])
             ->andFilterWhere(['like', 'meta_keywords', $this->meta_keywords])
-            ->andFilterWhere(['like', 'meta_description', $this->meta_description]);
+            ->andFilterWhere(['like', 'meta_description', $this->meta_description])
+            ->andFilterWhere(['like', 'updated_at', $this->updated_at]);
 
         return $dataProvider;
     }

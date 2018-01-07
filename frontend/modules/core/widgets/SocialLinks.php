@@ -10,10 +10,26 @@ use yii\helpers\Html;
 
 class SocialLinks extends Widget
 {
+    /**
+     * @var array $options Options for wrapper links
+     */
     public $options;
+
+    /**
+     * @var array $linkOptions Options for link
+     */
     public $linkOptions;
+
+    /**
+     * @var bool $isShowLinkText Show text link or no
+     */
     public $isShowLinkText = false;
 
+    /**
+     * {@inheritdoc}
+     *
+     * @return mixed
+     */
     public function run()
     {
         $socialLinks = SocialLink::find()
@@ -27,6 +43,12 @@ class SocialLinks extends Widget
         return ($wrapperTag) ? Html::tag($wrapperTag, $links, $this->options) : $links;
     }
 
+    /**
+     * Generate social links
+     *
+     * @param \app\modules\core\models\SocialLink[] $socialLinks
+     * @return string
+     */
     private function renderSocialLinks($socialLinks)
     {
         $links              = [];
@@ -48,6 +70,5 @@ class SocialLinks extends Widget
         }
 
         return implode(PHP_EOL, $links);
-
     }
 }

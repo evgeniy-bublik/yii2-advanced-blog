@@ -15,6 +15,9 @@ class Category extends BaseCategory
         return $this->hasMany(LinksWorkToCategory::className(), ['category_id' => 'id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getWorks()
     {
         return $this->hasMany(Work::className(), ['id' => 'work_id'])

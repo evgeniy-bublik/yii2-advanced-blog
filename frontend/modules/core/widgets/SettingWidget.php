@@ -10,7 +10,9 @@ use app\modules\core\models\Setting;
  */
 class SettingWidget extends Widget
 {
-    /** @var string $key Key string */
+    /**
+     * @var string $key Key string
+     */
     public $key;
 
     /**

@@ -10,5 +10,6 @@ return [
     '/portfolio' => '/portfolio/works/index',
     '/portfolio/<workAlias:[\w-]+>' => '/portfolio/works/work',
     '/portfolio/tag/<tagAlias:[\w-]+>' => '/portfolio/works/tag',
+    '/sitemap.xml' => '/core/index/sitemap',
 ];
 ?>

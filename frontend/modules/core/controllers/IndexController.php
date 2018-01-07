@@ -3,14 +3,15 @@
 namespace app\modules\core\controllers;
 
 use Yii;
-use app\modules\core\models\forms\ContactForm;
 use app\modules\core\components\FrontController;
+use app\modules\core\models\SitemapGenerator;
+use yii\web\Response;
 
 class IndexController extends FrontController
 {
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function actions()
     {
@@ -36,36 +37,18 @@ class IndexController extends FrontController
     }
 
     /**
-     * Displays contact page.
+     * Display sitemap
      *
      * @return mixed
      */
-    public function actionContact()
+    public function actionSitemap()
     {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
-            } else {
-                Yii::$app->session->setFlash('error', 'There was an error sending your message.');
-            }
+        $urls = SitemapGenerator::generate();
 
-            return $this->refresh();
-        } else {
-            return $this->render('contact', [
-                'model' => $model,
-            ]);
-        }
-    }
+        Yii::$app->response->format = Response::FORMAT_RAW;
+        Yii::$app->response->headers->add('Content-Type', 'text/xml');
 
-    /**
-     * Displays about page.
-     *
-     * @return mixed
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
+        return $this->renderPartial('sitemap', compact('urls'));
     }
 
     /**
@@ -77,7 +60,7 @@ class IndexController extends FrontController
     {
         $this->layout = '//stub';
         $this->view->title = 'Скоро мы откроемя))';
+
         return $this->render('catch-all');
     }
-
 }

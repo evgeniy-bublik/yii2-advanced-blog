@@ -8,12 +8,12 @@ namespace app\modules\core;
 class Module extends \yii\base\Module
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public $controllerNamespace = 'app\modules\core\controllers';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function init()
     {

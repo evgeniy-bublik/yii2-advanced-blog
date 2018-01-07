@@ -5,7 +5,6 @@ namespace app\modules\article\models;
 use Yii;
 use common\models\article\UniqueArticleView as BaseUniqueArticleView;
 
-
 class UniqueArticleView extends BaseUniqueArticleView
 {
     /**

@@ -98,4 +98,3 @@ class WorksController extends FrontController
         ]);
     }
 }
-?>

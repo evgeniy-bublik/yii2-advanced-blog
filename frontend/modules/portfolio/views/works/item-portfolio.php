@@ -1,5 +1,8 @@
 <?php
-    use app\modules\portfolio\widgets\RelatedPortfolioWorksWidget\RelatedPortfolioWorks;
+use app\modules\portfolio\widgets\RelatedPortfolioWorksWidget\RelatedPortfolioWorks;
+
+/* @var app\modules\portfolio\models\Work $work */
+/* @var yii\web\View $this */
 ?>
 <section class="section section-30 section-xxl-40 section-xxl-66 section-xxl-bottom-90 novi-background bg-gray-dark page-title-wrap" style="background-image: url(/images/bg-gallery.jpg);">
     <div class="container">
