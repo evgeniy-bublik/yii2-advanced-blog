@@ -27,7 +27,7 @@ class ArticleTag extends BaseArticleTag
             $dateUpdateTag = new DateTime($tag->updated_at);
 
             $items[] = [
-                'loc'         => Url::toRoute(['/article/articles/tag', 'tagАAlias' => $tag->alias], true),
+                'loc'         => Url::toRoute(['/article/articles/tag', 'tagAlias' => $tag->alias], true),
                 'lastmod'     => $dateUpdateTag->format(DateTime::W3C),
                 'changefreq'  => $frequently,
                 'priority'    => $priority,
