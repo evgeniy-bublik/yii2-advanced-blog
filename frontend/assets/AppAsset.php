@@ -15,10 +15,12 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/style.css',
         'css/fonts.css',
+        'css/prism.css',
     ];
     public $js = [
         'js/core.min.js',
         'js/script.js',
+        'js/prism.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
