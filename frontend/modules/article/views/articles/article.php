@@ -2,6 +2,8 @@
 use app\modules\article\widgets\TagsWidget\Tags;
 use app\modules\article\widgets\CategoriesWidget\Categories;
 use app\modules\article\widgets\PopularArticlesWidget\PopularArticles;
+use app\modules\core\widgets\ShareButtonsWidget\ShareButtons;
+use yii\helpers\Url;
 
 /* @var yii\web\View $this */
 /* @var app\modules\article\models\Article $article */
@@ -74,15 +76,22 @@ use app\modules\article\widgets\PopularArticlesWidget\PopularArticles;
                         <?= $article->description; ?>
 
                     </div>
-                    <!-- <div class="post-footer">
-                        <h5>Поделиться:</h5>
-                        <ul class="list-inline list-inline-xs">
-                            <li><a class="novi-icon icon icon-xxs-small link-tundora fa-facebook" href="#"></a></li>
-                            <li><a class="novi-icon icon icon-xxs-small link-tundora fa-twitter" href="#"></a></li>
-                            <li><a class="novi-icon icon icon-xxs-small link-tundora fa-google-plus" href="#"></a></li>
-                            <li><a class="novi-icon icon icon-xxs-small link-tundora fa-pinterest-p" href="#"></a></li>
-                        </ul>
-                    </div> -->
+
+                    <?= ShareButtons::widget([
+                        'wrapperOptions' => [
+                            'class' => 'list-inline list-inline-xs',
+                        ],
+                        'registerShareButtons' => [
+                            ShareButtons::BUTTON_FACEBOOK,
+                            ShareButtons::BUTTON_VK,
+                            ShareButtons::BUTTON_TWITTER,
+                        ],
+                        'link' => Url::toRoute(['/article/articles/article', 'articleAlias' => $article->alias], true),
+                        'linkOptions' => [
+                            'class' => 'novi-icon icon icon-xxs-small link-tundora',
+                        ],
+                    ]); ?>
+
                 </article>
                 <div class="divider-fullwidth bg-gray-lighter"></div>
                 <!-- <div class="comment-list-wrap">

@@ -53,7 +53,7 @@ class WorksController extends FrontController
             ->one();
 
         if (!$portfolioWork) {
-            throw new NotFoundHttpException('Страница не существует или же была удалена');
+            throw new NotFoundHttpException('Страницы не существует или же она была удалена');
         }
 
         $this->setMetaTitle(FrontHelper::replacePlaceholders(
@@ -82,7 +82,7 @@ class WorksController extends FrontController
         $tag = PortfolioTag::findOne(['alias' => $tagAlias]);
 
         if (!$tag) {
-            throw new NotFoundHttpException('Страница не существует или же была удалена');
+            throw new NotFoundHttpException('Страницы не существует или же она была удалена');
         }
 
         $categories = PortfolioCategory::find()

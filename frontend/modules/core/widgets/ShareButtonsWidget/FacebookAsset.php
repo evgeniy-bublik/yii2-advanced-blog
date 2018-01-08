@@ -1,37 +1,28 @@
 <?php
 
-namespace app\assets;
+namespace app\modules\core\widgets\ShareButtonsWidget;
 
-use yii\web\View;
 use yii\web\AssetBundle;
+use yii\web\View;
 
 /**
- * Asset bundle position head.
+ * Asset for register facebook assets source
  */
-class HeadAsset extends AssetBundle
+class FacebookAsset extends AssetBundle
 {
-    /**
-     * @var string $basePath The Web-accessible directory that contains the asset files in this bundle
-     */
-    public $basePath = '@webroot';
-
-    /**
-     * @var string $baseUrl The base URL for the relative asset files listed in $js and $css.
-     */
-    public $baseUrl = '@web';
-
     /**
      * @var array $js List of JavaScript files that this bundle contains.
      */
     public $js = [
-        'js/google-tag-manager.js',
+        'js/facebook-root.js',
+        'js/facebook-share.js',
     ];
 
     /**
      * @var array $jsOptions The options that will be passed to yii\web\View::registerJsFile() when registering the JS files in this bundle.
      */
     public $jsOptions = [
-        'position' => View::POS_HEAD,
+        'position' => View::POS_BEGIN,
     ];
 
     /**
@@ -40,4 +31,15 @@ class HeadAsset extends AssetBundle
     public $publishOptions = [
         'forceCopy' => YII_DEBUG ? true : false,
     ];
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return void
+     */
+    public function init()
+    {
+        parent::init();
+        $this->sourcePath = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
+    }
 }
