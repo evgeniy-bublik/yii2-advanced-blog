@@ -12,6 +12,8 @@ class IndexController extends FrontController
 
     /**
      * {@inheritdoc}
+     *
+     * @return array
      */
     public function actions()
     {
@@ -49,18 +51,5 @@ class IndexController extends FrontController
         Yii::$app->response->headers->add('Content-Type', 'text/xml');
 
         return $this->renderPartial('sitemap', compact('urls'));
-    }
-
-    /**
-     * Display page for all requests.
-     *
-     * @return mixed
-     */
-    public function actionCatchAll()
-    {
-        $this->layout = '//stub';
-        $this->view->title = 'Скоро мы откроемя))';
-
-        return $this->render('catch-all');
     }
 }

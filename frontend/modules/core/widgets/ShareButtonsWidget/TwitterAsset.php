@@ -1,30 +1,20 @@
 <?php
 
-namespace app\assets;
+namespace app\modules\core\widgets\ShareButtonsWidget;
 
-use yii\web\View;
 use yii\web\AssetBundle;
+use yii\web\View;
 
 /**
- * Asset bundle position head.
+ * Asset for register twitter widgets js
  */
-class HeadAsset extends AssetBundle
+class TwitterAsset extends AssetBundle
 {
-    /**
-     * @var string $basePath The Web-accessible directory that contains the asset files in this bundle
-     */
-    public $basePath = '@webroot';
-
-    /**
-     * @var string $baseUrl The base URL for the relative asset files listed in $js and $css.
-     */
-    public $baseUrl = '@web';
-
     /**
      * @var array $js List of JavaScript files that this bundle contains.
      */
     public $js = [
-        'js/google-tag-manager.js',
+        'https://platform.twitter.com/widgets.js',
     ];
 
     /**
@@ -38,6 +28,6 @@ class HeadAsset extends AssetBundle
      * @var array $publishOptions The options to be passed to yii\web\AssetManager::publish() when the asset bundle is being published.
      */
     public $publishOptions = [
-        'forceCopy' => YII_DEBUG ? true : false,
+        'forceCopy' => true,
     ];
 }

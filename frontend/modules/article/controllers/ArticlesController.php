@@ -54,7 +54,7 @@ class ArticlesController extends FrontController
             ->one();
 
         if (!$article) {
-            throw new NotFoundHttpException('Article not found');
+            throw new NotFoundHttpException('Страницы не существует или же она была удалена');
         }
 
         $ip = Yii::$app->request->userIp;
@@ -93,7 +93,7 @@ class ArticlesController extends FrontController
             ->one();
 
         if (!$tag) {
-            throw new NotFoundHttpException('Tag not found');
+            throw new NotFoundHttpException('Страницы не существует или же она была удалена');
         }
 
         $dataProviderArticlesConfig = [
@@ -136,7 +136,7 @@ class ArticlesController extends FrontController
             ->one();
 
         if (!$category) {
-          throw new NotFoundHttpException('Category not found');
+          throw new NotFoundHttpException('Страницы не существует или же она была удалена');
         }
 
         $dataProviderArticlesConfig = [
@@ -205,7 +205,8 @@ class ArticlesController extends FrontController
         Yii::$app->view->registerMetaTag([
             'name'    => 'og:title',
             'content' => FrontHelper::replacePlaceholders($article->meta_title, [
-                '{siteName}' => $siteName,
+                '{titleArticle}'  => $article->title,
+                '{siteName}'      => $siteName,
             ]),
         ]);
 
@@ -215,6 +216,12 @@ class ArticlesController extends FrontController
                 '{siteName}' => $siteName,
             ]),
         ]);
+
+        Yii::$app->view->registerMetaTag([
+            'name'    => 'twitter:card',
+            'content' => 'summary_large_image',
+        ]);
+
 
         if ($article->image) {
             Yii::$app->view->registerMetaTag([
